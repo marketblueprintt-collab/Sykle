@@ -564,6 +564,50 @@ const D={
 };
 window.SY_DICT=Object.assign(window.SY_DICT||{},D);
 })();
+/* firma şablonları: [English, Deutsch, Español] */
+(function(){
+const P=(a,b)=>[a,b];
+const D={
+"Funded Trader Markets":["Funded Trader Markets","Funded Trader Markets","Funded Trader Markets"],
+"FTMO":["FTMO","FTMO","FTMO"],
+"2-Step":["2-Step","2-Step","2-Step"],
+"1-Step":["1-Step","1-Step","1-Step"],
+"1 Step Nitro":["1 Step Nitro","1 Step Nitro","1 Step Nitro"],
+"2-Step Plus":["2-Step Plus","2-Step Plus","2-Step Plus"],
+"Perps 1-Step Infinity":["Perps 1-Step Infinity","Perps 1-Step Infinity","Perps 1-Step Infinity"],
+"Perps 1-Step Infinity Plus":["Perps 1-Step Infinity Plus","Perps 1-Step Infinity Plus","Perps 1-Step Infinity Plus"],
+"%{} → %{}":["{}% → {}%","{} % → {} %","{} % → {} %"],
+"%{} · {}":["{}% · {}","{} % · {}","{} % · {}"],
+"%{} · {} · {}":["{}% · {} · {}","{} % · {} · {}","{} % · {} · {}"],
+"sabit":["static","statisch","estático"],
+"gün sonu bakiyesiyle yükselir":["rises with end-of-day balance","steigt mit dem Tagesend-Kontostand","sube con el saldo al cierre del día"],
+"bakiyeyle yükselir, başlangıçta kilitlenir":["trails balance, locks at start","folgt dem Kontostand, fixiert beim Start","sigue al saldo, se fija en el inicial"],
+"Consistency (Challenge)":["Consistency (Challenge)","Konsistenz (Challenge)","Consistencia (Challenge)"],
+"Consistency (Funded)":["Consistency (Funded)","Konsistenz (Funded)","Consistencia (Funded)"],
+"En iyi gün ≤ %{} · hedefe göre":["Best day ≤ {}% of target","Bester Tag ≤ {} % des Ziels","Mejor día ≤ {} % del objetivo"],
+"En iyi gün ≤ %{} · toplam kâra göre":["Best day ≤ {}% of total profit","Bester Tag ≤ {} % des Gesamtgewinns","Mejor día ≤ {} % del beneficio total"],
+"Yok":["None","Keine","Ninguno"],
+"Min. işlem günü (Challenge)":["Min. trading days (Challenge)","Min. Handelstage (Challenge)","Días mín. de trading (Challenge)"],
+"{} + {}":["{} + {}","{} + {}","{} + {}"],
+"Funded çekim şartı":["Funded payout condition","Funded-Auszahlungsbedingung","Condición de retiro Funded"],
+"{} kârlı gün (≥%{})":[(n,p)=>n+(String(n).trim()==="1"?" profitable day (≥":" profitable days (≥")+p+"%)",(n,p)=>n+(String(n).trim()==="1"?" Gewinntag (≥":" Gewinntage (≥")+p+" %)",(n,p)=>n+(String(n).trim()==="1"?" día con beneficio (≥":" días con beneficio (≥")+p+" %)"],
+"Kurallar firmanın sitesinden alındı (Kasım 2026). Firma kurallarını değiştirebilir, satın almadan önce firmanın sitesinden kontrol et.":["Rules taken from the firm's website (November 2026). The firm may change its rules, so check its website before you buy.","Regeln von der Website der Firma (November 2026). Die Firma kann ihre Regeln ändern, prüfe sie vor dem Kauf auf ihrer Website.","Reglas tomadas de la web de la empresa (noviembre de 2026). La empresa puede cambiarlas, revísalas en su web antes de comprar."],
+"limit aşıldı":["limit exceeded","Limit überschritten","límite superado"],
+"🎉 {} 1. aşamayı geçtin! Phase 2 hesabın otomatik açıldı.":["🎉 You passed phase 1 of {}! Your Phase 2 account was opened automatically.","🎉 Du hast Phase 1 von {} bestanden! Dein Phase-2-Konto wurde automatisch eröffnet.","🎉 ¡Superaste la fase 1 de {}! Tu cuenta Phase 2 se abrió automáticamente."],
+/* kılavuz */
+"Hesaplar sayfasında \"+ Hesap ekle\" ile firmanı, programını ve hesap boyutunu seç. Hedef, limitler, consistency ve minimum gün kuralları otomatik gelir.":["On the Accounts page, tap \"+ Add account\" and choose your firm, program and account size. The target, limits, consistency and minimum day rules are filled in automatically.","Tippe auf der Seite Konten auf \"+ Konto hinzufügen\" und wähle Firma, Programm und Kontogröße. Ziel, Limits, Konsistenz und Mindesttage werden automatisch übernommen.","En la página Cuentas, pulsa \"+ Añadir cuenta\" y elige tu empresa, programa y tamaño de cuenta. El objetivo, los límites, la consistencia y los días mínimos se aplican automáticamente."],
+"Live hesaplarda firma kuralı yoktur. Adı, broker'ı ve bakiyeyi kendin yazarsın.":["Live accounts have no firm rules. You enter the name, broker and balance yourself.","Live-Konten haben keine Firmenregeln. Name, Broker und Kontostand trägst du selbst ein.","Las cuentas Live no tienen reglas de empresa. Tú escribes el nombre, el bróker y el saldo."],
+"Limit, seçtiğin programa göre otomatik gelir. Programda consistency kuralı yoksa kutu görünmez.":["The limit comes from the program you chose. If the program has no consistency rule, the box isn't shown.","Das Limit kommt automatisch aus dem gewählten Programm. Hat das Programm keine Konsistenzregel, wird das Feld nicht angezeigt.","El límite se aplica según el programa que elegiste. Si el programa no tiene regla de consistencia, el recuadro no aparece."],
+"FTM 1 Step Nitro Challenge'da en iyi gün, kâr hedefinin %50'sini geçemez. Funded'da ve FTMO 1-Step'te en iyi gün toplam kârla karşılaştırılır.":["In the FTM 1 Step Nitro Challenge, your best day can't exceed 50% of the profit target. On Funded and in FTMO 1-Step, your best day is compared with your total profit.","In der FTM 1 Step Nitro Challenge darf dein bester Tag 50 % des Gewinnziels nicht überschreiten. Bei Funded und bei FTMO 1-Step wird dein bester Tag mit dem Gesamtgewinn verglichen.","En el Challenge FTM 1 Step Nitro, tu mejor día no puede superar el 50 % del objetivo de beneficio. En Funded y en FTMO 1-Step, tu mejor día se compara con tu beneficio total."],
+"Consistency şartı sağlanmadan hedefe ulaşsan da Challenge geçilmiş sayılmaz, işlem yapmaya devam etmen gerekir.":["Even if you reach the target, the Challenge isn't passed until the consistency rule is met, so you need to keep trading.","Auch wenn du das Ziel erreichst, gilt die Challenge erst als bestanden, wenn die Konsistenzregel erfüllt ist. Du musst also weitertraden.","Aunque alcances el objetivo, el Challenge no se supera hasta cumplir la regla de consistencia, así que debes seguir operando."],
+"Minimum gün kuralı seçtiğin programa göre otomatik gelir. Challenge'da işlem açtığın her gün sayılır ve gün şartı tamamlanmadan Challenge geçilmez.":["The minimum day rule comes from the program you chose. In a Challenge, every day you trade counts, and the Challenge isn't passed until the days are completed.","Die Mindesttage kommen automatisch aus dem gewählten Programm. In einer Challenge zählt jeder Tag mit einem Trade, und sie gilt erst als bestanden, wenn die Tage erfüllt sind.","La regla de días mínimos se aplica según el programa que elegiste. En un Challenge cuenta cada día que operas, y no se supera hasta completar los días."],
+"Funded'da çekim için kârlı gün şartı varsa, bir günün sayılması için o günün kârı bir önceki günün kapanış bakiyesinin en az bu yüzdesi kadar olmalı. Örnek: 50.000$ bakiyede %0,5 = en az 250$ kâr.":["If a Funded payout needs profitable days, a day only counts when its profit is at least this percentage of the previous day's closing balance. Example: with a $50,000 balance, 0.5% = at least $250 profit.","Verlangt eine Funded-Auszahlung Gewinntage, zählt ein Tag nur, wenn sein Gewinn mindestens diesen Prozentsatz des Schlusskontostands vom Vortag beträgt. Beispiel: Bei $50.000 Kontostand sind 0,5 % = mindestens $250 Gewinn.","Si un retiro Funded exige días con beneficio, un día solo cuenta si su beneficio es al menos este porcentaje del saldo de cierre del día anterior. Ejemplo: con un saldo de $50.000, 0,5 % = al menos $250 de beneficio."],
+"2 aşamalı programlarda 1. aşama geçilince \"Phase 2\" hesabı, o da geçilince Funded hesap otomatik açılır.":["In 2-step programs, passing phase 1 opens a \"Phase 2\" account automatically, and passing that opens the Funded account.","Bei 2-Step-Programmen wird nach Phase 1 automatisch ein \"Phase 2\"-Konto eröffnet und nach dessen Bestehen das Funded-Konto.","En los programas de 2 fases, al superar la fase 1 se abre automáticamente una cuenta \"Phase 2\", y al superarla, la cuenta Funded."],
+"Maksimum kayıp:":["Maximum loss:","Maximaler Verlust:","Pérdida máxima:"],
+"programa göre sabit, gün sonu bakiyesiyle yükselen (FTMO 1-Step) ya da bakiyeyle yükselip kâr limite ulaşınca başlangıç bakiyesinde kilitlenen (FTM 1 Step Nitro) olabilir. Çekimden sonra sayım yeniden başlar.":["depending on the program it's static, rises with your end-of-day balance (FTMO 1-Step), or trails your balance and locks at the starting balance once profit reaches the limit (FTM 1 Step Nitro). The count restarts after a payout.","je nach Programm statisch, steigend mit dem Tagesend-Kontostand (FTMO 1-Step) oder dem Kontostand folgend und beim Startkapital fixiert, sobald der Gewinn das Limit erreicht (FTM 1 Step Nitro). Nach einer Auszahlung beginnt die Zählung neu.","según el programa es estática, sube con el saldo al cierre del día (FTMO 1-Step) o sigue al saldo y se fija en el saldo inicial cuando el beneficio alcanza el límite (FTM 1 Step Nitro). Tras un retiro, el cálculo vuelve a empezar."],
+};
+window.SY_DICT=Object.assign(window.SY_DICT||{},D);
+})();
 
 </script>
 <script>
@@ -755,6 +799,7 @@ details.kg{background:var(--card);border:1px solid var(--bd);border-radius:14px;
 #dr .lgl{margin:0 0 4px 36px;border-left:1px solid #262626;padding-left:6px}
 #dr .lgl button.it{padding:9px 10px;font-size:14px}
 #dr .lgl .ico{width:18px;height:18px;color:var(--ac)}
+#f-ru{background:#0a0a0c;border:1px solid var(--bd);border-radius:12px;padding:4px 12px;margin-bottom:10px}#f-ru .tr{font-size:13px;gap:10px}#f-ru .tr b{text-align:right;font-weight:500}#f-ru p{font-size:12px;margin:8px 0}
 #dr .us{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:8px;border-top:1px solid #262626;padding:12px 10px 0}
 #dr .us b{display:block;font-weight:500;font-size:14px}
 #dr .us span{font-size:12px;color:var(--mu);word-break:break-all}
@@ -810,11 +855,12 @@ window.splashGo=function(){var t=window._spT;if(t)clearTimeout(t);requestAnimati
 <button class="p" id="newacc">+ Hesap ekle</button>
 <div class="card hid" id="form" style="margin-top:14px">
 <h2 id="ftt">Yeni hesap</h2>
+<div id="f-tp"><select id="f-fi" style="width:100%;margin-bottom:8px"></select><select id="f-pr" style="width:100%;margin-bottom:8px"></select><select id="f-sz" style="width:100%;margin-bottom:8px"></select><div id="f-ru"></div></div>
 <input id="f-name" placeholder="Hesap adı (örn. 1. Hesap)" style="width:100%;margin-bottom:8px">
 <input id="f-firm" placeholder="Prop firma / broker" style="width:100%;margin-bottom:8px">
 <select id="f-ph" style="width:100%;margin-bottom:8px"><option>Challenge</option><option>Funded</option></select>
-<div class="row"><input id="f-size" type="text" inputmode="numeric" placeholder="Hesap büyüklüğü ($)"><input id="f-tg" type="text" inputmode="numeric" placeholder="Kâr hedefi ($)"></div>
-<div class="row"><input id="f-dl" type="text" inputmode="numeric" placeholder="Günlük kayıp limiti ($)"><input id="f-ml" type="text" inputmode="numeric" placeholder="Maks. kayıp limiti ($)"></div>
+<div class="row" id="f-r1"><input id="f-size" type="text" inputmode="numeric" placeholder="Hesap büyüklüğü ($)"><input id="f-tg" type="text" inputmode="numeric" placeholder="Kâr hedefi ($)"></div>
+<div class="row" id="f-r2"><input id="f-dl" type="text" inputmode="numeric" placeholder="Günlük kayıp limiti ($)"><input id="f-ml" type="text" inputmode="numeric" placeholder="Maks. kayıp limiti ($)"></div>
 <input id="f-mt" type="text" inputmode="numeric" placeholder="Günlük max işlem sayısı" style="width:100%;margin-bottom:8px">
 <select id="f-cn" style="width:100%;margin-bottom:8px"></select>
 <div class="row" id="f-mdr"><input id="f-md" type="text" inputmode="numeric" placeholder="Min. işlem günü (örn. 5)"><input id="f-mp" type="text" inputmode="decimal" placeholder="Günlük min. kâr % (0,5)"></div>
@@ -880,7 +926,7 @@ window.splashGo=function(){var t=window._spT;if(t)clearTimeout(t);requestAnimati
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
 <script>
 // Her yayında bu sürüm değişir; açık uygulamalar yeni sürümü görünce kendini yeniler.
-const APP_V="2026.11.18-8";
+const APP_V="2026.11.18-9";
 const KEY="tradeJournalV2";
 const SES=["NY Açılış","London","Asya","Seans dışı"];
 const TAGS=["FOMO","Erken çıkış","SL oynattım","Plansız","İntikam","Plana uydum"];
@@ -899,10 +945,47 @@ const chip=(l,on,att)=>`<button class="s chip ${on?"on":""}" ${att}>${esc(l)}</b
 function conf(b,fn){if(b.dataset.c){delete b.dataset.c;b.textContent=b.dataset.o;fn();return}b.dataset.c=1;b.dataset.o=b.textContent;b.textContent="Emin misin?";setTimeout(()=>{if(b.dataset.c){delete b.dataset.c;b.textContent=b.dataset.o}},3000)}
 
 let S={accounts:[],trades:[],notes:{},payouts:[],nt:[]};
+// ---- firma şablonları: kurallar firmaların kendi sitelerinden (Kasım 2026). Hesaplar sadece buradan açılır (Live hariç).
+const FIRMS=[
+{id:"ftmo",n:"FTMO",sn:"FTMO",p:[
+ {id:"2s",n:"2-Step",sz:[10,25,50,100,200],ph:[{tg:10,md:4},{tg:5,md:4}],dl:5,ml:10,mt:"s",fu:{}},
+ {id:"1s",n:"1-Step",sz:[10,25,50,100,200],ph:[{tg:10,cn:50}],dl:3,ml:10,mt:"e",fu:{cn:50}}]},
+{id:"ftm",n:"Funded Trader Markets",sn:"FTM",p:[
+ {id:"nitro",n:"1 Step Nitro",sz:[5,10,25,50,100,200,300],ph:[{tg:10,cn:50,cb:"t"}],dl:4,dl300:3,ml:6,mt:"l",fu:{cn:45,md:5,mp:.5}},
+ {id:"2sp",n:"2-Step Plus",sz:[5,10,25,50,100,200],ph:[{tg:8,md:3},{tg:5,md:3}],dl:4,ml:10,mt:"s",fu:{md:5,mp:.5}},
+ {id:"inf",n:"Perps 1-Step Infinity",sz:[5,10,20],ph:[{tg:9}],dl:3,ml:3,mt:"s",fu:{}},
+ {id:"infp",n:"Perps 1-Step Infinity Plus",sz:[5,10,20],ph:[{tg:10}],dl:3,ml:5,mt:"s",fu:{}}]}];
+const tplOf=a=>{if(!a||!a.tp)return null;const q=a.tp.split("."),F=FIRMS.find(x=>x.id===q[0]),P=F&&F.p.find(x=>x.id===q[1]);return P?{F,P}:null};
+const dlPct=(P,size)=>size>=300000&&P.dl300?P.dl300:P.dl;
+// adım: 1..n = Challenge aşaması, 0 = Funded
+function tplRules(F,P,size,step){const r=step?P.ph[step-1]:P.fu;
+return{tp:F.id+"."+P.id,firm:F.sn+" · "+P.n,size,stp:step,ph:step?"Challenge":"Funded",dl:Math.round(size*dlPct(P,size)/100),ml:Math.round(size*P.ml/100),mlt:P.mt,tg:step?Math.round(size*r.tg/100):0,cn:r.cn||0,cb:r.cb||"",md:r.md||0,mp:step?0:(r.mp||0),mda:step?1:0}}
+const tplName=(F,P,size)=>F.sn+" "+P.n+" "+Math.round(size/1000)+"K";
+const pcs=v=>"%"+String(v).replace(".",",");
+const ML_T={s:"sabit",e:"gün sonu bakiyesiyle yükselir",l:"bakiyeyle yükselir, başlangıçta kilitlenir"};
+function tplCard(F,P,size){const rw=(l,v)=>`<div class="tr"><span>${l}</span><b>${v}</b></div>`,dl=dlPct(P,size),cnT=r=>r.cn?(r.cb==="t"?`En iyi gün ≤ ${pcs(r.cn)} · hedefe göre`:`En iyi gün ≤ ${pcs(r.cn)} · toplam kâra göre`):"Yok";
+const mdC=P.ph.map(x=>x.md||0),fu=P.fu;
+return rw("Kâr hedefi",P.ph.map(x=>pcs(x.tg)).join(" → "))+rw("Günlük kayıp limiti",pcs(dl)+" · "+usd(size*dl/100))+rw("Maksimum kayıp limiti",pcs(P.ml)+" · "+usd(size*P.ml/100)+" · "+ML_T[P.mt])+
+rw("Consistency (Challenge)",cnT(P.ph[0]))+rw("Consistency (Funded)",cnT(fu))+rw("Min. işlem günü (Challenge)",mdC.some(x=>x)?mdC.join(" + "):"Yok")+rw("Funded çekim şartı",fu.md?`${fu.md} kârlı gün (≥${pcs(fu.mp)})`:"Yok")+
+`<p class="mu">Kurallar firmanın sitesinden alındı (Kasım 2026). Firma kurallarını değiştirebilir, satın almadan önce firmanın sitesinden kontrol et.</p>`}
+// maksimum kayıp: sabit (s), gün sonu bakiyesiyle yükselen (e), bakiyeyle yükselip +limit kârda başlangıçta kilitlenen (l)
+function mlInfo(a,T){const sz=+a.size||0,ml=+a.ml;if(!(ml>0))return null;
+if(a.mlt!=="e"&&a.mlt!=="l"){const net=T.reduce((x,t)=>x+t.pnl,0);return{rem:ml+net,br:net<=-ml}}
+const lp=S.payouts.filter(p=>p.a===a.id).map(p=>p.d).sort().pop()||"",L=T.filter(t=>!lp||t.d>lp).map((t,i)=>[t,i]).sort((x,y)=>x[0].d<y[0].d?-1:x[0].d>y[0].d?1:x[1]-y[1]).map(x=>x[0]);
+let bal=sz,pk=sz,fl=sz-ml,br=false;
+if(a.mlt==="l"){L.forEach(t=>{bal+=t.pnl;if(bal<=fl+1e-9)br=true;if(bal>pk)pk=bal;fl=pk>=sz+ml-1e-9?sz:pk-ml})}
+else{const D={};L.forEach(t=>D[t.d]=(D[t.d]||0)+t.pnl);Object.keys(D).sort().forEach(d=>{bal+=D[d];if(bal<=fl+1e-9)br=true;if(bal>pk)pk=bal;fl=pk-ml})}
+return{rem:bal-fl,br}}
+// consistency: en iyi gün / toplam kâr (varsayılan) ya da en iyi gün / kâr hedefi (cb="t")
+function consOk(a,T){const L=+a.cn;if(!(L>0))return true;const D={};T.forEach(t=>D[t.d]=(D[t.d]||0)+t.pnl);const v=Object.values(D),best=Math.max(0,...v),net=v.reduce((x,y)=>x+y,0);
+return a.cb==="t"?best<=a.tg*L/100+1e-9:(net>0?best/net<=L/100+1e-9:true)}
+const tdays=T=>new Set(T.map(t=>t.d)).size;
+function migTpl(){if(S.mig1)return;const F=FIRMS.find(x=>x.id==="ftm"),P=F.p.find(x=>x.id==="nitro");
+S.accounts.forEach(a=>{if(a.tp||a.ph==="Live")return;Object.assign(a,tplRules(F,P,50000,a.ph==="Funded"?0:1));if(a.ph==="Challenge"&&a.passed)a.passed=true});S.mig1=1}
 function norm(){S.accounts=S.accounts||[];S.trades=S.trades||[];S.notes=S.notes||{};S.payouts=S.payouts||[];S.nt=S.nt||[];S.links=S.links||[];S.lg=S.lg||[];S.bd=S.bd||{};S.nf=S.nf||[];
 S.trades.forEach(t=>{if(!t.ss){if(t.t){const h=new Date(t.d+"T"+t.t).getUTCHours();t.ss=h<7?"Asya":h<13?"London":h<21?"NY Açılış":"Seans dışı"}else t.ss="Belirtilmemiş"}t.tag=t.tag||[];t.im=t.im||[]});
 S.nt.forEach(n=>{n.k=n.k||"n";n.im=n.im||[]});
-S.accounts.forEach(a=>{a.ph=a.ph||"Challenge"})}
+S.accounts.forEach(a=>{a.ph=a.ph||"Challenge"});migTpl()}
 try{const r=localStorage.getItem(KEY);if(r)S=JSON.parse(r)}catch(e){}
 norm();
 
@@ -922,11 +1005,15 @@ const demoLb=a=>a.ph==="Live"?`<span class="dlb live">Live</span>`:`<span class=
 function auto(){const m=[];
 S.accounts.slice().forEach(a=>{
 const T=S.trades.filter(t=>t.a===a.id),net=T.reduce((x,t)=>x+t.pnl,0);
-if(a.ph==="Challenge"&&!a.passed&&!a.br&&+a.tg>0&&net>=a.tg){a.passed=true;
-S.accounts.push({id:uid(),name:a.name+" · Funded",firm:a.firm,size:a.size,tg:0,dl:a.dl,ml:a.ml,mt:a.mt,cn:a.cn||0,md:a.md||0,mp:a.mp,ph:"Funded",from:a.id});
-m.push(`🎉 ${esc(a.name)} hedefini geçtin! Funded hesabın otomatik açıldı.`)}
+const R=tplOf(a);
+if(a.ph==="Challenge"&&!a.passed&&!a.br&&+a.tg>0&&net>=a.tg&&(!R||(tdays(T)>=(+a.md||0)&&consOk(a,T)))){a.passed=true;
+const base=a.name.replace(/ · Phase 2$/,"");
+if(R&&(+a.stp||1)<R.P.ph.length){S.accounts.push({id:uid(),name:base+" · Phase 2",mt:a.mt,...tplRules(R.F,R.P,+a.size,(+a.stp||1)+1),from:a.id});
+m.push(`🎉 ${esc(a.name)} 1. aşamayı geçtin! Phase 2 hesabın otomatik açıldı.`)}
+else{S.accounts.push(R?{id:uid(),name:base+" · Funded",mt:a.mt,...tplRules(R.F,R.P,+a.size,0),from:a.id}:{id:uid(),name:a.name+" · Funded",firm:a.firm,size:a.size,tg:0,dl:a.dl,ml:a.ml,mt:a.mt,cn:a.cn||0,md:a.md||0,mp:a.mp,ph:"Funded",from:a.id});
+m.push(`🎉 ${esc(a.name)} hedefini geçtin! Funded hesabın otomatik açıldı.`)}}
 if(!a.br&&!a.nobr&&!a.passed&&!isDone(a)){const byDay={};T.forEach(t=>byDay[t.d]=(byDay[t.d]||0)+t.pnl);
-const dayBr=+a.dl>0&&Object.values(byDay).some(v=>v<=-a.dl),maxBr=+a.ml>0&&net<=-a.ml;
+const dayBr=+a.dl>0&&Object.values(byDay).some(v=>v<=-a.dl),mi=mlInfo(a,T),maxBr=!!(mi&&mi.br);
 if(dayBr||maxBr){a.br=true;a.brw=maxBr?"Maksimum kayıp limiti":"Günlük kayıp limiti";
 m.push(`⛔ ${esc(a.name)} ihlal edildi (${a.brw}). Hesap kapandı, sadece görüntüleyebilirsin.`)}}});
 return m}
@@ -1021,7 +1108,7 @@ const lcol=f=>f>=.7?"var(--r)":f>=.4?"#e9bd55":"var(--g)";
 const lmb=(lab,txt,f,col)=>`<div class="lm"><div class="lt"><span>${lab}</span><b>${txt}</b></div><div class="pgb"><i style="width:${Math.round(Math.max(0,Math.min(1,f))*100)}%;background:${col}"></i></div></div>`;
 function limBars(a,T,s){let h="";const tp=T.filter(t=>t.d===key(today)).reduce((x,t)=>x+t.pnl,0);
 if(+a.dl>0){const u=Math.max(0,-tp);h+=lmb("Günlük zarar limiti",usd(Math.max(0,a.dl-u))+" kaldı",u/a.dl,lcol(u/a.dl))}
-if(+a.ml>0){const u=Math.max(0,-s.net);h+=lmb("Maksimum zarar limiti",usd(Math.max(0,a.ml+s.net))+" kaldı",u/a.ml,lcol(u/a.ml))}
+const mi=mlInfo(a,T);if(mi){const u=Math.max(0,a.ml-mi.rem);h+=lmb("Maksimum zarar limiti",usd(Math.max(0,mi.rem))+" kaldı",u/a.ml,lcol(u/a.ml))}
 if(+a.tg>0&&a.ph==="Challenge"){const f=s.net/a.tg;h+=lmb("Kâr hedefi",s.net>=a.tg?"Hedef geçildi":usd(a.tg-s.net)+" kaldı",f,"var(--ac)")}
 return h}
 function bindAcc(id){$(id).querySelectorAll("[data-acc]").forEach(b=>b.onclick=()=>go("det",b.dataset.acc))}
@@ -1067,16 +1154,28 @@ const A=S.accounts.filter(a=>live?a.ph==="Live":a.ph!=="Live");
 $("lsum").innerHTML=live&&A.length?kasa(A):"";
 $("alist").innerHTML=A.map(accCard).join("")||`<div class="mu" style="margin-bottom:10px">Henüz hesap yok.</div>`;
 $("newacc").textContent=live?"+ Live hesap ekle":"+ Hesap ekle";bindAcc("alist")}
+function fiSet(fi,pr,sz){$("f-fi").innerHTML=FIRMS.map(F=>`<option value="${F.id}">${F.n}</option>`).join("");$("f-fi").value=fi;
+const F=FIRMS.find(x=>x.id===$("f-fi").value);$("f-pr").innerHTML=F.p.map(P=>`<option value="${P.id}">${P.n}</option>`).join("");if(F.p.some(P=>P.id===pr))$("f-pr").value=pr;
+const P=F.p.find(x=>x.id===$("f-pr").value);$("f-sz").innerHTML=P.sz.map(v=>`<option value="${v*1000}">${usd(v*1000)}</option>`).join("");const z=P.sz.map(v=>v*1000);$("f-sz").value=String(z.includes(+sz)?+sz:(z.includes(50000)?50000:z[0]));
+$("f-ru").innerHTML=tplCard(F,P,+$("f-sz").value)}
+const fiCur=()=>{const F=FIRMS.find(x=>x.id===$("f-fi").value);return{F,P:F.p.find(x=>x.id===$("f-pr").value),size:+$("f-sz").value}};
+$("f-fi").onchange=()=>fiSet($("f-fi").value,"",0);$("f-pr").onchange=()=>fiSet($("f-fi").value,$("f-pr").value,0);$("f-sz").onchange=()=>fiSet($("f-fi").value,$("f-pr").value,$("f-sz").value);
 function openForm(a){editId=a?a.id:null;$("ftt").textContent=a?"Hesabı düzenle":(lt==="live"?"Yeni Live hesap":"Yeni hesap");
 $("f-ph").classList.toggle("hid",lt==="live");$("f-cn").classList.toggle("hid",lt==="live");$("f-mdr").classList.toggle("hid",lt==="live");$("f-md").value=a&&+a.md?String(a.md):"";$("f-mp").value=a&&a.mp!=null?String(a.mp).replace(".",","):"";$("f-cn").value=String(a&&+a.cn||0);
 $("f-name").value=a?a.name:"";$("f-firm").value=a?a.firm||"":"";$("f-ph").value=a&&a.ph!=="Live"?a.ph:"Challenge";
 $("f-size").value=a?th(a.size):"";$("f-tg").value=a?th(a.tg):"";$("f-dl").value=a?th(a.dl):"";$("f-ml").value=a?th(a.ml):"";$("f-mt").value=a?th(a.mt):"";
+const tpm=lt!=="live"&&!(a&&a.ph==="Live"),R=tplOf(a);
+$("f-tp").classList.toggle("hid",!tpm);["f-firm","f-ph","f-r1","f-r2","f-cn","f-mdr"].forEach(i=>$(i).classList.toggle("hid",tpm||(lt==="live"&&/f-ph|f-cn|f-mdr/.test(i))));
+if(tpm){fiSet(R?R.F.id:"ftm",R?R.P.id:"nitro",R?a.size:50000);["f-fi","f-pr","f-sz"].forEach(i=>$(i).disabled=!!R)}
 $("form").classList.remove("hid");$("f-name").focus()}
 $("f-cn").innerHTML=`<option value="0">Consistency limiti yok</option>`+Array.from({length:20},(_,i)=>(i+1)*5).map(v=>`<option value="${v}">Consistency limiti %${v}</option>`).join("");
 ["size","tg","dl","ml","mt","md"].forEach(k=>$("f-"+k).oninput=e=>{e.target.value=th(e.target.value.replace(/\D/g,""))});
 $("newacc").onclick=()=>openForm();
 $("fcan").onclick=()=>$("form").classList.add("hid");
-$("fsave").onclick=()=>{const live=lt==="live",o={name:$("f-name").value.trim()||SY_T("Hesap")+" "+(S.accounts.length+1),firm:$("f-firm").value.trim(),size:num("f-size"),tg:num("f-tg"),dl:num("f-dl"),ml:num("f-ml"),mt:num("f-mt"),cn:live?0:+$("f-cn").value||0,md:live?0:Math.min(365,num("f-md")),mp:(()=>{const v=parseFloat(($("f-mp").value||"").replace(",","."));return isNaN(v)?0.5:Math.max(0,Math.min(100,v))})()};
+$("fsave").onclick=()=>{if(!$("f-tp").classList.contains("hid")){const c=fiCur(),nm=$("f-name").value.trim(),mt=num("f-mt");
+if(editId){const a=acc(editId);if(tplOf(a))Object.assign(a,{name:nm||a.name,mt});else Object.assign(a,{name:nm||a.name,mt},tplRules(c.F,c.P,c.size,a.ph==="Funded"?0:1));const id=editId;save();go("det",id)}
+else{S.accounts.push({id:uid(),name:nm||tplName(c.F,c.P,c.size),mt,...tplRules(c.F,c.P,c.size,1)});save();go("list")}return}
+const live=lt==="live",o={name:$("f-name").value.trim()||SY_T("Hesap")+" "+(S.accounts.length+1),firm:$("f-firm").value.trim(),size:num("f-size"),tg:num("f-tg"),dl:num("f-dl"),ml:num("f-ml"),mt:num("f-mt"),cn:live?0:+$("f-cn").value||0,md:live?0:Math.min(365,num("f-md")),mp:(()=>{const v=parseFloat(($("f-mp").value||"").replace(",","."));return isNaN(v)?0.5:Math.max(0,Math.min(100,v))})()};
 if(editId){const a=acc(editId);Object.assign(a,o);if(!live)a.ph=$("f-ph").value;const id=editId;save();go("det",id)}
 else{S.accounts.push({id:uid(),ph:live?"Live":$("f-ph").value,...o});save();go(live?"live":"list")}};
 
@@ -1085,12 +1184,14 @@ function mdCard(a,T,P){const N=+a.md;if(!(N>0)||a.ph==="Live")return"";
 const mp=a.mp==null?0.5:+a.mp,last=a.ph==="Funded"&&P.length?P.map(p=>p.d).sort().pop():"",D={};T.forEach(t=>{D[t.d]=(D[t.d]||0)+t.pnl});
 // gün başı bakiye = başlangıç + o günden önceki K/Z − o günden önceki çekimler; gün, kârı bu bakiyenin %mp'si kadarsa sayılır
 let days=0,cum=0;Object.keys(D).sort().forEach(d=>{const bal=(+a.size||0)+cum-P.filter(p=>p.d<d).reduce((x,p)=>x+p.amt,0),need=bal>0?bal*mp/100:0;
-if((!last||d>last)&&D[d]>0&&D[d]>=need-1e-9)days++;cum+=D[d]});
-const ok=days>=N,lab=mp>0?"Kârlı gün (≥%"+String(mp).replace(".",",")+")":"Min. işlem günü";
+if((!last||d>last)&&(a.mda||(D[d]>0&&D[d]>=need-1e-9)))days++;cum+=D[d]});
+const ok=days>=N,lab=mp>0&&!a.mda?"Kârlı gün (≥%"+String(mp).replace(".",",")+")":"Min. işlem günü";
 return `<div class="st"><small>${lab}</small><b class="${ok?"g":""}">${Math.min(days,N)}/${N}</b><div class="mu" style="font-size:11.5px;margin-top:2px">${ok?"Tamamlandı ✓":(N-days)+" gün kaldı"}${last?" · son çekimden beri":""}</div></div>`}
 // ---- consistency: en iyi günün kârı / toplam kâr
 function consCard(a,T){const L=+a.cn;if(!(L>0)||a.ph==="Live")return"";const D={};T.forEach(t=>D[t.d]=(D[t.d]||0)+t.pnl);
 const net=Object.values(D).reduce((x,v)=>x+v,0),best=Math.max(0,...Object.values(D)),l=L/100,box=(v,c,sub)=>`<div class="st"><small>Consistency</small><b class="${c}">${v}</b><div class="mu" style="font-size:11.5px;margin-top:2px">Limit %${L} · ${sub}</div></div>`;
+if(a.cb==="t"&&+a.tg>0){const cap=a.tg*l,r2=best/a.tg,p2=(Math.round(r2*1000)/10).toString().replace(".",","),t2=D[key(today)]||0;
+if(best>cap+1e-9)return box("%"+p2,"r","limit aşıldı");return box("%"+p2,"g","+"+usd(Math.max(0,cap-Math.max(0,t2)))+" kaldı")}
 if(!(net>0&&best>0))return box("–","","henüz kâr yok");
 const r=best/net,ok=r<=l+1e-9,pc=(Math.round(r*1000)/10).toString().replace(".",",");
 if(!ok)return box("%"+pc,"r","+"+usd(best/l-net)+" kâr gerekli");
@@ -1117,7 +1218,7 @@ let ex="";
 if(+a.size)ex+=card("Bakiye","$"+Math.round(a.size+s.net-s.pay).toLocaleString(SY_LOC));
 if(+a.tg)ex+=card("Hedefe kalan","$"+Math.round(Math.max(0,a.tg-s.net)).toLocaleString(SY_LOC));
 if(+a.dl)ex+=card("Bugün / günlük limit",fm(tp)+" / $"+a.dl.toLocaleString(SY_LOC),tp<0&&-tp>=a.dl*0.7?"r":"");
-if(+a.ml)ex+=card("Maks. kayba kalan","$"+Math.round(a.ml+s.net).toLocaleString(SY_LOC),a.ml+s.net<a.ml*0.3?"r":"");
+const mi=mlInfo(a,T);if(mi)ex+=card("Maks. kayba kalan","$"+Math.round(Math.max(0,mi.rem)).toLocaleString(SY_LOC),mi.rem<a.ml*0.3?"r":"");
 $("dstats").innerHTML=ex+statCards(s)+consCard(a,T)+mdCard(a,T,P);
 // ay takvimi
 const first=new Date(cy,cm,1),dim=new Date(cy,cm+1,0).getDate(),off=(first.getDay()+6)%7,ms=cy+"-"+pad(cm+1)+"-";
@@ -1424,12 +1525,12 @@ $("scd").onclick=()=>get(dl)}}
 function dl(f){const u=URL.createObjectURL(f),a=document.createElement("a");a.href=u;a.download=f.name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),2000)}
 // kullanım kılavuzu
 function kgView(){$("ttl").textContent="Kullanım kılavuzu";const D=(t,b)=>`<details class="kg"><summary>${t}</summary>${b}</details>`;
-$("v-kg").innerHTML=D("Başlangıç",`<ul><li>Hesaplar sayfasında "+ Hesap ekle" ile hesabını ekle. Adı, başlangıç bakiyesini, kâr hedefini ve zarar limitlerini yaz.</li><li>Hesabın sayfasında bir gün seç, paritenin, yönün, seansın ve tutarın ile işlemi ekle. İstersen not ve fotoğraf da ekle.</li><li>Çekim yaptığında hesabın sayfasından tutarı ve dekontu kaydet.</li></ul>`)+
+$("v-kg").innerHTML=D("Başlangıç",`<ul><li>Hesaplar sayfasında "+ Hesap ekle" ile firmanı, programını ve hesap boyutunu seç. Hedef, limitler, consistency ve minimum gün kuralları otomatik gelir.</li><li>Live hesaplarda firma kuralı yoktur. Adı, broker'ı ve bakiyeyi kendin yazarsın.</li><li>Hesabın sayfasında bir gün seç, paritenin, yönün, seansın ve tutarın ile işlemi ekle. İstersen not ve fotoğraf da ekle.</li><li>Çekim yaptığında hesabın sayfasından tutarı ve dekontu kaydet.</li></ul>`)+
 D("Sayfalar",`<ul><li><b>Panel:</b> tarzını gösteren radar, en çok işlem gören semboller ve seanslar.</li><li><b>Hesaplar:</b> tüm hesapların, limitleri ve hedefe kalan tutar.</li><li><b>Ödüller:</b> çekimlerin ve 100 bin dolarlık hedef çubuğu.</li><li><b>Live:</b> gerçek hesapların ve toplam kasa.</li><li><b>Özet:</b> haftalık ve aylık sonuçlar.</li><li><b>Notlar:</b> öğrendiklerini fotoğrafla birlikte yaz.</li><li><b>İstatistik kartı:</b> Funded ya da Live bir hesabının kârlı kapanan ayını altın kart olarak paylaş. Her hesabın kartı ayrıdır, kart ay bitince oluşur. Zararlı ayda kart oluşmaz, bakiye görünmez.</li><li><b>Hesap notları:</b> tüm hesaplarının durumu, kaç hesap aldığın.</li><li><b>Görüşlerinizi bildirin:</b> öneri, hata ya da başka bir konuda bize yaz. İstersen ekran görüntüsü de ekle.</li></ul>`)+
-D("Hesap durumları",`<ul><li><b>Geçildi:</b> Challenge hesabı kâr hedefine ulaşınca üstünde "Geçildi" yazar ve aynı ayarlarla yeni bir Funded hesap otomatik açılır. Geçilen Challenge sadece görüntülenir.</li><li><b>İhlal:</b> günlük kayıp limitini ya da maksimum kayıp limitini aşan hesap (Challenge ya da Funded) otomatik "İhlal" olur ve kapanır. Challenge hedefe ulaşamadan limit aşılırsa da "İhlal" yazar. Hesap sayfasındaki "İhlal yap" ile elle de kapatabilirsin.</li><li><b>Tamamlandı:</b> Funded hesapta tüm bakiyeyi çektiysen çekimi eklerken "Tüm bakiyeyi çektim" kutusunu işaretle. Hesap kapanır ve "Tamamlandı" yazar.</li><li><b>Buffer:</b> çekim yapıp hesapta bir miktar kâr (buffer) bıraktıysan kutuyu işaretleme. Hesap kapanmaz, aynen devam eder.</li><li>İhlal ve Tamamlandı hesapları hesap sayfasındaki "Yeniden aç" ile geri açabilirsin.</li><li>Kartların köşesindeki "Demo Challenge" ve "Demo Funded" etiketleri, bu hesapların deneme amaçlı olduğunu gösterir.</li></ul>`)+
-D("Consistency (cons)",`<ul><li>Consistency, en kârlı gününün toplam kârına oranıdır. Örnek: toplam kâr $2.000, en iyi gün $800 ise oran %40.</li><li>Hesap eklerken ya da düzenlerken limiti %5'lik adımlarla seçersin (örneğin %45). Limit seçmezsen kutu görünmez.</li><li>Hesap sayfasındaki Consistency kutusunda şu anki oranın yazar. Limitin altındaysa yeşil, üstündeyse kırmızıdır.</li><li><b>"+$X kaldı":</b> bugün en fazla bu kadar daha kazanırsan oran limiti aşmaz.</li><li><b>"+$X kâr gerekli":</b> oran limitin üstündeyse, limitin altına inmek için en iyi gününü geçmeyen günlerle bu kadar daha kâr etmen gerekir.</li></ul>`)+
-D("Minimum işlem günü",`<ul><li>Hesap eklerken ya da düzenlerken "Min. işlem günü" (örneğin 5) ve "Günlük min. kâr %" (örneğin 0,5) yazarsın. Gün sayısını boş bırakırsan kutu görünmez.</li><li>Bir günün sayılması için o günün kârı, bir önceki günün kapanış bakiyesinin en az bu yüzdesi kadar olmalı. Örnek: 50.000$ bakiyede %0,5 = en az 250$ kâr. Yüzdeyi boş bırakırsan %0,5 kabul edilir, 0 yazarsan kârlı her gün sayılır.</li><li>Funded hesapta buffer bırakarak çekim yaparsan sayım sıfırlanır, bir sonraki çekim için günler yeniden sayılır.</li><li>Tamamlanınca kutu yeşil olur ve "Tamamlandı ✓" yazar.</li></ul>`)+
-D("Hesaplamalar",`<ul><li><b>Winrate:</b> kazanan işlemlerin tüm işlemlere oranı. Başabaş (0) işlemler de hesaba katılır, çünkü kayıp da olabilirlerdi.</li></ul>`)+
+D("Hesap durumları",`<ul><li><b>Geçildi:</b> Challenge hesabı kâr hedefine ulaşınca üstünde "Geçildi" yazar ve aynı ayarlarla yeni bir Funded hesap otomatik açılır. Geçilen Challenge sadece görüntülenir.</li><li><b>İhlal:</b> günlük kayıp limitini ya da maksimum kayıp limitini aşan hesap (Challenge ya da Funded) otomatik "İhlal" olur ve kapanır. Challenge hedefe ulaşamadan limit aşılırsa da "İhlal" yazar. Hesap sayfasındaki "İhlal yap" ile elle de kapatabilirsin.</li><li><b>Tamamlandı:</b> Funded hesapta tüm bakiyeyi çektiysen çekimi eklerken "Tüm bakiyeyi çektim" kutusunu işaretle. Hesap kapanır ve "Tamamlandı" yazar.</li><li><b>Buffer:</b> çekim yapıp hesapta bir miktar kâr (buffer) bıraktıysan kutuyu işaretleme. Hesap kapanmaz, aynen devam eder.</li><li>2 aşamalı programlarda 1. aşama geçilince "Phase 2" hesabı, o da geçilince Funded hesap otomatik açılır.</li><li>İhlal ve Tamamlandı hesapları hesap sayfasındaki "Yeniden aç" ile geri açabilirsin.</li><li>Kartların köşesindeki "Demo Challenge" ve "Demo Funded" etiketleri, bu hesapların deneme amaçlı olduğunu gösterir.</li></ul>`)+
+D("Consistency (cons)",`<ul><li>Consistency, en kârlı gününün toplam kârına oranıdır. Örnek: toplam kâr $2.000, en iyi gün $800 ise oran %40.</li><li>Limit, seçtiğin programa göre otomatik gelir. Programda consistency kuralı yoksa kutu görünmez.</li><li>FTM 1 Step Nitro Challenge'da en iyi gün, kâr hedefinin %50'sini geçemez. Funded'da ve FTMO 1-Step'te en iyi gün toplam kârla karşılaştırılır.</li><li>Consistency şartı sağlanmadan hedefe ulaşsan da Challenge geçilmiş sayılmaz, işlem yapmaya devam etmen gerekir.</li><li>Hesap sayfasındaki Consistency kutusunda şu anki oranın yazar. Limitin altındaysa yeşil, üstündeyse kırmızıdır.</li><li><b>"+$X kaldı":</b> bugün en fazla bu kadar daha kazanırsan oran limiti aşmaz.</li><li><b>"+$X kâr gerekli":</b> oran limitin üstündeyse, limitin altına inmek için en iyi gününü geçmeyen günlerle bu kadar daha kâr etmen gerekir.</li></ul>`)+
+D("Minimum işlem günü",`<ul><li>Minimum gün kuralı seçtiğin programa göre otomatik gelir. Challenge'da işlem açtığın her gün sayılır ve gün şartı tamamlanmadan Challenge geçilmez.</li><li>Funded'da çekim için kârlı gün şartı varsa, bir günün sayılması için o günün kârı bir önceki günün kapanış bakiyesinin en az bu yüzdesi kadar olmalı. Örnek: 50.000$ bakiyede %0,5 = en az 250$ kâr.</li><li>Funded hesapta buffer bırakarak çekim yaparsan sayım sıfırlanır, bir sonraki çekim için günler yeniden sayılır.</li><li>Tamamlanınca kutu yeşil olur ve "Tamamlandı ✓" yazar.</li></ul>`)+
+D("Hesaplamalar",`<ul><li><b>Winrate:</b> kazanan işlemlerin tüm işlemlere oranı. Başabaş (0) işlemler de hesaba katılır, çünkü kayıp da olabilirlerdi.</li><li><b>Maksimum kayıp:</b> programa göre sabit, gün sonu bakiyesiyle yükselen (FTMO 1-Step) ya da bakiyeyle yükselip kâr limite ulaşınca başlangıç bakiyesinde kilitlenen (FTM 1 Step Nitro) olabilir. Çekimden sonra sayım yeniden başlar.</li></ul>`)+
 D("Hesap bağla",`<ul><li>Copy trade yapıyorsan aynı boyuttaki hesapları bağlayabilirsin.</li><li>Önce ana hesabı, sonra bağlanacak hesabı seçersin. Hesaplar sen onaylamadan bağlanmaz.</li><li>Ana hesaba girilen işlem, not ve fotoğraflar bağlı hesaba aynen geçer. Düzenleme ve silme de geçer.</li><li>Bağlamadan önceki işlemler aktarılmaz.</li></ul>`)+
 D("Giriş serisi ve rozetler",`<ul><li>Her gün uygulamaya girdiğinde o gün sayılır, işlem açman gerekmez.</li><li><b>İlk giriş:</b> üye olduğunda.</li><li><b>Haftalık bronz:</b> pazartesiden pazara 7 gün gir.</li><li><b>30 gün gümüş, 100 gün altın, 365 gün elmas:</b> toplam giriş günü.</li><li><b>Küçük rozetler:</b> ilk işlem, 10 işlem notu, ilk çekim, ilk Funded hesap, 100 işlem.</li><li>Günler Türkiye saatine ve sunucu saatine göre sayılır.</li></ul>`)+
 D("Giriş ve hesap",`<ul><li>Hangi yöntemle kayıt olduysan (e-posta ve şifre ya da Google) hep onunla gir. Farklı yöntem boş bir hesap açar.</li><li>Verilerin hesabına otomatik kaydedilir, tüm cihazlarında aynıdır.</li><li>Yedek sayfasından verilerini dosya olarak indirebilirsin.</li></ul>`)+

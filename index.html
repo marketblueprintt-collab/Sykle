@@ -597,6 +597,16 @@ const D={
 "Funded çekim şartı":["Funded payout condition","Funded-Auszahlungsbedingung","Condición de retiro Funded"],
 "{} kârlı gün (≥%{})":[(n,p)=>n+(String(n).trim()==="1"?" profitable day (≥":" profitable days (≥")+p+"%)",(n,p)=>n+(String(n).trim()==="1"?" Gewinntag (≥":" Gewinntage (≥")+p+" %)",(n,p)=>n+(String(n).trim()==="1"?" día con beneficio (≥":" días con beneficio (≥")+p+" %)"],
 "Kurallar firmanın sitesinden alındı (Kasım 2026). Firma kurallarını değiştirebilir, satın almadan önce firmanın sitesinden kontrol et.":["Rules taken from the firm's website (November 2026). The firm may change its rules, so check its website before you buy.","Regeln von der Website der Firma (November 2026). Die Firma kann ihre Regeln ändern, prüfe sie vor dem Kauf auf ihrer Website.","Reglas tomadas de la web de la empresa (noviembre de 2026). La empresa puede cambiarlas, revísalas en su web antes de comprar."],
+"FTM'de challenge mı alacaksın? <b>{}</b> koduyla indirimli al.":["Buying an FTM challenge? Get a discount with code <b>{}</b>.","Kaufst du eine FTM-Challenge? Mit dem Code <b>{}</b> bekommst du Rabatt.","¿Vas a comprar un challenge de FTM? Consigue descuento con el código <b>{}</b>."],
+"FTM'de challenge mı alacaksın? Sykle bağlantısıyla al.":["Buying an FTM challenge? Get it through the Sykle link.","Kaufst du eine FTM-Challenge? Hol sie dir über den Sykle-Link.","¿Vas a comprar un challenge de FTM? Cómpralo con el enlace de Sykle."],
+"Affiliate bağlantısı":["Affiliate link","Affiliate-Link","Enlace de afiliado"],
+"FTM'ye git ↗":["Go to FTM ↗","Zu FTM ↗","Ir a FTM ↗"],
+"FTM hesabın yok mu?":["Don't have an FTM account?","Noch kein FTM-Konto?","¿No tienes cuenta en FTM?"],
+"<b>{}</b> koduyla FTM'den indirimli challenge alabilirsin.":["Use code <b>{}</b> for a discounted FTM challenge.","Mit dem Code <b>{}</b> bekommst du eine FTM-Challenge günstiger.","Usa el código <b>{}</b> para conseguir un challenge de FTM con descuento."],
+"Sykle bağlantısıyla FTM'den challenge alabilirsin.":["You can buy an FTM challenge through the Sykle link.","Du kannst eine FTM-Challenge über den Sykle-Link kaufen.","Puedes comprar un challenge de FTM con el enlace de Sykle."],
+"Kodu kopyala":["Copy code","Code kopieren","Copiar código"],
+"Kopyalandı ✓":["Copied ✓","Kopiert ✓","Copiado ✓"],
+"Affiliate bağlantısı: Sykle bu bağlantıdan komisyon alabilir.":["Affiliate link: Sykle may earn a commission from it.","Affiliate-Link: Sykle kann daran eine Provision verdienen.","Enlace de afiliado: Sykle puede recibir una comisión por él."],
 "limit aşıldı":["limit exceeded","Limit überschritten","límite superado"],
 "🎉 {} 1. aşamayı geçtin! Phase 2 hesabın otomatik açıldı.":["🎉 You passed phase 1 of {}! Your Phase 2 account was opened automatically.","🎉 Du hast Phase 1 von {} bestanden! Dein Phase-2-Konto wurde automatisch eröffnet.","🎉 ¡Superaste la fase 1 de {}! Tu cuenta Phase 2 se abrió automáticamente."],
 /* kılavuz */
@@ -804,6 +814,8 @@ details.kg{background:var(--card);border:1px solid var(--bd);border-radius:14px;
 #dr .lgl{margin:0 0 4px 36px;border-left:1px solid #262626;padding-left:6px}
 #dr .lgl button.it{padding:9px 10px;font-size:14px}
 #dr .lgl .ico{width:18px;height:18px;color:var(--ac)}
+.pbar{display:flex;align-items:center;gap:10px;background:#0b1a33;border:1px solid #1d3b6e;border-radius:12px;padding:10px 12px;margin:0 0 14px;font-size:13.5px;line-height:1.35}.pbar a{color:var(--ac);font-weight:600;white-space:nowrap;text-decoration:none}.pbar .x{background:none;border:0;color:var(--mu);font-size:16px;padding:2px 4px;flex:none}.pbar small{display:block;color:var(--mu);font-size:11px;margin-top:2px}
+.pbox{background:#0b1a33;border:1px solid #1d3b6e;border-radius:12px;padding:12px;margin:0 0 10px;font-size:13.5px}.pbox .row{margin-top:8px}.pbox a.p{display:block;text-align:center;text-decoration:none;background:var(--ac);color:#fff;border-radius:10px;padding:10px;font-weight:600}.pbox small{display:block;color:var(--mu);font-size:11px;margin-top:8px}
 #f-ru{background:#0a0a0c;border:1px solid var(--bd);border-radius:12px;padding:4px 12px;margin-bottom:10px}#f-ru .tr{font-size:13px;gap:10px}#f-ru .tr b{text-align:right;font-weight:500}#f-ru p{font-size:12px;margin:8px 0}
 #dr .us{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:8px;border-top:1px solid #262626;padding:12px 10px 0}
 #dr .us b{display:block;font-weight:500;font-size:14px}
@@ -931,7 +943,7 @@ window.splashGo=function(){var t=window._spT;if(t)clearTimeout(t);requestAnimati
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
 <script>
 // Her yayında bu sürüm değişir; açık uygulamalar yeni sürümü görünce kendini yeniler.
-const APP_V="2026.11.18-10";
+const APP_V="2026.11.18-11";
 const KEY="tradeJournalV2";
 const SES=["NY Açılış","London","Asya","Seans dışı"];
 const TAGS=["FOMO","Erken çıkış","SL oynattım","Plansız","İntikam","Plana uydum"];
@@ -975,7 +987,7 @@ const pcs=v=>"%"+String(v).replace(".",",");
 const ML_T={s:"sabit",e:"gün sonu bakiyesiyle yükselir",l:"bakiyeyle yükselir, başlangıçta kilitlenir"};
 function tplCard(F,P,size){const rw=(l,v)=>`<div class="tr"><span>${l}</span><b>${v}</b></div>`,dl=dlPct(P,size),cnT=r=>r.cn?(r.cb==="t"?`En iyi gün ≤ ${pcs(r.cn)} · hedefe göre`:`En iyi gün ≤ ${pcs(r.cn)} · toplam kâra göre`):"Yok";
 const mdC=P.ph.map(x=>x.md||0),fu=P.fu;
-return rw("Kâr hedefi",P.ph.map(x=>pcs(x.tg)).join(" → "))+rw("Günlük kayıp limiti",pcs(dl)+" · "+usd(size*dl/100))+rw("Maksimum kayıp limiti",pcs(P.ml)+" · "+usd(size*P.ml/100)+" · "+ML_T[P.mt])+
+return (F.id==="ftm"?promoBox():"")+rw("Kâr hedefi",P.ph.map(x=>pcs(x.tg)).join(" → "))+rw("Günlük kayıp limiti",pcs(dl)+" · "+usd(size*dl/100))+rw("Maksimum kayıp limiti",pcs(P.ml)+" · "+usd(size*P.ml/100)+" · "+ML_T[P.mt])+
 rw("Consistency (Challenge)",cnT(P.ph[0]))+rw("Consistency (Funded)",cnT(fu))+rw("Min. işlem günü (Challenge)",mdC.some(x=>x)?mdC.join(" + "):"Yok")+rw("Funded çekim şartı",fu.md?`${fu.md} kârlı gün (≥${pcs(fu.mp)})`:"Yok")+
 `<p class="mu">Kurallar firmanın sitesinden alındı (Kasım 2026). Firma kurallarını değiştirebilir, satın almadan önce firmanın sitesinden kontrol et.</p>`}
 // maksimum kayıp: sabit (s), gün sonu bakiyesiyle yükselen (e), bakiyeyle yükselip +limit kârda başlangıçta kilitlenen (l)
@@ -1027,6 +1039,15 @@ const dayBr=+a.dl>0&&Object.values(byDay).some(v=>v<=-a.dl),mi=mlInfo(a,T),maxBr
 if(dayBr||maxBr){a.br=true;a.brw=maxBr?"Maksimum kayıp limiti":"Günlük kayıp limiti";
 m.push(`⛔ ${esc(a.name)} ihlal edildi (${a.brw}). Hesap kapandı, sadece görüntüleyebilirsin.`)}}});
 return m}
+// ---- FTM tanıtımı: kod ve bağlantı buradan değiştirilir
+const PROMO={url:"https://fundedtradermarkets.com/ref/syk",code:"SYK"};
+function promoBar(){let x=0;try{x=+localStorage.getItem("syklePromoX")||0}catch(e){}if(Date.now()-x<7*864e5)return"";
+return `<div class="pbar" id="pbar"><div style="flex:1;min-width:0"><span>${PROMO.code?`FTM'de challenge mı alacaksın? <b>${PROMO.code}</b> koduyla indirimli al.`:"FTM'de challenge mı alacaksın? Sykle bağlantısıyla al."}</span><small>Affiliate bağlantısı</small></div><a href="${PROMO.url}" target="_blank" rel="noopener sponsored">FTM'ye git ↗</a><button class="x" data-pxx="1" aria-label="Kapat">✕</button></div>`}
+function promoBox(){return `<div class="pbox"><b>FTM hesabın yok mu?</b><div style="margin-top:4px">${PROMO.code?`<b>${PROMO.code}</b> koduyla FTM'den indirimli challenge alabilirsin.`:"Sykle bağlantısıyla FTM'den challenge alabilirsin."}</div><div class="row">${PROMO.code?`<button class="s" data-pcp="1" style="flex:1">Kodu kopyala</button>`:""}<a class="p" href="${PROMO.url}" target="_blank" rel="noopener sponsored" style="flex:1">FTM'ye git ↗</a></div><small>Affiliate bağlantısı: Sykle bu bağlantıdan komisyon alabilir.</small></div>`}
+document.addEventListener("click",e=>{const t=e.target.closest&&e.target.closest("[data-pxx],[data-pcp]");if(!t)return;
+if(t.dataset.pxx){try{localStorage.setItem("syklePromoX",String(Date.now()))}catch(e){}const b=$("pbar");if(b)b.remove();return}
+const done=()=>{t.textContent="Kopyalandı ✓";setTimeout(()=>{t.textContent="Kodu kopyala"},1800)};
+try{navigator.clipboard.writeText(PROMO.code).then(done,done)}catch(e){done()}});
 function persist(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}if(user)schedPush()}
 const tomb=ids=>{S.del=S.del||{};const t=Date.now();ids.forEach(i=>{if(i)S.del[i]=t})};
 function save(){S.ts=Date.now();S.dt=1;const m=auto();if(m.length)notice=m.join("<br>");awardAll();persist()}
@@ -1155,7 +1176,7 @@ const T=S.trades,s=calc(T,S.payouts),byD={};T.forEach(t=>byD[t.d]=(byD[t.d]||0)+
 const cons=dl.length?dl.filter(v=>v>0).length/dl.length:0,disc=T.length?T.filter(t=>(t.tag||[]).includes("Plana uydum")).length/T.length:0,rr=s.al?s.aw/s.al:(s.aw?3:0),pf=parseFloat(s.pf)||(s.pf==="∞"?3:0);
 const V=[{l:"Risk/Kazanç",v:rr/3},{l:"Ort. kazanç",v:s.aw/1000},{l:"Çekim",v:s.pay/10000},{l:"Winrate",v:s.wr/100},{l:"Profit F.",v:pf/3},{l:"Tutarlılık",v:cons},{l:"Disiplin",v:disc}];
 const vv=(l,v,c)=>`<div><small>${l}</small><b class="${c||""}">${v}</b></div>`;
-$("v-home").innerHTML=`<div style="font-size:22px;font-weight:600;margin:2px 0 14px">Hoş geldin${fst()?", "+esc(fst()):""}</div>`+
+$("v-home").innerHTML=`<div style="font-size:22px;font-weight:600;margin:2px 0 14px">Hoş geldin${fst()?", "+esc(fst()):""}</div>`+promoBar()+
 `<div class="card"><h2>Tarz</h2>${radar(V)}<div class="vl">${vv("Net K/Z",fm(s.net),cls(s.net))}${vv("İşlem sayısı",s.n)}${vv("Risk / kazanç","1 : "+rr.toFixed(1).replace(".",","))}${vv("Ortalama kazanç",fm(s.aw),"g")}${vv("Kazanma oranı","%"+s.wr,wc(s))}${vv("Profit factor",s.pf)}${vv("Tutarlılık","%"+Math.round(cons*100))}${vv("Disiplin","%"+Math.round(disc*100))}${vv("Toplam çekim",usd(s.pay),"g")}</div></div>`+
 symBlock()+`<div class="card"><h2>Seanslar</h2>${sesBlock()}<div style="border-top:1px solid var(--bd);margin:6px 0 12px"></div><h2>Piyasa saatleri</h2><div id="mk">${mkHTML()}</div></div>`}
 setInterval(()=>{if(view==="home"&&$("mk"))$("mk").innerHTML=mkHTML()},30000);

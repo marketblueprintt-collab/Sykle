@@ -223,7 +223,7 @@ details.kg{background:var(--card);border:1px solid var(--bd);border-radius:14px;
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
 <script>
 // Her yayında bu sürüm değişir; açık uygulamalar yeni sürümü görünce kendini yeniler.
-const APP_V="2026.11.17-3";
+const APP_V="2026.11.17-4";
 const KEY="tradeJournalV2";
 const SES=["NY Açılış","London","Asya","Seans dışı"];
 const TAGS=["FOMO","Erken çıkış","SL oynattım","Plansız","İntikam","Plana uydum"];
@@ -877,7 +877,8 @@ if(x.includes("invalid login"))return"E-posta ya da şifre hatalı.";
 if(x.includes("already registered")||x.includes("already been registered"))return"Bu e-posta zaten kayıtlı. Giriş yapmayı dene.";
 if(x.includes("at least")||x.includes("weak"))return"Şifre en az 6 karakter olmalı.";
 if(x.includes("valid email")||x.includes("invalid format"))return"Geçerli bir e-posta yaz.";
-if(x.includes("not confirmed"))return"E-postanı onaylaman gerekiyor. Gelen kutunu kontrol et.";
+if(x.includes("not confirmed"))return"Önce e-postanı onaylaman gerekiyor. Sana gönderdiğimiz bağlantıya tıkla.";
+if(x.includes("not authorized")||x.includes("error sending"))return"Onay e-postası şu an gönderilemedi. Biraz sonra tekrar dene.";
 if(x.includes("rate")||x.includes("seconds"))return"Çok sık denedin, biraz bekle.";
 if(x.includes("fetch")||x.includes("network"))return"İnternet bağlantısı yok.";
 return"Bir hata oldu: "+(e&&e.message||"bilinmiyor")}
@@ -885,11 +886,14 @@ async function lgGo(){if(!sb){lgMsg("Bağlantı kurulamadı. Sayfayı yenile.");
 const em=($("lge")?$("lge").value:"").trim(),pw=$("lgp")?$("lgp").value:"";lgMsg("");$("lgb").disabled=true;
 try{if(lgMode==="in"){if(!em||!pw)throw{message:"valid email"};const r=await sb.auth.signInWithPassword({email:em,password:pw});if(r.error)throw r.error;enter(r.data.session)}
 else if(lgMode==="up"){const nm=($("lgn")?$("lgn").value:"").trim();if(!nm)throw{message:"name"};if(!em)throw{message:"valid email"};if(pw.length<6)throw{message:"at least 6"};if(!$("lgt")||!$("lgt").checked)throw{message:"tos"};const r=await sb.auth.signUp({email:em,password:pw,options:{data:{name:nm,tos:true},emailRedirectTo:location.origin+location.pathname}});if(r.error)throw r.error;
-if(r.data.session)enter(r.data.session);else lgMsg("Kayıt alındı. E-postana gelen onay bağlantısına tıkla, sonra giriş yap.",1)}
+if(r.data.session)enter(r.data.session);else{lgMsg("Kayıt alındı. "+em+" adresine bir onay bağlantısı gönderdik. Bağlantıya tıkla, hesabın açılsın. Gelen kutunda yoksa Spam / Gereksiz klasörüne bak.",1);lgResend(em)}}
 else if(lgMode==="reset"){if(!em)throw{message:"valid email"};const r=await sb.auth.resetPasswordForEmail(em,{redirectTo:location.origin+location.pathname});if(r.error)throw r.error;lgMsg("Sıfırlama bağlantısı e-postana gönderildi.",1)}
 else{if(pw.length<6)throw{message:"at least 6"};const r=await sb.auth.updateUser({password:pw});if(r.error)throw r.error;RECOV=false;history.replaceState(null,"",location.pathname);const g=await sb.auth.getSession();enter(g.data.session)}}
-catch(e){lgMsg(trErr(e))}
+catch(e){lgMsg(trErr(e));if(String(e&&e.message||"").toLowerCase().includes("not confirmed")&&em)lgResend(em)}
 if($("lgb"))$("lgb").disabled=false}
+// onay e-postasını tekrar gönder
+function lgResend(em){const m=$("lgm");if(!m||$("lgr"))return;const b=document.createElement("button");b.id="lgr";b.className="lk";b.style.cssText="display:block;margin:-4px 0 10px;padding:4px 0";b.textContent="Onay e-postasını tekrar gönder";m.after(b);
+b.onclick=async()=>{b.disabled=true;try{const r=await sb.auth.resend({type:"signup",email:em,options:{emailRedirectTo:location.origin+location.pathname}});if(r.error)throw r.error;lgMsg("Onay e-postası tekrar gönderildi. Spam klasörüne de bak.",1)}catch(e){lgMsg(trErr(e))}setTimeout(()=>{b.disabled=false},30000)}}
 function showSp(){$("ld").classList.remove("off")}
 function hideSp(){$("ld").classList.add("off")}
 function note(t){const o=$("nb");if(o)o.remove();const d=document.createElement("div");d.id="nb";d.innerHTML=t+`<div style="text-align:right;margin-top:6px"><button class="s" id="nbx">Tamam</button></div>`;document.body.appendChild(d);$("nbx").onclick=()=>d.remove();setTimeout(()=>{if(d.parentNode)d.remove()},20000)}

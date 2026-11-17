@@ -607,6 +607,14 @@ const D={
 "Kodu kopyala":["Copy code","Code kopieren","Copiar código"],
 "Kopyalandı ✓":["Copied ✓","Kopiert ✓","Copiado ✓"],
 "Affiliate bağlantısı: Sykle bu bağlantıdan komisyon alabilir.":["Affiliate link: Sykle may earn a commission from it.","Affiliate-Link: Sykle kann daran eine Provision verdienen.","Enlace de afiliado: Sykle puede recibir una comisión por él."],
+"Program karşılaştırma":["Compare programs","Programme vergleichen","Comparar programas"],
+"Firmaların programlarını seçtiğin hesap boyutuna göre yan yana gör.":["See the firms' programs side by side for the account size you choose.","Sieh dir die Programme der Firmen für die gewählte Kontogröße nebeneinander an.","Compara los programas de las empresas según el tamaño de cuenta que elijas."],
+"Tümü":["All","Alle","Todos"],
+"1 aşama":["1 phase","1 Phase","1 fase"],
+"2 aşama":["2 phases","2 Phasen","2 fases"],
+"Bu programla hesap ekle":["Add an account with this program","Konto mit diesem Programm hinzufügen","Añadir cuenta con este programa"],
+"Bu programda {} hesap yok. Boyutlar: {}":["This program has no {} account. Sizes: {}","Dieses Programm hat kein {}-Konto. Größen: {}","Este programa no tiene cuenta de {}. Tamaños: {}"],
+"Bu filtrede program yok.":["No programs match this filter.","Keine Programme für diesen Filter.","No hay programas con este filtro."],
 "limit aşıldı":["limit exceeded","Limit überschritten","límite superado"],
 "🎉 {} 1. aşamayı geçtin! Phase 2 hesabın otomatik açıldı.":["🎉 You passed phase 1 of {}! Your Phase 2 account was opened automatically.","🎉 Du hast Phase 1 von {} bestanden! Dein Phase-2-Konto wurde automatisch eröffnet.","🎉 ¡Superaste la fase 1 de {}! Tu cuenta Phase 2 se abrió automáticamente."],
 /* kılavuz */
@@ -814,6 +822,7 @@ details.kg{background:var(--card);border:1px solid var(--bd);border-radius:14px;
 #dr .lgl{margin:0 0 4px 36px;border-left:1px solid #262626;padding-left:6px}
 #dr .lgl button.it{padding:9px 10px;font-size:14px}
 #dr .lgl .ico{width:18px;height:18px;color:var(--ac)}
+.cmr{background:#0a0a0c;border:1px solid var(--bd);border-radius:12px;padding:4px 12px;margin:10px 0}.cmr .tr{font-size:13px;gap:10px}.cmr .tr b{text-align:right;font-weight:500}.cmh{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
 .pbar{display:flex;align-items:center;gap:10px;background:linear-gradient(135deg,#0b1f3a,#062430);border:1px solid rgba(11,208,243,.45);box-shadow:inset 3px 0 0 #0bd0f3;border-radius:12px;padding:10px 12px;margin:0 0 14px;font-size:13.5px;line-height:1.35}.pbar b{color:#0bd0f3}.pbar a{color:#0bd0f3;font-weight:600;white-space:nowrap;text-decoration:none}.pbar .x{background:none;border:0;color:var(--mu);font-size:16px;padding:2px 4px;flex:none}.pbar small{display:block;color:var(--mu);font-size:11px;margin-top:2px}
 .pbox{background:linear-gradient(135deg,#0b1f3a,#062430);border:1px solid rgba(11,208,243,.45);border-radius:12px;padding:12px;margin:0 0 10px;font-size:13.5px}.pbox .row{margin-top:8px}.pbox b{color:#0bd0f3}.pbox a.p{display:block;text-align:center;text-decoration:none;background:linear-gradient(90deg,#3b89e4,#1a5fad);color:#fff;border-radius:10px;padding:10px;font-weight:600}.pbox small{display:block;color:var(--mu);font-size:11px;margin-top:8px}
 #f-ru{background:#0a0a0c;border:1px solid var(--bd);border-radius:12px;padding:4px 12px;margin-bottom:10px}#f-ru .tr{font-size:13px;gap:10px}#f-ru .tr b{text-align:right;font-weight:500}#f-ru p{font-size:12px;margin:8px 0}
@@ -938,12 +947,13 @@ window.splashGo=function(){var t=window._spT;if(t)clearTimeout(t);requestAnimati
 <section id="v-kg" class="hid"></section>
 <section id="v-fb" class="hid"></section>
 <section id="v-kv" class="hid"></section>
+<section id="v-cmp" class="hid"></section>
 <section id="v-ad" class="hid"></section>
 </main>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
 <script>
 // Her yayında bu sürüm değişir; açık uygulamalar yeni sürümü görünce kendini yeniler.
-const APP_V="2026.11.18-14";
+const APP_V="2026.11.18-15";
 const KEY="tradeJournalV2";
 const SES=["NY Açılış","London","Asya","Seans dışı"];
 const TAGS=["FOMO","Erken çıkış","SL oynattım","Plansız","İntikam","Plana uydum"];
@@ -985,11 +995,11 @@ return{tp:F.id+"."+P.id,firm:F.sn+" · "+P.n,size,stp:step,ph:step?"Challenge":"
 const tplName=(F,P,size)=>F.sn+" "+P.n+" "+Math.round(size/1000)+"K";
 const pcs=v=>"%"+String(v).replace(".",",");
 const ML_T={s:"sabit",e:"gün sonu bakiyesiyle yükselir",l:"bakiyeyle yükselir, başlangıçta kilitlenir"};
-function tplCard(F,P,size){const rw=(l,v)=>`<div class="tr"><span>${l}</span><b>${v}</b></div>`,dl=dlPct(P,size),cnT=r=>r.cn?(r.cb==="t"?`En iyi gün ≤ ${pcs(r.cn)} · hedefe göre`:`En iyi gün ≤ ${pcs(r.cn)} · toplam kâra göre`):"Yok";
+function tplCard(F,P,size){return (F.id==="ftm"?promoBox():"")+tplRows(F,P,size)+`<p class="mu">Kurallar firmanın sitesinden alındı (Kasım 2026). Firma kurallarını değiştirebilir, satın almadan önce firmanın sitesinden kontrol et.</p>`}
+function tplRows(F,P,size){const rw=(l,v)=>`<div class="tr"><span>${l}</span><b>${v}</b></div>`,dl=dlPct(P,size),cnT=r=>r.cn?(r.cb==="t"?`En iyi gün ≤ ${pcs(r.cn)} · hedefe göre`:`En iyi gün ≤ ${pcs(r.cn)} · toplam kâra göre`):"Yok";
 const mdC=P.ph.map(x=>x.md||0),fu=P.fu;
-return (F.id==="ftm"?promoBox():"")+rw("Kâr hedefi",P.ph.map(x=>pcs(x.tg)).join(" → "))+rw("Günlük kayıp limiti",pcs(dl)+" · "+usd(size*dl/100))+rw("Maksimum kayıp limiti",pcs(P.ml)+" · "+usd(size*P.ml/100)+" · "+ML_T[P.mt])+
-rw("Consistency (Challenge)",cnT(P.ph[0]))+rw("Consistency (Funded)",cnT(fu))+rw("Min. işlem günü (Challenge)",mdC.some(x=>x)?mdC.join(" + "):"Yok")+rw("Funded çekim şartı",fu.md?`${fu.md} kârlı gün (≥${pcs(fu.mp)})`:"Yok")+
-`<p class="mu">Kurallar firmanın sitesinden alındı (Kasım 2026). Firma kurallarını değiştirebilir, satın almadan önce firmanın sitesinden kontrol et.</p>`}
+return rw("Kâr hedefi",P.ph.map(x=>pcs(x.tg)).join(" → "))+rw("Günlük kayıp limiti",pcs(dl)+" · "+usd(size*dl/100))+rw("Maksimum kayıp limiti",pcs(P.ml)+" · "+usd(size*P.ml/100)+" · "+ML_T[P.mt])+
+rw("Consistency (Challenge)",cnT(P.ph[0]))+rw("Consistency (Funded)",cnT(fu))+rw("Min. işlem günü (Challenge)",mdC.some(x=>x)?mdC.join(" + "):"Yok")+rw("Funded çekim şartı",fu.md?`${fu.md} kârlı gün (≥${pcs(fu.mp)})`:"Yok")}
 // maksimum kayıp: sabit (s), gün sonu bakiyesiyle yükselen (e), bakiyeyle yükselip +limit kârda başlangıçta kilitlenen (l)
 function mlInfo(a,T){const sz=+a.size||0,ml=+a.ml;if(!(ml>0))return null;
 if(a.mlt!=="e"&&a.mlt!=="l"){const net=T.reduce((x,t)=>x+t.pnl,0);return{rem:ml+net,br:net<=-ml}}
@@ -1048,6 +1058,20 @@ document.addEventListener("click",e=>{const t=e.target.closest&&e.target.closest
 if(t.dataset.pxx){try{localStorage.setItem("syklePromoX",String(Date.now()))}catch(e){}const b=$("pbar");if(b)b.remove();return}
 const done=()=>{t.textContent="Kopyalandı ✓";setTimeout(()=>{t.textContent="Kodu kopyala"},1800)};
 try{navigator.clipboard.writeText(PROMO.code).then(done,done)}catch(e){done()}});
+// ---- program karşılaştırma
+let cmpF="all",cmpT="all",cmpS=100000;
+function cmpView(){$("ttl").textContent="Program karşılaştırma";const V=$("v-cmp"),SZ=[5,10,20,25,50,100,200,300];
+let h=`<div class="card"><p class="mu" style="margin-top:0">Firmaların programlarını seçtiğin hesap boyutuna göre yan yana gör.</p><div style="display:flex;flex-wrap:wrap">${[["all","Tümü"],...FIRMS.map(F=>[F.id,F.sn])].map(x=>chip(x[1],cmpF===x[0],`data-cf="${x[0]}"`)).join("")}</div><div style="display:flex;flex-wrap:wrap;margin-top:4px">${[["all","Tümü"],["1","1 aşama"],["2","2 aşama"]].map(x=>chip(x[1],cmpT===x[0],`data-ct="${x[0]}"`)).join("")}</div><select id="cmps" style="width:100%;margin-top:6px">${SZ.map(v=>`<option value="${v*1000}" ${v*1000===cmpS?"selected":""}>${usd(v*1000)}</option>`).join("")}</select></div>`;
+const L=[];FIRMS.forEach(F=>{if(cmpF!=="all"&&F.id!==cmpF)return;F.p.forEach(P=>{if(cmpT!=="all"&&String(P.ph.length)!==cmpT)return;L.push({F,P,ok:P.sz.includes(cmpS/1000)})})});
+L.sort((a,b)=>b.ok-a.ok);
+h+=L.length?L.map(({F,P,ok})=>`<div class="card"><div class="cmh"><div><b style="font-size:16px">${P.n}</b><div class="mu">${F.n}</div></div><span class="tag" style="margin:0">${P.ph.length===1?"1 aşama":"2 aşama"}</span></div>`+
+(ok?`${F.id==="ftm"?`<div style="margin-top:10px">${promoBox()}</div>`:""}<div class="cmr">${tplRows(F,P,cmpS)}</div><button class="p" data-cadd="${F.id}.${P.id}">Bu programla hesap ekle</button>`:`<div class="mu" style="margin-top:8px">Bu programda ${usd(cmpS)} hesap yok. Boyutlar: ${P.sz.map(v=>usd(v*1000)).join(", ")}</div>`)+`</div>`).join(""):`<div class="card mu">Bu filtrede program yok.</div>`;
+h+=`<p class="mu" style="font-size:12px;margin:4px 4px 0">Kurallar firmanın sitesinden alındı (Kasım 2026). Firma kurallarını değiştirebilir, satın almadan önce firmanın sitesinden kontrol et.</p>`;
+V.innerHTML=h;
+V.querySelectorAll("[data-cf]").forEach(b=>b.onclick=()=>{cmpF=b.dataset.cf;cmpView()});
+V.querySelectorAll("[data-ct]").forEach(b=>b.onclick=()=>{cmpT=b.dataset.ct;cmpView()});
+$("cmps").onchange=e=>{cmpS=+e.target.value;cmpView()};
+V.querySelectorAll("[data-cadd]").forEach(b=>b.onclick=()=>{const q=b.dataset.cadd.split(".");go("list");openForm();fiSet(q[0],q[1],cmpS);window.scrollTo(0,document.body.scrollHeight)})}
 function persist(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}if(user)schedPush()}
 const tomb=ids=>{S.del=S.del||{};const t=Date.now();ids.forEach(i=>{if(i)S.del[i]=t})};
 function save(){S.ts=Date.now();S.dt=1;const m=auto();if(m.length)notice=m.join("<br>");awardAll();persist()}
@@ -1098,7 +1122,7 @@ $("pf").onchange=e=>setPd(e.target.files[0]||null);
 $("pclip").onclick=()=>clip(setPd);
 
 // ---- menü / gezinme
-const IC={globe:'<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9M12 3c-2.5 2.6-3.8 5.6-3.8 9s1.3 6.4 3.8 9"/>',check:'<polyline points="20 6 9 17 4 12"/>',x:'<line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>',grid:'<rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/>',layers:'<polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/>',award:'<circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/>',pie:'<path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/>',bars:'<path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/>',note:'<path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>',out:'<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/>',menu:'<line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/>',link:'<path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>',list:'<line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/>',down:'<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>',lock:'<rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/>',medal:'<circle cx="12" cy="15" r="6"/><path d="M8 2h8l-2.5 6.2"/><path d="M8 2l2.5 6.2"/>',image:'<rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>',book:'<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>',bell:'<path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/>',msg:'<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>',shield:'<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>'};
+const IC={globe:'<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9M12 3c-2.5 2.6-3.8 5.6-3.8 9s1.3 6.4 3.8 9"/>',check:'<polyline points="20 6 9 17 4 12"/>',scale:'<path d="M12 3v18M7 21h10M5 7h14"/><path d="M5 7l-3 6a3 3 0 0 0 6 0zM19 7l-3 6a3 3 0 0 0 6 0z"/>',x:'<line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>',grid:'<rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/>',layers:'<polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/>',award:'<circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/>',pie:'<path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/>',bars:'<path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/>',note:'<path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>',out:'<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/>',menu:'<line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/>',link:'<path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>',list:'<line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/>',down:'<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>',lock:'<rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/>',medal:'<circle cx="12" cy="15" r="6"/><path d="M8 2h8l-2.5 6.2"/><path d="M8 2l2.5 6.2"/>',image:'<rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>',book:'<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>',bell:'<path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/>',msg:'<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>',shield:'<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>'};
 const ico=n=>`<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${IC[n]}</svg>`;
 const fn=()=>{const m=(user&&user.user_metadata)||{};return String(m.name||m.full_name||S.pn||"").trim()};
 const fst=()=>fn().split(/\s+/)[0];
@@ -1110,15 +1134,15 @@ t.querySelectorAll("[data-tb]").forEach((b,i)=>b.classList.toggle("on",i===x))}
 let lgOpen=false;
 async function setLang(l){lgOpen=false;if(l===SY_L){menu();return}SY_SET(l);showSp();try{if(user){await within(push(),4000,false);await within(sb.auth.updateUser({data:{lang:l}}),3000,null)}}catch(e){}location.reload()}
 function menu(){const nb=(v,l,i)=>`<button data-go="${v}" class="it ${view===v?"on":""}">${ico(i)}${l}</button>`;
-$("dr").innerHTML=`<div class="lo">SYKLE</div>`+nb("live","Live","pie")+nb("lk","Hesap bağla","link")+`<h3>Günlük</h3>`+nb("sum","Özet","bars")+nb("notes","Notlar","note")+nb("an","Hesap notları","list")+`<h3>Rozetler</h3>`+nb("bd","Rozetlerim","medal")+nb("sc","İstatistik kartı","image")+`<h3>Diğer</h3>`+nb("bk","Yedek","down")+nb("fb","Görüşlerinizi bildirin","msg")+nb("kg","Kullanım kılavuzu","book")+nb("kv","Gizlilik ve KVKK","lock")+`<button class="it" id="lgb" aria-expanded="${lgOpen}">${ico("globe")}<span style="flex:1">Dil</span><span class="mu" data-noi18n style="font-size:13px">${(SY_LANGS.find(x=>x[0]===SY_L)||SY_LANGS[0])[1]} ${lgOpen?"▴":"▾"}</span></button>`+(lgOpen?`<div class="lgl" data-noi18n>${SY_LANGS.map(x=>`<button class="it ${x[0]===SY_L?"on":""}" data-lang="${x[0]}"><span style="flex:1">${x[1]}</span>${x[0]===SY_L?ico("check"):""}</button>`).join("")}</div>`:"")+(isAdm?`<h3>Yönetim</h3>`+nb("ad","Yönetici paneli","shield"):"")+(user?`<div class="us"><div style="min-width:0"><b>${esc(fn()||"Hesabım")}</b><span>${esc(user.email||"")}</span><div class="mu" id="sst" style="margin-top:2px">${syncSt}</div></div><button data-out="1" aria-label="Çıkış yap">${ico("out")}</button></div>`:"");
+$("dr").innerHTML=`<div class="lo">SYKLE</div>`+nb("live","Live","pie")+nb("lk","Hesap bağla","link")+nb("cmp","Program karşılaştırma","scale")+`<h3>Günlük</h3>`+nb("sum","Özet","bars")+nb("notes","Notlar","note")+nb("an","Hesap notları","list")+`<h3>Rozetler</h3>`+nb("bd","Rozetlerim","medal")+nb("sc","İstatistik kartı","image")+`<h3>Diğer</h3>`+nb("bk","Yedek","down")+nb("fb","Görüşlerinizi bildirin","msg")+nb("kg","Kullanım kılavuzu","book")+nb("kv","Gizlilik ve KVKK","lock")+`<button class="it" id="lgb" aria-expanded="${lgOpen}">${ico("globe")}<span style="flex:1">Dil</span><span class="mu" data-noi18n style="font-size:13px">${(SY_LANGS.find(x=>x[0]===SY_L)||SY_LANGS[0])[1]} ${lgOpen?"▴":"▾"}</span></button>`+(lgOpen?`<div class="lgl" data-noi18n>${SY_LANGS.map(x=>`<button class="it ${x[0]===SY_L?"on":""}" data-lang="${x[0]}"><span style="flex:1">${x[1]}</span>${x[0]===SY_L?ico("check"):""}</button>`).join("")}</div>`:"")+(isAdm?`<h3>Yönetim</h3>`+nb("ad","Yönetici paneli","shield"):"")+(user?`<div class="us"><div style="min-width:0"><b>${esc(fn()||"Hesabım")}</b><span>${esc(user.email||"")}</span><div class="mu" id="sst" style="margin-top:2px">${syncSt}</div></div><button data-out="1" aria-label="Çıkış yap">${ico("out")}</button></div>`:"");
 $("dr").querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>go(b.dataset.go));$("lgb").onclick=()=>{lgOpen=!lgOpen;menu()};$("dr").querySelectorAll("[data-lang]").forEach(b=>b.onclick=()=>setLang(b.dataset.lang));
 const ob=$("dr").querySelector("[data-out]");if(ob)ob.onclick=logout;tbSet();blSet()}
-const SEC={home:"home",list:"list",live:"list",det:"det",pay:"pay",notes:"notes",sum:"sum",an:"an",lk:"lk",bk:"bk",bd:"bd",sc:"sc",kg:"kg",fb:"fb",ad:"ad",kv:"kv"};
+const SEC={home:"home",list:"list",live:"list",det:"det",pay:"pay",notes:"notes",sum:"sum",an:"an",lk:"lk",bk:"bk",bd:"bd",sc:"sc",kg:"kg",fb:"fb",ad:"ad",kv:"kv",cmp:"cmp"};
 let hist=[],noHist=false;
 function goBack(){const h=hist.pop();noHist=true;if(h)go(h.v,h.c);else go("home");noHist=false}
 function go(v,id){if(!noHist&&v!==view){hist.push({v:view,c:cur});if(hist.length>30)hist.shift()}if(v==="home"&&!noHist)hist=[];view=v;if(id)cur=id;if(v==="list")lt="prop";if(v==="live")lt="live";
 $("dr").classList.remove("o");$("ov").style.display="none";
-["home","list","det","pay","notes","sum","an","lk","bk","bd","sc","kg","fb","ad","kv"].forEach(x=>$("v-"+x).classList.toggle("hid",x!==SEC[v]));
+["home","list","det","pay","notes","sum","an","lk","bk","bd","sc","kg","fb","ad","kv","cmp"].forEach(x=>$("v-"+x).classList.toggle("hid",x!==SEC[v]));
 $("form").classList.add("hid");
 if(v==="notes"){nIm=[];nMood="";$("n-new").value=""}
 et=null;if(v==="det"){const a=acc(cur);if(a){cy=today.getFullYear();cm=today.getMonth();sel=key(today)}}
@@ -1127,7 +1151,7 @@ function kbFix(){const a=document.activeElement;if(!(a&&/INPUT|TEXTAREA/.test(a.
 function render(){menu();
 $("nt").innerHTML=notice?`<div class="card" style="border-color:var(--g)">${notice}</div>`:"";notice="";
 if(view!=="lk")lk={m:null,pick:{},st:0};
-if(view==="home")home();else if(view==="list"||view==="live")listV();else if(view==="det")det();else if(view==="pay")payView();else if(view==="sum")sumView();else if(view==="an")anView();else if(view==="lk")lkView();else if(view==="bk")$("ttl").textContent="Yedek";else if(view==="bd")bdView();else if(view==="sc")scView();else if(view==="kg")kgView();else if(view==="fb")fbView();else if(view==="kv")kvView();else if(view==="ad")adView();else notesView()}
+if(view==="home")home();else if(view==="list"||view==="live")listV();else if(view==="det")det();else if(view==="pay")payView();else if(view==="sum")sumView();else if(view==="an")anView();else if(view==="lk")lkView();else if(view==="bk")$("ttl").textContent="Yedek";else if(view==="bd")bdView();else if(view==="sc")scView();else if(view==="kg")kgView();else if(view==="fb")fbView();else if(view==="kv")kvView();else if(view==="cmp")cmpView();else if(view==="ad")adView();else notesView()}
 $("mb").onclick=()=>{$("dr").classList.add("o");$("ov").style.display="block"};
 $("ov").onclick=()=>{$("dr").classList.remove("o");$("ov").style.display="none"};
 

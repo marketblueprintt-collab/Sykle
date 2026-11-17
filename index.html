@@ -162,6 +162,7 @@ details.kg{background:var(--card);border:1px solid var(--bd);border-radius:14px;
 <div class="row"><input id="f-dl" type="text" inputmode="numeric" placeholder="Günlük kayıp limiti ($)"><input id="f-ml" type="text" inputmode="numeric" placeholder="Maks. kayıp limiti ($)"></div>
 <input id="f-mt" type="text" inputmode="numeric" placeholder="Günlük max işlem sayısı" style="width:100%;margin-bottom:8px">
 <select id="f-cn" style="width:100%;margin-bottom:8px"></select>
+<input id="f-md" type="text" inputmode="numeric" placeholder="Minimum işlem günü (örn. 5)" style="width:100%;margin-bottom:8px">
 <div class="row"><button class="p" id="fsave">Kaydet</button><button id="fcan">Vazgeç</button></div>
 </div>
 </section>
@@ -223,7 +224,7 @@ details.kg{background:var(--card);border:1px solid var(--bd);border-radius:14px;
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
 <script>
 // Her yayında bu sürüm değişir; açık uygulamalar yeni sürümü görünce kendini yeniler.
-const APP_V="2026.11.17-9";
+const APP_V="2026.11.17-10";
 const KEY="tradeJournalV2";
 const SES=["NY Açılış","London","Asya","Seans dışı"];
 const TAGS=["FOMO","Erken çıkış","SL oynattım","Plansız","İntikam","Plana uydum"];
@@ -266,7 +267,7 @@ function auto(){const m=[];
 S.accounts.slice().forEach(a=>{
 const T=S.trades.filter(t=>t.a===a.id),net=T.reduce((x,t)=>x+t.pnl,0);
 if(a.ph==="Challenge"&&!a.passed&&!a.br&&+a.tg>0&&net>=a.tg){a.passed=true;
-S.accounts.push({id:uid(),name:a.name+" · Funded",firm:a.firm,size:a.size,tg:0,dl:a.dl,ml:a.ml,mt:a.mt,cn:a.cn||0,ph:"Funded",from:a.id});
+S.accounts.push({id:uid(),name:a.name+" · Funded",firm:a.firm,size:a.size,tg:0,dl:a.dl,ml:a.ml,mt:a.mt,cn:a.cn||0,md:a.md||0,ph:"Funded",from:a.id});
 m.push(`🎉 ${esc(a.name)} hedefini geçtin! Funded hesabın otomatik açıldı.`)}
 if(!a.br&&!a.nobr&&!a.passed&&!isDone(a)){const byDay={};T.forEach(t=>byDay[t.d]=(byDay[t.d]||0)+t.pnl);
 const dayBr=+a.dl>0&&Object.values(byDay).some(v=>v<=-a.dl),maxBr=+a.ml>0&&net<=-a.ml;
@@ -408,18 +409,22 @@ $("lsum").innerHTML=live&&A.length?kasa(A):"";
 $("alist").innerHTML=A.map(accCard).join("")||`<div class="mu" style="margin-bottom:10px">Henüz hesap yok.</div>`;
 $("newacc").textContent=live?"+ Live hesap ekle":"+ Hesap ekle";bindAcc("alist")}
 function openForm(a){editId=a?a.id:null;$("ftt").textContent=a?"Hesabı düzenle":(lt==="live"?"Yeni Live hesap":"Yeni hesap");
-$("f-ph").classList.toggle("hid",lt==="live");$("f-cn").classList.toggle("hid",lt==="live");$("f-cn").value=String(a&&+a.cn||0);
+$("f-ph").classList.toggle("hid",lt==="live");$("f-cn").classList.toggle("hid",lt==="live");$("f-md").classList.toggle("hid",lt==="live");$("f-md").value=a&&+a.md?String(a.md):"";$("f-cn").value=String(a&&+a.cn||0);
 $("f-name").value=a?a.name:"";$("f-firm").value=a?a.firm||"":"";$("f-ph").value=a&&a.ph!=="Live"?a.ph:"Challenge";
 $("f-size").value=a?th(a.size):"";$("f-tg").value=a?th(a.tg):"";$("f-dl").value=a?th(a.dl):"";$("f-ml").value=a?th(a.ml):"";$("f-mt").value=a?th(a.mt):"";
 $("form").classList.remove("hid");$("f-name").focus()}
 $("f-cn").innerHTML=`<option value="0">Consistency limiti yok</option>`+Array.from({length:20},(_,i)=>(i+1)*5).map(v=>`<option value="${v}">Consistency limiti %${v}</option>`).join("");
-["size","tg","dl","ml","mt"].forEach(k=>$("f-"+k).oninput=e=>{e.target.value=th(e.target.value.replace(/\D/g,""))});
+["size","tg","dl","ml","mt","md"].forEach(k=>$("f-"+k).oninput=e=>{e.target.value=th(e.target.value.replace(/\D/g,""))});
 $("newacc").onclick=()=>openForm();
 $("fcan").onclick=()=>$("form").classList.add("hid");
-$("fsave").onclick=()=>{const live=lt==="live",o={name:$("f-name").value.trim()||"Hesap "+(S.accounts.length+1),firm:$("f-firm").value.trim(),size:num("f-size"),tg:num("f-tg"),dl:num("f-dl"),ml:num("f-ml"),mt:num("f-mt"),cn:live?0:+$("f-cn").value||0};
+$("fsave").onclick=()=>{const live=lt==="live",o={name:$("f-name").value.trim()||"Hesap "+(S.accounts.length+1),firm:$("f-firm").value.trim(),size:num("f-size"),tg:num("f-tg"),dl:num("f-dl"),ml:num("f-ml"),mt:num("f-mt"),cn:live?0:+$("f-cn").value||0,md:live?0:Math.min(365,num("f-md"))};
 if(editId){const a=acc(editId);Object.assign(a,o);if(!live)a.ph=$("f-ph").value;const id=editId;save();go("det",id)}
 else{S.accounts.push({id:uid(),ph:live?"Live":$("f-ph").value,...o});save();go(live?"live":"list")}};
 
+// ---- minimum işlem günü: Funded'da buffer bırakılarak yapılan her çekimden sonra sayım sıfırlanır
+function mdCard(a,T,P){const N=+a.md;if(!(N>0)||a.ph==="Live")return"";
+const last=a.ph==="Funded"&&P.length?P.map(p=>p.d).sort().pop():"",days=new Set(T.filter(t=>!last||t.d>last).map(t=>t.d)).size,ok=days>=N;
+return `<div class="st"><small>Min. işlem günü</small><b class="${ok?"g":""}">${Math.min(days,N)}/${N}</b><div class="mu" style="font-size:11.5px;margin-top:2px">${ok?"Tamamlandı ✓":(N-days)+" gün kaldı"}${last?" · son çekimden beri":""}</div></div>`}
 // ---- consistency: en iyi günün kârı / toplam kâr
 function consCard(a,T){const L=+a.cn;if(!(L>0)||a.ph==="Live")return"";const D={};T.forEach(t=>D[t.d]=(D[t.d]||0)+t.pnl);
 const net=Object.values(D).reduce((x,v)=>x+v,0),best=Math.max(0,...Object.values(D)),l=L/100,box=(v,c,sub)=>`<div class="st"><small>Consistency</small><b class="${c}">${v}</b><div class="mu" style="font-size:11.5px;margin-top:2px">Limit %${L} · ${sub}</div></div>`;
@@ -450,7 +455,7 @@ if(+a.size)ex+=card("Bakiye","$"+Math.round(a.size+s.net-s.pay).toLocaleString("
 if(+a.tg)ex+=card("Hedefe kalan","$"+Math.round(Math.max(0,a.tg-s.net)).toLocaleString("tr-TR"));
 if(+a.dl)ex+=card("Bugün / günlük limit",fm(tp)+" / $"+a.dl.toLocaleString("tr-TR"),tp<0&&-tp>=a.dl*0.7?"r":"");
 if(+a.ml)ex+=card("Maks. kayba kalan","$"+Math.round(a.ml+s.net).toLocaleString("tr-TR"),a.ml+s.net<a.ml*0.3?"r":"");
-$("dstats").innerHTML=ex+statCards(s)+consCard(a,T);
+$("dstats").innerHTML=ex+statCards(s)+consCard(a,T)+mdCard(a,T,P);
 // ay takvimi
 const first=new Date(cy,cm,1),dim=new Date(cy,cm+1,0).getDate(),off=(first.getDay()+6)%7,ms=cy+"-"+pad(cm+1)+"-";
 const mp=T.filter(t=>t.d.startsWith(ms)).reduce((x,t)=>x+t.pnl,0);
@@ -760,6 +765,7 @@ $("v-kg").innerHTML=D("Başlangıç",`<ul><li>Hesaplar sayfasında "+ Hesap ekle
 D("Sayfalar",`<ul><li><b>Panel:</b> tarzını gösteren radar, en çok işlem gören semboller ve seanslar.</li><li><b>Hesaplar:</b> tüm hesapların, limitleri ve hedefe kalan tutar.</li><li><b>Ödüller:</b> çekimlerin ve 100 bin dolarlık hedef çubuğu.</li><li><b>Live:</b> gerçek hesapların ve toplam kasa.</li><li><b>Özet:</b> haftalık ve aylık sonuçlar.</li><li><b>Notlar:</b> öğrendiklerini fotoğrafla birlikte yaz.</li><li><b>İstatistik kartı:</b> Funded ya da Live bir hesabının kârlı kapanan ayını altın kart olarak paylaş. Her hesabın kartı ayrıdır, kart ay bitince oluşur. Zararlı ayda kart oluşmaz, bakiye görünmez.</li><li><b>Hesap notları:</b> tüm hesaplarının durumu, kaç hesap aldığın.</li><li><b>Görüşlerinizi bildirin:</b> öneri, hata ya da başka bir konuda bize yaz. İstersen ekran görüntüsü de ekle.</li></ul>`)+
 D("Hesap durumları",`<ul><li><b>Geçildi:</b> Challenge hesabı kâr hedefine ulaşınca üstünde "Geçildi" yazar ve aynı ayarlarla yeni bir Funded hesap otomatik açılır. Geçilen Challenge sadece görüntülenir.</li><li><b>İhlal:</b> günlük kayıp limitini ya da maksimum kayıp limitini aşan hesap (Challenge ya da Funded) otomatik "İhlal" olur ve kapanır. Challenge hedefe ulaşamadan limit aşılırsa da "İhlal" yazar. Hesap sayfasındaki "İhlal yap" ile elle de kapatabilirsin.</li><li><b>Tamamlandı:</b> Funded hesapta tüm bakiyeyi çektiysen çekimi eklerken "Tüm bakiyeyi çektim" kutusunu işaretle. Hesap kapanır ve "Tamamlandı" yazar.</li><li><b>Buffer:</b> çekim yapıp hesapta bir miktar kâr (buffer) bıraktıysan kutuyu işaretleme. Hesap kapanmaz, aynen devam eder.</li><li>İhlal ve Tamamlandı hesapları hesap sayfasındaki "Yeniden aç" ile geri açabilirsin.</li><li>Kartların köşesindeki "Demo Challenge" ve "Demo Funded" etiketleri, bu hesapların deneme amaçlı olduğunu gösterir.</li></ul>`)+
 D("Consistency (cons)",`<ul><li>Consistency, en kârlı gününün toplam kârına oranıdır. Örnek: toplam kâr $2.000, en iyi gün $800 ise oran %40.</li><li>Hesap eklerken ya da düzenlerken limiti %5'lik adımlarla seçersin (örneğin %45). Limit seçmezsen kutu görünmez.</li><li>Hesap sayfasındaki Consistency kutusunda şu anki oranın yazar. Limitin altındaysa yeşil, üstündeyse kırmızıdır.</li><li><b>"+$X kaldı":</b> bugün en fazla bu kadar daha kazanırsan oran limiti aşmaz.</li><li><b>"+$X kâr gerekli":</b> oran limitin üstündeyse, limitin altına inmek için en iyi gününü geçmeyen günlerle bu kadar daha kâr etmen gerekir.</li></ul>`)+
+D("Minimum işlem günü",`<ul><li>Hesap eklerken ya da düzenlerken "Minimum işlem günü" yazarsın (örneğin 5). Boş bırakırsan kutu görünmez.</li><li>Sadece işlem girdiğin günler sayılır. Aynı gün birden fazla işlem bir gün sayılır.</li><li>Funded hesapta buffer bırakarak çekim yaparsan sayım sıfırlanır, bir sonraki çekim için günler yeniden sayılır.</li><li>Tamamlanınca kutu yeşil olur ve "Tamamlandı ✓" yazar.</li></ul>`)+
 D("Hesaplamalar",`<ul><li><b>Winrate:</b> kazanan işlemlerin tüm işlemlere oranı. Başabaş (0) işlemler de hesaba katılır, çünkü kayıp da olabilirlerdi.</li></ul>`)+
 D("Hesap bağla",`<ul><li>Copy trade yapıyorsan aynı boyuttaki hesapları bağlayabilirsin.</li><li>Önce ana hesabı, sonra bağlanacak hesabı seçersin. Hesaplar sen onaylamadan bağlanmaz.</li><li>Ana hesaba girilen işlem, not ve fotoğraflar bağlı hesaba aynen geçer. Düzenleme ve silme de geçer.</li><li>Bağlamadan önceki işlemler aktarılmaz.</li></ul>`)+
 D("Giriş serisi ve rozetler",`<ul><li>Her gün uygulamaya girdiğinde o gün sayılır, işlem açman gerekmez.</li><li><b>İlk giriş:</b> üye olduğunda.</li><li><b>Haftalık bronz:</b> pazartesiden pazara 7 gün gir.</li><li><b>30 gün gümüş, 100 gün altın, 365 gün elmas:</b> toplam giriş günü.</li><li><b>Küçük rozetler:</b> ilk işlem, 10 işlem notu, ilk çekim, ilk Funded hesap, 100 işlem.</li><li>Günler Türkiye saatine ve sunucu saatine göre sayılır.</li></ul>`)+

@@ -597,12 +597,12 @@ const D={
 "Funded çekim şartı":["Funded payout condition","Funded-Auszahlungsbedingung","Condición de retiro Funded"],
 "{} kârlı gün (≥%{})":[(n,p)=>n+(String(n).trim()==="1"?" profitable day (≥":" profitable days (≥")+p+"%)",(n,p)=>n+(String(n).trim()==="1"?" Gewinntag (≥":" Gewinntage (≥")+p+" %)",(n,p)=>n+(String(n).trim()==="1"?" día con beneficio (≥":" días con beneficio (≥")+p+" %)"],
 "Kurallar firmanın sitesinden alındı (Kasım 2026). Firma kurallarını değiştirebilir, satın almadan önce firmanın sitesinden kontrol et.":["Rules taken from the firm's website (November 2026). The firm may change its rules, so check its website before you buy.","Regeln von der Website der Firma (November 2026). Die Firma kann ihre Regeln ändern, prüfe sie vor dem Kauf auf ihrer Website.","Reglas tomadas de la web de la empresa (noviembre de 2026). La empresa puede cambiarlas, revísalas en su web antes de comprar."],
-"FTM'de challenge mı alacaksın? <b>{}</b> koduyla indirimli al.":["Buying an FTM challenge? Get a discount with code <b>{}</b>.","Kaufst du eine FTM-Challenge? Mit dem Code <b>{}</b> bekommst du Rabatt.","¿Vas a comprar un challenge de FTM? Consigue descuento con el código <b>{}</b>."],
+"FTM'de challenge mı alacaksın? <b>{}</b> koduyla maksimum indirimle al.":["Buying an FTM challenge? Get the maximum discount with code <b>{}</b>.","Kaufst du eine FTM-Challenge? Mit dem Code <b>{}</b> bekommst du den maximalen Rabatt.","¿Vas a comprar un challenge de FTM? Consigue el máximo descuento con el código <b>{}</b>."],
 "FTM'de challenge mı alacaksın? Sykle bağlantısıyla al.":["Buying an FTM challenge? Get it through the Sykle link.","Kaufst du eine FTM-Challenge? Hol sie dir über den Sykle-Link.","¿Vas a comprar un challenge de FTM? Cómpralo con el enlace de Sykle."],
 "Affiliate bağlantısı":["Affiliate link","Affiliate-Link","Enlace de afiliado"],
 "FTM'ye git ↗":["Go to FTM ↗","Zu FTM ↗","Ir a FTM ↗"],
 "FTM hesabın yok mu?":["Don't have an FTM account?","Noch kein FTM-Konto?","¿No tienes cuenta en FTM?"],
-"<b>{}</b> koduyla FTM'den indirimli challenge alabilirsin.":["Use code <b>{}</b> for a discounted FTM challenge.","Mit dem Code <b>{}</b> bekommst du eine FTM-Challenge günstiger.","Usa el código <b>{}</b> para conseguir un challenge de FTM con descuento."],
+"<b>{}</b> koduyla FTM'den maksimum indirimle challenge alabilirsin.":["Use code <b>{}</b> to get an FTM challenge at the maximum discount.","Mit dem Code <b>{}</b> bekommst du eine FTM-Challenge mit maximalem Rabatt.","Usa el código <b>{}</b> para conseguir un challenge de FTM con el máximo descuento."],
 "Sykle bağlantısıyla FTM'den challenge alabilirsin.":["You can buy an FTM challenge through the Sykle link.","Du kannst eine FTM-Challenge über den Sykle-Link kaufen.","Puedes comprar un challenge de FTM con el enlace de Sykle."],
 "Kodu kopyala":["Copy code","Code kopieren","Copiar código"],
 "Kopyalandı ✓":["Copied ✓","Kopiert ✓","Copiado ✓"],
@@ -943,7 +943,7 @@ window.splashGo=function(){var t=window._spT;if(t)clearTimeout(t);requestAnimati
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
 <script>
 // Her yayında bu sürüm değişir; açık uygulamalar yeni sürümü görünce kendini yeniler.
-const APP_V="2026.11.18-12";
+const APP_V="2026.11.18-13";
 const KEY="tradeJournalV2";
 const SES=["NY Açılış","London","Asya","Seans dışı"];
 const TAGS=["FOMO","Erken çıkış","SL oynattım","Plansız","İntikam","Plana uydum"];
@@ -1042,8 +1042,8 @@ return m}
 // ---- FTM tanıtımı: kod ve bağlantı buradan değiştirilir
 const PROMO={url:"https://fundedtradermarkets.com/ref/syk",code:"SYK"};
 function promoBar(){let x=0;try{x=+localStorage.getItem("syklePromoX")||0}catch(e){}if(Date.now()-x<7*864e5)return"";
-return `<div class="pbar" id="pbar"><div style="flex:1;min-width:0"><span>${PROMO.code?`FTM'de challenge mı alacaksın? <b>${PROMO.code}</b> koduyla indirimli al.`:"FTM'de challenge mı alacaksın? Sykle bağlantısıyla al."}</span><small>Affiliate bağlantısı</small></div><a href="${PROMO.url}" target="_blank" rel="noopener sponsored">FTM'ye git ↗</a><button class="x" data-pxx="1" aria-label="Kapat">✕</button></div>`}
-function promoBox(){return `<div class="pbox"><b>FTM hesabın yok mu?</b><div style="margin-top:4px">${PROMO.code?`<b>${PROMO.code}</b> koduyla FTM'den indirimli challenge alabilirsin.`:"Sykle bağlantısıyla FTM'den challenge alabilirsin."}</div><div class="row">${PROMO.code?`<button class="s" data-pcp="1" style="flex:1">Kodu kopyala</button>`:""}<a class="p" href="${PROMO.url}" target="_blank" rel="noopener sponsored" style="flex:1">FTM'ye git ↗</a></div><small>Affiliate bağlantısı: Sykle bu bağlantıdan komisyon alabilir.</small></div>`}
+return `<div class="pbar" id="pbar"><div style="flex:1;min-width:0"><span>${PROMO.code?`FTM'de challenge mı alacaksın? <b>${PROMO.code}</b> koduyla maksimum indirimle al.`:"FTM'de challenge mı alacaksın? Sykle bağlantısıyla al."}</span><small>Affiliate bağlantısı</small></div><a href="${PROMO.url}" target="_blank" rel="noopener sponsored">FTM'ye git ↗</a><button class="x" data-pxx="1" aria-label="Kapat">✕</button></div>`}
+function promoBox(){return `<div class="pbox"><b>FTM hesabın yok mu?</b><div style="margin-top:4px">${PROMO.code?`<b>${PROMO.code}</b> koduyla FTM'den maksimum indirimle challenge alabilirsin.`:"Sykle bağlantısıyla FTM'den challenge alabilirsin."}</div><div class="row">${PROMO.code?`<button class="s" data-pcp="1" style="flex:1">Kodu kopyala</button>`:""}<a class="p" href="${PROMO.url}" target="_blank" rel="noopener sponsored" style="flex:1">FTM'ye git ↗</a></div><small>Affiliate bağlantısı: Sykle bu bağlantıdan komisyon alabilir.</small></div>`}
 document.addEventListener("click",e=>{const t=e.target.closest&&e.target.closest("[data-pxx],[data-pcp]");if(!t)return;
 if(t.dataset.pxx){try{localStorage.setItem("syklePromoX",String(Date.now()))}catch(e){}const b=$("pbar");if(b)b.remove();return}
 const done=()=>{t.textContent="Kopyalandı ✓";setTimeout(()=>{t.textContent="Kodu kopyala"},1800)};

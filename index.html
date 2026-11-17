@@ -224,7 +224,7 @@ details.kg{background:var(--card);border:1px solid var(--bd);border-radius:14px;
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
 <script>
 // Her yayında bu sürüm değişir; açık uygulamalar yeni sürümü görünce kendini yeniler.
-const APP_V="2026.11.17-10";
+const APP_V="2026.11.18-1";
 const KEY="tradeJournalV2";
 const SES=["NY Açılış","London","Asya","Seans dışı"];
 const TAGS=["FOMO","Erken çıkış","SL oynattım","Plansız","İntikam","Plana uydum"];
@@ -275,7 +275,8 @@ if(dayBr||maxBr){a.br=true;a.brw=maxBr?"Maksimum kayıp limiti":"Günlük kayıp
 m.push(`⛔ ${esc(a.name)} ihlal edildi (${a.brw}). Hesap kapandı, sadece görüntüleyebilirsin.`)}}});
 return m}
 function persist(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}if(user)schedPush()}
-function save(){S.ts=Date.now();const m=auto();if(m.length)notice=m.join("<br>");awardAll();persist()}
+const tomb=ids=>{S.del=S.del||{};const t=Date.now();ids.forEach(i=>{if(i)S.del[i]=t})};
+function save(){S.ts=Date.now();S.dt=1;const m=auto();if(m.length)notice=m.join("<br>");awardAll();persist()}
 
 // ---- hesaplama
 function calc(T,P){
@@ -473,7 +474,7 @@ $("dt").textContent=new Date(sel+"T00:00:00").toLocaleDateString("tr-TR",{weekda
 const L=T.filter(t=>t.d===sel),dp=L.reduce((x,t)=>x+t.pnl,0);
 $("list").innerHTML=(L.length?`<div class="mu" style="margin-bottom:4px">Günün toplamı: <b class="${cls(dp)}">${fm(dp)}</b></div>`:`<div class="mu">${new Date(sel+"T00:00:00").toLocaleDateString("tr-TR",{day:"numeric",month:"long"})} için işlem yok.</div>`)+
 L.map(t=>`<div class="tr" style="align-items:flex-start"><div style="flex:1;min-width:0"><b>${esc(t.sym)}</b><span class="tag">${t.dir}</span><span class="tag">${esc(t.ss||"")}</span>${t.src?`<span class="tag" style="background:#12322a;color:var(--g)">Bağlı</span>`:""}${(t.tag||[]).map(x=>`<span class="tag">${esc(x)}</span>`).join("")}${t.note?`<small>${esc(t.note)}</small>`:""}${thumbs(t.im)}</div><div style="text-align:right"><b class="${cls(t.pnl)}">${fm(t.pnl)}</b>${br?"":`<br><button class="s" data-ed="${t.id}">✏️ Düzenle</button> <button class="s" data-del="${t.id}">🗑 Sil</button>`}</div></div>`).join("");
-$("list").querySelectorAll("[data-del]").forEach(b=>b.onclick=()=>conf(b,()=>{S.trades=S.trades.filter(t=>t.id!==b.dataset.del);mirrorDel(b.dataset.del);save();render()}));
+$("list").querySelectorAll("[data-del]").forEach(b=>b.onclick=()=>conf(b,()=>{tomb([b.dataset.del]);S.trades=S.trades.filter(t=>t.id!==b.dataset.del);mirrorDel(b.dataset.del);save();render()}));
 $("list").querySelectorAll("[data-ed]").forEach(b=>b.onclick=()=>{const t=S.trades.find(x=>x.id===b.dataset.ed);if(!t)return;et=t.id;sg=t.pnl<0?-1:1;tg=new Set(t.tag||[]);tIm=[...(t.im||[])];
 $("sym").value=t.sym==="?"?"":t.sym;$("dir").value=t.dir;if(SES.includes(t.ss))$("ses").value=t.ss;$("pnl").value=String(Math.abs(t.pnl)).replace(".",",");$("tn").value=t.note||"";
 xr();$("entry").scrollIntoView({behavior:"smooth"})});
@@ -508,11 +509,11 @@ $("tcan").onclick=()=>{et=null;$("pnl").value="";$("tn").value="";$("sym").value
 $("dn").oninput=()=>{S.notes[cur+"|"+sel]=$("dn").value;save()};
 $("edit").onclick=()=>{const a=acc(cur);lt=a.ph==="Live"?"live":"prop";go(a.ph==="Live"?"live":"list");openForm(a)};
 $("brbtn").onclick=function(){conf(this,()=>{const a=acc(cur);a.br=true;a.nobr=false;a.brw="Elle kapatıldı";save();render()})};
-$("del").onclick=function(){conf(this,()=>{const a=acc(cur),live=a.ph==="Live";unlinkAcc(a.id);S.accounts=S.accounts.filter(x=>x.id!==a.id);S.trades=S.trades.filter(t=>t.a!==a.id);S.payouts=S.payouts.filter(p=>p.a!==a.id);save();go(live?"live":"list")})};
+$("del").onclick=function(){conf(this,()=>{const a=acc(cur),live=a.ph==="Live";unlinkAcc(a.id);tomb([a.id,...S.trades.filter(t=>t.a===a.id).map(t=>t.id),...S.payouts.filter(p=>p.a===a.id).map(p=>p.id)]);S.accounts=S.accounts.filter(x=>x.id!==a.id);S.trades=S.trades.filter(t=>t.a!==a.id);S.payouts=S.payouts.filter(p=>p.a!==a.id);save();go(live?"live":"list")})};
 
 // ---- çekimler
 const payRow=(p,nm,ro)=>`<div class="tr"><div><b class="g">$${Math.round(p.amt).toLocaleString("tr-TR")}</b> <span class="mu">${p.d}${nm?" · "+esc(nm):""}</span>${p.full?'<span class="tag" style="background:#12322a;color:var(--g)">Tüm bakiye</span>':""}</div><div>${p.url?(p.ct&&p.ct.startsWith("image")?`<img src="${p.url}" data-vw="${p.url}" style="height:44px;border-radius:6px;vertical-align:middle" alt="">`:`<a href="${p.url}" target="_blank" style="color:var(--ac)">Dekont</a>`):""} ${ro?"":`<button class="s" data-dp="${p.id}">✕</button>`}</div></div>`;
-function bindPay(id){$(id).querySelectorAll("[data-dp]").forEach(b=>b.onclick=()=>conf(b,()=>{S.payouts=S.payouts.filter(p=>p.id!==b.dataset.dp);save();render()}))}
+function bindPay(id){$(id).querySelectorAll("[data-dp]").forEach(b=>b.onclick=()=>conf(b,()=>{tomb([b.dataset.dp]);S.payouts=S.payouts.filter(p=>p.id!==b.dataset.dp);save();render()}))}
 $("addpay").onclick=async()=>{const a=acc(cur);if(!a||closed(a))return;const v=parseFloat(($("pay").value||"").replace(",","."));if(isNaN(v)||v<=0)return;
 const o={id:uid(),a:cur,d:sel,amt:v};if(a.ph==="Funded"&&$("pfull").checked)o.full=true;let err="";
 if(pendD){try{if(pendD.type&&pendD.type.startsWith("image")){o.url=await toImg(pendD)}else o.url=await rawUp(pendD);o.ct=pendD.type}catch(e){err="Dekont yüklenemedi, tutar yine de eklendi."}}
@@ -539,10 +540,10 @@ let lk={m:null,pick:{},st:0};
 const lkOf=id=>S.links.find(l=>l.m===id),lkCh=id=>S.links.find(l=>l.c.includes(id));
 function mirror(t){if(t.src)return;const l=lkOf(t.a);if(!l)return;l.c.forEach(cid=>{const c=acc(cid);if(!c||closed(c))return;if(S.trades.some(x=>x.a===cid&&x.src===t.id))return;S.trades.push({...t,id:uid(),a:cid,src:t.id,tag:[...(t.tag||[])],im:[...(t.im||[])]})})}
 function mirrorUpd(t){S.trades.filter(x=>x.src===t.id).forEach(x=>{const c=acc(x.a);if(c&&closed(c))return;Object.assign(x,{d:t.d,ss:t.ss,sym:t.sym,dir:t.dir,pnl:t.pnl,note:t.note,tag:[...(t.tag||[])],im:[...(t.im||[])]})})}
-function mirrorDel(id){S.trades=S.trades.filter(x=>x.src!==id)}
+function mirrorDel(id){tomb(S.trades.filter(x=>x.src===id).map(x=>x.id));S.trades=S.trades.filter(x=>x.src!==id)}
 function unlink(l,cid){const ids=new Set(S.trades.filter(t=>t.a===l.m).map(t=>t.id));
 S.trades.forEach(t=>{if(t.src&&ids.has(t.src)&&(!cid||t.a===cid)&&l.c.includes(t.a))delete t.src});
-if(cid){l.c=l.c.filter(x=>x!==cid);if(!l.c.length)S.links=S.links.filter(x=>x!==l)}else S.links=S.links.filter(x=>x!==l)}
+if(cid){l.c=l.c.filter(x=>x!==cid);if(!l.c.length){tomb([l.id]);S.links=S.links.filter(x=>x!==l)}}else{tomb([l.id]);S.links=S.links.filter(x=>x!==l)}}
 function unlinkAcc(id){const m=lkOf(id);if(m)unlink(m);const c=lkCh(id);if(c)unlink(c,id)}
 function lkView(){$("ttl").textContent="Hesap bağla";
 const rw=(cls2,att,txt,sub,sq)=>`<button class="lkr ${cls2}" ${att}><span class="ck ${sq?"sq":""}">${cls2.includes("s")?"✓":""}</span><span style="flex:1;min-width:0">${txt}</span><span class="mu">${sub}</span></button>`;
@@ -576,7 +577,7 @@ const L=S.nt.filter(n=>n.k===k).sort((a,b)=>b.ts-a.ts);
 $("n-l").innerHTML=L.map(n=>`<div class="card"><div class="mu" style="margin-bottom:6px">${new Date(n.ts).toLocaleDateString("tr-TR",{day:"numeric",month:"long",year:"numeric"})}</div><textarea data-n="${n.id}">${esc(n.tx||"")}</textarea>${n.im.length?`<div class="th">${n.im.map((u,i)=>`<span class="pt"><img src="${u}" data-vw="${u}" alt=""><button class="x" data-ni="${n.id}|${i}">✕</button></span>`).join("")}</div>`:""}<div style="display:flex;justify-content:space-between;margin-top:8px"><label class="lb">📷 Foto ekle<input type="file" accept="image/*" multiple data-nf="${n.id}" class="hid"></label><button class="s" data-nd="${n.id}">Sil</button></div></div>`).join("")||`<div class="mu">Henüz kayıt yok.</div>`;
 const q=s=>$("n-l").querySelectorAll(s);
 q("[data-n]").forEach(t=>t.oninput=()=>{const n=S.nt.find(x=>x.id===t.dataset.n);if(n){n.tx=t.value;save()}});
-q("[data-nd]").forEach(b=>b.onclick=()=>conf(b,()=>{S.nt=S.nt.filter(x=>x.id!==b.dataset.nd);save();notesView()}));
+q("[data-nd]").forEach(b=>b.onclick=()=>conf(b,()=>{tomb([b.dataset.nd]);S.nt=S.nt.filter(x=>x.id!==b.dataset.nd);save();notesView()}));
 q("[data-ni]").forEach(b=>b.onclick=()=>{const[id,i]=b.dataset.ni.split("|"),n=S.nt.find(x=>x.id===id);if(n){n.im.splice(+i,1);save();notesView()}});
 q("[data-nf]").forEach(inp=>inp.onchange=async()=>{const n=S.nt.find(x=>x.id===inp.dataset.nf);if(!n)return;for(const f of inp.files)n.im.push(await toImg(f));save();notesView()})}
 $("n-add").onclick=()=>{const v=$("n-new").value.trim();if(!v&&!nIm.length)return;
@@ -599,7 +600,7 @@ save();render();notice=n+" işlem aktarıldı.";$("nt").innerHTML=`<div class="c
 // ---- yedek ve hesaba senkron
 $("bk").onclick=()=>{const b=new Blob([JSON.stringify(S,null,1)],{type:"application/json"}),u=URL.createObjectURL(b),a=document.createElement("a");a.href=u;a.download="sykle-yedek.json";document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),2000)};
 $("rb").onclick=()=>$("rf").click();
-$("rf").onchange=async e=>{const f=e.target.files[0];if(!f)return;try{const d=JSON.parse(await f.text());if(!d||!Array.isArray(d.accounts))throw 0;S=d;S.ts=Date.now();norm();persist();go("home")}catch(x){alert("Bu geçerli bir Sykle yedeği değil.")}e.target.value=""};
+$("rf").onchange=async e=>{const f=e.target.files[0];if(!f)return;try{const d=JSON.parse(await f.text());if(!d||!Array.isArray(d.accounts))throw 0;S=d;S.ts=Date.now();S.dt=1;S.rs=1;norm();persist();go("home")}catch(x){alert("Bu geçerli bir Sykle yedeği değil.")}e.target.value=""};
 // ---- özet sayfası
 let sper="w",soff=0,sacc="all";
 function sumRange(o){const n=new Date(today);
@@ -842,20 +843,46 @@ let sb=null,user=null,pushT=null,syncSt="",lgMode="in",RECOV=/type=recovery/.tes
 try{sb=window.supabase.createClient(SB_URL,SB_KEY)}catch(e){}
 function setSt(t){syncSt=t;const e=$("sst");if(e)e.textContent=t}
 function schedPush(){setSt("⏳ Kaydediliyor…");clearTimeout(pushT);pushT=setTimeout(push,900)}
-async function push(){if(!sb||!user)return false;clearTimeout(pushT);
-try{const r=await sb.from("journal").upsert({user_id:user.id,data:S,updated_at:new Date(S.ts||Date.now()).toISOString()});if(r.error)throw r.error;setSt("☁️ Senkron");return true}
-catch(e){setSt("⚠️ Çevrimdışı, tekrar denenecek");pushT=setTimeout(push,15000);return false}}
+// Fotoğraflar Supabase Storage'a yüklenir, veride sadece bağlantısı kalır (eski gömülü fotoğraflar da ilk senkronda taşınır)
+const isData=u=>typeof u==="string"&&u.startsWith("data:");
+async function upImgs(){if(!sb||!user)return;const all=new Set();
+S.trades.forEach(t=>(t.im||[]).forEach(u=>isData(u)&&all.add(u)));S.nt.forEach(n=>(n.im||[]).forEach(u=>isData(u)&&all.add(u)));S.payouts.forEach(p=>isData(p.url)&&all.add(p.url));
+if(!all.size)return;const map={};
+for(const u of all){try{const b=await (await fetch(u)).blob(),ty=b.type||"image/jpeg",ext=ty.includes("pdf")?"pdf":ty.includes("png")?"png":"jpg",path=user.id+"/"+uid()+"."+ext;
+const r=await sb.storage.from("photos").upload(path,b,{contentType:ty,upsert:false});if(r.error)throw r.error;map[u]=sb.storage.from("photos").getPublicUrl(path).data.publicUrl}catch(e){}}
+if(!Object.keys(map).length)return;const f=u=>map[u]||u;
+S.trades.forEach(t=>{if(t.im)t.im=t.im.map(f)});S.nt.forEach(n=>{if(n.im)n.im=n.im.map(f)});S.payouts.forEach(p=>{if(p.url)p.url=f(p.url)});
+S.dt=1;try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+// İki cihaz: bulutta başka cihazdan gelen değişiklik varsa yerel değişikliklerle birleştirilir (silinenler geri gelmez)
+function merge(L,C){const del=Object.assign({},C.del||{},L.del||{}),R=Object.assign({},C);
+const arr=k=>{const m=new Map();(C[k]||[]).forEach(x=>{if(x&&x.id)m.set(x.id,x)});(L[k]||[]).forEach(x=>{if(x&&x.id)m.set(x.id,x)});return[...m.values()].filter(x=>!del[x.id])};
+["accounts","trades","payouts","nt","links"].forEach(k=>{R[k]=arr(k)});
+R.notes=Object.assign({},C.notes||{},L.notes||{});R.bd=Object.assign({},C.bd||{},L.bd||{});
+R.lg=[...new Set([...(C.lg||[]),...(L.lg||[])])].sort();R.nf=L.nf||C.nf||[];
+["pn","pq","tos"].forEach(k=>{if(L[k]!=null)R[k]=L[k]});
+const cut=Date.now()-60*864e5;Object.keys(del).forEach(i=>{if(del[i]<cut)delete del[i]});R.del=del;R.ts=Math.max(L.ts||0,C.ts||0);R.dt=1;return R}
+const clean=o=>{const x=Object.assign({},o);delete x.dt;delete x.rs;delete x.sv;return x};
+const sameT=(a,b)=>!!a&&!!b&&Date.parse(a)===Date.parse(b);
+let syncP=null,syncAgain=false;
+function push(){if(syncP){syncAgain=true;return syncP}syncP=(async()=>{let ok=false;try{ok=await syncOnce()}finally{syncP=null}if(syncAgain){syncAgain=false;return push()}return ok})();return syncP}
+async function syncOnce(){if(!sb||!user)return false;clearTimeout(pushT);
+try{const h=await sb.from("journal").select("updated_at").eq("user_id",user.id).maybeSingle();if(h.error)throw h.error;
+const cts=h.data?h.data.updated_at:null;
+if(cts&&S.sv==null&&S.ts&&S.ts>Date.parse(cts))S.dt=1;
+if(cts&&!S.rs&&!sameT(cts,S.sv)){const f=await sb.from("journal").select("data,updated_at").eq("user_id",user.id).single();if(f.error)throw f.error;
+const C=f.data.data||{};S=S.dt?merge(S,C):Object.assign({},C,{dt:0});S.sv=f.data.updated_at;norm();try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}const ae=document.activeElement;if(!(ae&&/INPUT|TEXTAREA|SELECT/.test(ae.tagName)))render();
+}
+await upImgs();
+if(cts&&!S.dt&&!S.rs){setSt("☁️ Senkron");return true}
+const t0=S.ts,now=new Date().toISOString(),r=await sb.from("journal").upsert({user_id:user.id,data:clean(S),updated_at:now});if(r.error)throw r.error;
+S.sv=now;S.rs=0;if(S.ts===t0)S.dt=0;try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}setSt("☁️ Senkron");return true}
+catch(e){setSt("⚠️ Çevrimdışı, tekrar denenecek");clearTimeout(pushT);pushT=setTimeout(push,15000);return false}}
 async function pull(first){if(!sb||!user)return;
-try{const r=await sb.from("journal").select("data,updated_at").eq("user_id",user.id).maybeSingle();if(r.error)throw r.error;
 let lu=null;try{lu=localStorage.getItem("sykleUid")}catch(e){}
 if(first&&lu&&lu!==user.id){S={accounts:[],trades:[],notes:{},payouts:[],nt:[]};norm()}
 try{localStorage.setItem("sykleUid",user.id)}catch(e){}
-const d=r.data,cts=d?Date.parse(d.updated_at):0,lts=S.ts||0;
-if(first&&!d&&!S.accounts.length&&!S.trades.length&&!S.nt.length&&user.app_metadata&&user.app_metadata.provider==="google")note("Bu Google hesabında kayıtlı veri yok. Daha önce e-posta ve şifreyle girip veri girdiysen çıkış yapıp o şekilde gir.");
-if(d&&cts>lts){S=d.data||{};S.ts=cts;norm();try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}render();setSt("☁️ Senkron")}
-else if((!d&&(S.accounts.length||S.trades.length||S.nt.length))||(d&&lts>cts))await push();
-else setSt("☁️ Senkron")}
-catch(e){setSt("⚠️ Çevrimdışı")}}
+await push();
+if(first&&!S.accounts.length&&!S.trades.length&&!S.nt.length&&user.app_metadata&&user.app_metadata.provider==="google"&&!(user.user_metadata||{}).setup)note("Bu Google hesabında kayıtlı veri yok. Daha önce e-posta ve şifreyle girip veri girdiysen çıkış yapıp o şekilde gir.")}
 const within=(p,ms,v)=>Promise.race([p,new Promise(r=>setTimeout(()=>r(v),ms))]);
 async function logout(){const ob=$("dr").querySelector("[data-out]");if(ob)ob.disabled=true;$("dr").classList.remove("o");$("ov").style.display="none";showSp();
 const ok=await within(push(),5000,false);

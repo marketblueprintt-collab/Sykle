@@ -223,7 +223,7 @@ details.kg{background:var(--card);border:1px solid var(--bd);border-radius:14px;
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
 <script>
 // Her yayında bu sürüm değişir; açık uygulamalar yeni sürümü görünce kendini yeniler.
-const APP_V="2026.11.17-6";
+const APP_V="2026.11.17-7";
 const KEY="tradeJournalV2";
 const SES=["NY Açılış","London","Asya","Seans dışı"];
 const TAGS=["FOMO","Erken çıkış","SL oynattım","Plansız","İntikam","Plana uydum"];
@@ -851,7 +851,7 @@ else setSt("☁️ Senkron")}
 catch(e){setSt("⚠️ Çevrimdışı")}}
 async function logout(){if(!await push()){alert("Veriler henüz buluta kaydedilemedi. İnternete bağlanınca tekrar dene.");return}
 try{await sb.auth.signOut()}catch(e){}
-user=null;isAdm=false;adD=null;S={accounts:[],trades:[],notes:{},payouts:[],nt:[]};norm();try{localStorage.removeItem(KEY);localStorage.removeItem("sykleUid")}catch(e){}
+user=null;isAdm=false;adD=null;verOk=false;S={accounts:[],trades:[],notes:{},payouts:[],nt:[]};norm();try{localStorage.removeItem(KEY);localStorage.removeItem("sykleUid")}catch(e){}
 $("dr").classList.remove("o");$("ov").style.display="none";lgMode="in";showLogin()}
 function lgMsg(t,ok){const m=$("lgm");if(m){m.textContent=t||"";m.style.color=ok?"var(--g)":"var(--r)"}}
 function showLogin(){const L=$("lg"),m=lgMode,t={in:"Giriş yap",up:"Kayıt ol",code:"Doğrula",setpw:"Hesabımı oluştur",reset:"Şifre sıfırlama bağlantısı gönder",newpw:"Yeni şifreyi kaydet"};
@@ -894,15 +894,18 @@ async function lgGo(){if(!sb){lgMsg("Bağlantı kurulamadı. Sayfayı yenile.");
 const em=($("lge")?$("lge").value:"").trim(),pw=$("lgp")?$("lgp").value:"";lgMsg("");$("lgb").disabled=true;
 try{if(lgMode==="in"){if(!em||!pw)throw{message:"valid email"};const r=await sb.auth.signInWithPassword({email:em,password:pw});if(r.error)throw r.error;enter(r.data.session)}
 else if(lgMode==="up"){if(!em)throw{message:"valid email"};if(!$("lgt")||!$("lgt").checked)throw{message:"tos"};await sendCode(em);otpEm=em;lgMode="code";showLogin();return}
-else if(lgMode==="code"){const c=($("lgc").value||"").replace(/\D/g,"");if(c.length<6)throw{message:"code"};let r=await sb.auth.verifyOtp({email:otpEm,token:c,type:"email"});if(r.error){const r2=await sb.auth.verifyOtp({email:otpEm,token:c,type:"signup"});if(!r2.error)r=r2}if(r.error)throw r.error;let ns=r.data.session;try{const u=await sb.auth.updateUser({data:{codeok:true}});if(!u.error){const g=await sb.auth.getSession();if(g.data&&g.data.session)ns=g.data.session}}catch(e){}pendSes=null;enter(ns);return}
+else if(lgMode==="code"){const c=($("lgc").value||"").replace(/\D/g,"");if(c.length<6)throw{message:"code"};let r=await sb.auth.verifyOtp({email:otpEm,token:c,type:"email"});if(r.error){const r2=await sb.auth.verifyOtp({email:otpEm,token:c,type:"signup"});if(!r2.error)r=r2}if(r.error)throw r.error;try{const mv=await sb.rpc("mark_verified");verOk=!!(mv&&mv.data===true)}catch(e){}pendSes=null;enter(r.data.session);return}
 else if(lgMode==="setpw"){const nm=($("lgn").value||"").trim(),p2=$("lgp2").value;if(nm.length<2)throw{message:"name"};if(pw.length<6)throw{message:"at least 6"};if(pw!==p2)throw{message:"mismatch"};
-const r=await sb.auth.updateUser({password:pw,data:{name:nm,needpw:false,tos:true,codeok:true}});if(r.error)throw r.error;const s2=pendSes;pendSes=null;history.replaceState(null,"",location.pathname);const g=await sb.auth.getSession();enter((g.data&&g.data.session)||s2);return}
+const r=await sb.auth.updateUser({password:pw,data:{name:nm,needpw:false,tos:true}});if(r.error)throw r.error;const s2=pendSes;pendSes=null;history.replaceState(null,"",location.pathname);const g=await sb.auth.getSession();enter((g.data&&g.data.session)||s2);return}
 else if(lgMode==="reset"){if(!em)throw{message:"valid email"};const r=await sb.auth.resetPasswordForEmail(em,{redirectTo:location.origin+location.pathname});if(r.error)throw r.error;lgMsg("Sıfırlama bağlantısı e-postana gönderildi.",1)}
 else{if(pw.length<6)throw{message:"at least 6"};if($("lgp2")&&pw!==$("lgp2").value)throw{message:"mismatch"};const r=await sb.auth.updateUser({password:pw});if(r.error)throw r.error;RECOV=false;history.replaceState(null,"",location.pathname);const g=await sb.auth.getSession();enter(g.data.session)}}
 catch(e){lgMsg(trErr(e));if(String(e&&e.message||"").toLowerCase().includes("not confirmed")&&em)lgResend(em)}
 if($("lgb"))$("lgb").disabled=false}
 // tek kullanımlık kod ile kayıt
 let otpEm="",pendSes=null;
+let verOk=false,verBusy=false;
+// Google ile giren, e-posta kodunu girmeden uygulamaya giremez; doğrulama sunucuda tutulur (verified tablosu)
+function gate(ses){pendSes=ses;otpEm=ses.user.email||"";hideSp();if(lgMode==="code"&&!$("lg").classList.contains("hid"))return;lgMode="code";showLogin();if(codeSent!==otpEm)sendCode(otpEm,true).catch(e=>lgMsg(trErr(e)))}
 let codeSent="",LINKOK=/type=(magiclink|signup|invite)/.test(location.hash);
 async function sendCode(em,existing){const r=await sb.auth.signInWithOtp({email:em,options:existing?{shouldCreateUser:false,emailRedirectTo:location.origin+location.pathname}:{shouldCreateUser:true,data:{needpw:true,tos:true},emailRedirectTo:location.origin+location.pathname}});if(r.error)throw r.error;codeSent=em}
 // onay e-postasını tekrar gönder
@@ -917,10 +920,8 @@ document.body.appendChild(d);
 $("ans").onclick=()=>{const v=$("ani").value.trim();if(!v){$("ani").focus();return}S.pn=v;save();d.remove();render()};
 $("anx").onclick=()=>{S.pq=1;save();d.remove()}}
 function enter(ses){if(!ses)return;const md=(ses.user&&ses.user.user_metadata)||{},pv=(ses.user&&ses.user.app_metadata&&ses.user.app_metadata.provider)||"";
-if(pv==="google"&&!md.codeok&&!md.needpw){
-if(LINKOK){LINKOK=false;sb.auth.updateUser({data:{codeok:true}}).then(()=>sb.auth.getSession()).then(g=>enter((g.data&&g.data.session)||ses)).catch(()=>{});return}
-pendSes=ses;otpEm=ses.user.email||"";hideSp();if(lgMode==="code"&&!$("lg").classList.contains("hid"))return;
-lgMode="code";showLogin();if(codeSent!==otpEm)sendCode(otpEm,true).catch(e=>lgMsg(trErr(e)));return}
+if(pv==="google"&&!verOk){pendSes=ses;if(verBusy)return;verBusy=true;
+sb.rpc(LINKOK?"mark_verified":"am_verified").then(r=>{LINKOK=false;verBusy=false;if(r&&r.data===true){verOk=true;pendSes=null;enter(ses)}else gate(ses)}).catch(()=>{verBusy=false;gate(ses)});return}
 if(md.needpw){pendSes=ses;hideSp();if(lgMode!=="setpw"||$("lg").classList.contains("hid")){lgMode="setpw";showLogin()}return}
 const nu=!user;user=ses.user;hideLogin();render();
 if(nu){showSp();const to=setTimeout(hideSp,5000);pull(true).finally(async()=>{clearTimeout(to);hideSp();render();if(await chkRole())return;

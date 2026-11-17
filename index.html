@@ -228,7 +228,7 @@ details.kg{background:var(--card);border:1px solid var(--bd);border-radius:14px;
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
 <script>
 // Her yayında bu sürüm değişir; açık uygulamalar yeni sürümü görünce kendini yeniler.
-const APP_V="2026.11.18-5";
+const APP_V="2026.11.18-6";
 const KEY="tradeJournalV2";
 const SES=["NY Açılış","London","Asya","Seans dışı"];
 const TAGS=["FOMO","Erken çıkış","SL oynattım","Plansız","İntikam","Plana uydum"];
@@ -1012,6 +1012,11 @@ if(tried===v||busy()){if($("upb"))return;const d=document.createElement("div");d
 applyVer(v)}catch(e){}}
 document.addEventListener("visibilitychange",()=>{if(!document.hidden)verCheck()});
 setTimeout(verCheck,4000);setInterval(verCheck,30*60000);
+// iPhone uygulamayı kapatıp hemen açınca sayfayı yeniden yüklemeden eski haliyle geri getirebiliyor; açılış animasyonu yine oynasın
+function replaySplash(){const sp=$("sp");if(!sp)return;[sp,...sp.children].forEach(e=>{e.style.animation="none";void e.offsetWidth;e.style.animation=""})}
+let hidAt=0;
+document.addEventListener("visibilitychange",()=>{if(document.hidden)hidAt=Date.now();else if(hidAt&&Date.now()-hidAt>2000)replaySplash()});
+window.addEventListener("pageshow",e=>{if(e.persisted)replaySplash()});
 boot();
 $("sallb").onclick=()=>{$("sall").classList.toggle("hid");sallR()};
 $("sym").addEventListener("input",()=>{$("sall").classList.remove("hid");sallR()});

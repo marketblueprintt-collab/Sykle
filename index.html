@@ -2,6 +2,652 @@
 <html lang="tr">
 <head>
 <meta charset="utf-8">
+<script>
+/* arayüz: [English, Deutsch, Español] */
+(function(){
+const one=n=>/^[+−-]?1$/.test(String(n).trim());
+const D={
+/* menü ve sayfalar */
+"Menü":["Menu","Menü","Menú"],
+"Geri dön":["Go back","Zurück","Volver"],
+"Kapat":["Close","Schließen","Cerrar"],
+"Panel":["Dashboard","Dashboard","Panel"],
+"Hesaplar":["Accounts","Konten","Cuentas"],
+"Ödüller":["Rewards","Belohnungen","Recompensas"],
+"Live":["Live","Live","Live"],
+"Hesap bağla":["Link accounts","Konten verknüpfen","Vincular cuentas"],
+"Günlük":["Journal","Journal","Diario"],
+"Özet":["Summary","Übersicht","Resumen"],
+"Notlar":["Notes","Notizen","Notas"],
+"Hesap notları":["Account history","Kontenhistorie","Historial de cuentas"],
+"Rozetler":["Badges","Abzeichen","Insignias"],
+"Rozetlerim":["My badges","Meine Abzeichen","Mis insignias"],
+"İstatistik kartı":["Stats card","Statistikkarte","Tarjeta de estadísticas"],
+"Diğer":["Other","Sonstiges","Otros"],
+"Yedek":["Backup","Backup","Copia de seguridad"],
+"Görüşlerinizi bildirin":["Send feedback","Feedback senden","Enviar comentarios"],
+"Kullanım kılavuzu":["User guide","Anleitung","Guía de uso"],
+"Gizlilik ve KVKK":["Privacy & KVKK","Datenschutz & KVKK","Privacidad y KVKK"],
+"Dil":["Language","Sprache","Idioma"],
+"Yönetim":["Admin","Verwaltung","Administración"],
+"Yönetici paneli":["Admin panel","Admin-Bereich","Panel de administración"],
+"Hesabım":["My account","Mein Konto","Mi cuenta"],
+"Çıkış yap":["Log out","Abmelden","Cerrar sesión"],
+"Bildirimler":["Notifications","Benachrichtigungen","Notificaciones"],
+"Temizle":["Clear","Leeren","Borrar"],
+"Henüz bildirim yok.":["No notifications yet.","Noch keine Benachrichtigungen.","Aún no hay notificaciones."],
+"Yeni rozet kazandın: {}":["New badge earned: {}","Neues Abzeichen verdient: {}","Nueva insignia conseguida: {}"],
+"Yükleniyor…":["Loading…","Wird geladen…","Cargando…"],
+"⏳ Kaydediliyor…":["⏳ Saving…","⏳ Wird gespeichert…","⏳ Guardando…"],
+"☁️ Senkron":["☁️ Synced","☁️ Synchronisiert","☁️ Sincronizado"],
+"⚠️ Çevrimdışı, tekrar denenecek":["⚠️ Offline, will retry","⚠️ Offline, neuer Versuch folgt","⚠️ Sin conexión, se reintentará"],
+"Sykle'nin yeni sürümü hazır.":["A new version of Sykle is ready.","Eine neue Version von Sykle ist bereit.","Hay una nueva versión de Sykle lista."],
+"Şimdi güncelle":["Update now","Jetzt aktualisieren","Actualizar ahora"],
+"Tamam":["OK","OK","Aceptar"],
+"Emin misin?":["Are you sure?","Bist du sicher?","¿Seguro?"],
+"Sil":["Delete","Löschen","Eliminar"],
+"🗑 Sil":["🗑 Delete","🗑 Löschen","🗑 Eliminar"],
+"Düzenle":["Edit","Bearbeiten","Editar"],
+"✏️ Düzenle":["✏️ Edit","✏️ Bearbeiten","✏️ Editar"],
+"Kaydet":["Save","Speichern","Guardar"],
+"Vazgeç":["Cancel","Abbrechen","Cancelar"],
+"Onayla":["Confirm","Bestätigen","Confirmar"],
+"Tekrar dene":["Try again","Erneut versuchen","Reintentar"],
+"Yenile":["Refresh","Aktualisieren","Actualizar"],
+"Paylaş":["Share","Teilen","Compartir"],
+"Bugün":["Today","Heute","Hoy"],
+"Önceki ay":["Previous month","Vorheriger Monat","Mes anterior"],
+"Sonraki ay":["Next month","Nächster Monat","Mes siguiente"],
+"Gün":["Day","Tag","Día"],
+"Veri yok":["No data","Keine Daten","Sin datos"],
+"isteğe bağlı":["optional","optional","opcional"],
+"sınırsız":["unlimited","unbegrenzt","ilimitado"],
+"henüz kâr yok":["no profit yet","noch kein Gewinn","aún sin ganancias"],
+/* panel */
+"Hoş geldin":["Welcome","Willkommen","Bienvenido"],
+"Hoş geldin, {}":["Welcome, {}","Willkommen, {}","Hola, {}"],
+"Tarz":["Style","Stil","Estilo"],
+"Tarz grafiği":["Style chart","Stil-Diagramm","Gráfico de estilo"],
+"Risk/Kazanç":["Risk/Reward","Risiko/Ertrag","Riesgo/Beneficio"],
+"Risk / kazanç":["Risk / reward","Risiko / Ertrag","Riesgo / beneficio"],
+"Ort. kazanç":["Avg. win","Ø Gewinn","Ganancia media"],
+"Ortalama kazanç":["Average win","Durchschnittsgewinn","Ganancia media"],
+"Çekim":["Payout","Auszahlung","Retiro"],
+"Winrate":["Win rate","Trefferquote","Tasa de acierto"],
+"Winrate:":["Win rate:","Trefferquote:","Tasa de acierto:"],
+"Profit F.":["Profit F.","Profitfaktor","Factor B."],
+"Profit factor":["Profit factor","Profitfaktor","Factor de beneficio"],
+"Tutarlılık":["Consistency","Konstanz","Regularidad"],
+"Disiplin":["Discipline","Disziplin","Disciplina"],
+"Net K/Z":["Net P/L","Netto G/V","G/P neto"],
+"Net":["Net","Netto","Neto"],
+"İşlem sayısı":["Trades","Anzahl Trades","Operaciones"],
+"Kazanma oranı":["Win rate","Trefferquote","Tasa de acierto"],
+"Toplam çekim":["Total payouts","Auszahlungen gesamt","Retiros totales"],
+"Toplam çekilen":["Total paid out","Insgesamt ausgezahlt","Total retirado"],
+"En çok işlem gören semboller":["Most traded symbols","Meistgehandelte Symbole","Símbolos más operados"],
+"Seanslar":["Sessions","Sessions","Sesiones"],
+"Seans":["Session","Session","Sesión"],
+"Piyasa saatleri":["Market hours","Marktzeiten","Horario de mercado"],
+"AÇIK":["OPEN","OFFEN","ABIERTO"],
+"KAPALI":["CLOSED","ZU","CERRADO"],
+"Tokyo":["Tokyo","Tokio","Tokio"],
+"Türkiye":["Türkiye","Türkei","Turquía"],
+"{} UTC · {} Türkiye":["{} UTC · {} Türkiye","{} UTC · {} Türkei","{} UTC · {} Turquía"],
+"NY Açılış":["NY Open","NY Open","Apertura NY"],
+"Asya":["Asia","Asien","Asia"],
+"Seans dışı":["Off-session","Außerhalb der Sessions","Fuera de sesión"],
+"Belirtilmemiş":["Unspecified","Nicht angegeben","Sin especificar"],
+"{} işlem · %{}":[(a,b)=>a+(one(a)?" trade":" trades")+" · "+b+"%",(a,b)=>a+(one(a)?" Trade":" Trades")+" · "+b+" %",(a,b)=>a+(one(a)?" operación":" operaciones")+" · "+b+" %"],
+"{} kazanç / {} işlem · %{}":[(w,n,p)=>w+(one(w)?" win":" wins")+" / "+n+(one(n)?" trade":" trades")+" · "+p+"%",(w,n,p)=>w+(one(w)?" Gewinn":" Gewinne")+" / "+n+(one(n)?" Trade":" Trades")+" · "+p+" %",(w,n,p)=>w+(one(w)?" ganadora":" ganadoras")+" / "+n+(one(n)?" operación":" operaciones")+" · "+p+" %"],
+"Henüz işlem yok":["No trades yet","Noch keine Trades","Aún no hay operaciones"],
+"Henüz işlem yok.":["No trades yet.","Noch keine Trades.","Aún no hay operaciones."],
+/* hesaplar */
+"+ Hesap ekle":["+ Add account","+ Konto hinzufügen","+ Añadir cuenta"],
+"+ Live hesap ekle":["+ Add live account","+ Live-Konto hinzufügen","+ Añadir cuenta live"],
+"Henüz hesap yok.":["No accounts yet.","Noch keine Konten.","Aún no hay cuentas."],
+"Yeni hesap":["New account","Neues Konto","Nueva cuenta"],
+"Yeni Live hesap":["New live account","Neues Live-Konto","Nueva cuenta live"],
+"Hesabı düzenle":["Edit account","Konto bearbeiten","Editar cuenta"],
+"Hesap":["Account","Konto","Cuenta"],
+"Hesap adı (örn. 1. Hesap)":["Account name (e.g. Account 1)","Kontoname (z. B. Konto 1)","Nombre de la cuenta (p. ej. Cuenta 1)"],
+"Prop firma / broker":["Prop firm / broker","Prop-Firma / Broker","Prop firm / bróker"],
+"Hesap büyüklüğü ($)":["Account size ($)","Kontogröße ($)","Tamaño cuenta ($)"],
+"Kâr hedefi ($)":["Profit target ($)","Gewinnziel ($)","Objetivo ($)"],
+"Günlük kayıp limiti ($)":["Daily loss limit ($)","Tagesverlust ($)","Pérdida diaria ($)"],
+"Maks. kayıp limiti ($)":["Max. loss limit ($)","Max. Verlust ($)","Pérdida máx. ($)"],
+"Günlük max işlem sayısı":["Max. trades per day","Max. Trades pro Tag","Máx. operaciones por día"],
+"Min. işlem günü (örn. 5)":["Min. days (e.g. 5)","Min. Tage (z. B. 5)","Días mín. (p. ej. 5)"],
+"Günlük min. kâr % (0,5)":["Daily min. % (0.5)","Tagesmin. % (0,5)","% mín. diario (0,5)"],
+"Consistency limiti yok":["No consistency limit","Kein Konsistenzlimit","Sin límite de consistencia"],
+"Consistency limiti %{}":["Consistency limit {}%","Konsistenzlimit {} %","Límite de consistencia {} %"],
+"Bakiye":["Balance","Kontostand","Saldo"],
+"Demo Challenge":["Demo Challenge","Demo-Challenge","Challenge demo"],
+"Demo Funded":["Demo Funded","Demo-Funded","Funded demo"],
+"Geçildi":["Passed","Bestanden","Superada"],
+"Tamamlandı":["Completed","Abgeschlossen","Completada"],
+"İhlal":["Breached","Verstoß","Infringida"],
+"Çekim yaptı · {} ({} kez)":[(a,n)=>"Paid out · "+a+" ("+n+(one(n)?" time)":" times)"),(a,n)=>"Ausgezahlt · "+a+" ("+n+"×)",(a,n)=>"Retirado · "+a+" ("+n+(one(n)?" vez)":" veces)")],
+"Toplam kasa":["Total capital","Gesamtkapital","Capital total"],
+"Net K/Z {} · Çekim {}":["Net P/L {} · Payout {}","Netto G/V {} · Auszahlung {}","G/P neto {} · Retiro {}"],
+"Hedefe kalan":["Left to target","Bis zum Ziel","Falta para el objetivo"],
+"Maks. kayba kalan":["Left to max. loss","Bis zum Max.-Verlust","Margen hasta pérdida máx."],
+"Bugün / günlük limit":["Today / daily limit","Heute / Tageslimit","Hoy / límite diario"],
+"Trade yapılan gün":["Trading days","Handelstage","Días operados"],
+"({}K / {}Z)":["({}W / {}L)","({}G / {}V)","({}G / {}P)"],
+"Ort. kazanç (işlem)":["Avg. win (trade)","Ø Gewinn (Trade)","Ganancia media (op.)"],
+"Ort. kayıp (işlem)":["Avg. loss (trade)","Ø Verlust (Trade)","Pérdida media (op.)"],
+"Günlük ort. K/Z":["Avg. daily P/L","Ø Tages-G/V","G/P diario medio"],
+"Consistency":["Consistency","Konsistenz","Consistencia"],
+"Consistency (cons)":["Consistency (cons)","Konsistenz (Cons)","Consistencia (cons)"],
+"Limit %{} · {} kaldı":["Limit {}% · {} left","Limit {} % · noch {}","Límite {} % · quedan {}"],
+"Limit %{} · {} kâr gerekli":["Limit {}% · {} profit needed","Limit {} % · {} Gewinn nötig","Límite {} % · faltan {} de beneficio"],
+"{} kaldı":["{} left","noch {}","quedan {}"],
+"{} kâr gerekli":["{} profit needed","{} Gewinn nötig","faltan {} de beneficio"],
+"Minimum işlem günü":["Minimum trading days","Mindest-Handelstage","Días mínimos de trading"],
+"Min. işlem günü":["Min. trading days","Min. Handelstage","Días mín. de trading"],
+"Kârlı gün (≥%{})":["Profitable days (≥{}%)","Gewinntage (≥{} %)","Días con beneficio (≥{} %)"],
+"Tamamlandı ✓":["Completed ✓","Abgeschlossen ✓","Completado ✓"],
+"{} gün kaldı":[n=>n+(one(n)?" day left":" days left"),n=>"noch "+n+(one(n)?" Tag":" Tage"),n=>(one(n)?"queda ":"quedan ")+n+(one(n)?" día":" días")],
+"{} gün kaldı · son çekimden beri":[n=>n+(one(n)?" day left":" days left")+" · since last payout",n=>"noch "+n+(one(n)?" Tag":" Tage")+" · seit der letzten Auszahlung",n=>(one(n)?"queda ":"quedan ")+n+(one(n)?" día":" días")+" · desde el último retiro"],
+"Günlük zarar limiti":["Daily loss limit","Tägliches Verlustlimit","Límite de pérdida diaria"],
+"Maksimum zarar limiti":["Maximum loss limit","Maximales Verlustlimit","Límite de pérdida máxima"],
+"Kâr hedefi":["Profit target","Gewinnziel","Objetivo de beneficio"],
+"Kâr hedefi {}":["Profit target {}","Gewinnziel {}","Objetivo de beneficio {}"],
+"Hedef geçildi":["Target reached","Ziel erreicht","Objetivo alcanzado"],
+"Günlük kayıp limiti":["Daily loss limit","Tägliches Verlustlimit","Límite de pérdida diaria"],
+"Maksimum kayıp limiti":["Maximum loss limit","Maximales Verlustlimit","Límite de pérdida máxima"],
+"Başlangıç":["Starting balance","Startkapital","Saldo inicial"],
+"CSV içe aktar":["Import CSV","CSV importieren","Importar CSV"],
+"İhlal yap":["Mark as breached","Als Verstoß markieren","Marcar como infringida"],
+"Hesabı sil":["Delete account","Konto löschen","Eliminar cuenta"],
+"Yeniden aç":["Reopen","Wieder öffnen","Reabrir"],
+"Hesap ihlal edildi":["Account breached","Konto mit Regelverstoß","Cuenta infringida"],
+"· {}. Sadece görüntüleme açık.":["· {}. View only.","· {}. Nur noch ansehen möglich.","· {}. Solo lectura."],
+". Sadece görüntüleme açık.":[". View only.",". Nur noch ansehen möglich.",". Solo lectura."],
+"Challenge geçildi.":["Challenge passed.","Challenge bestanden.","Challenge superado."],
+"Kâr hedefine ulaştın, Funded hesabın açıldı. Bu hesap artık sadece görüntülenir.":["You reached the profit target and your Funded account has been opened. This account is now view only.","Du hast das Gewinnziel erreicht, dein Funded-Konto wurde eröffnet. Dieses Konto kann jetzt nur noch angesehen werden.","Alcanzaste el objetivo de beneficio y se abrió tu cuenta Funded. Esta cuenta ahora es solo de lectura."],
+"Hesap tamamlandı.":["Account completed.","Konto abgeschlossen.","Cuenta completada."],
+"Tüm bakiye çekildi, hesap kapandı. Sadece görüntüleme açık.":["The full balance was paid out and the account is closed. View only.","Der gesamte Kontostand wurde ausgezahlt, das Konto ist geschlossen. Nur noch ansehen möglich.","Se retiró todo el saldo y la cuenta está cerrada. Solo lectura."],
+"Elle kapatıldı":["Closed manually","Manuell geschlossen","Cerrada manualmente"],
+"⚠️ Bugün {} işlem açtın (limit {}). Bugünlük dur.":[(a,b)=>"⚠️ You opened "+a+(one(a)?" trade":" trades")+" today (limit "+b+"). Stop for today.",(a,b)=>"⚠️ Du hast heute "+a+(one(a)?" Trade":" Trades")+" eröffnet (Limit "+b+"). Für heute ist Schluss.",(a,b)=>"⚠️ Hoy abriste "+a+(one(a)?" operación":" operaciones")+" (límite "+b+"). Para por hoy."],
+"⚠️ Günlük işlem limitine yaklaştın ({}/{}).":["⚠️ You're close to your daily trade limit ({}/{}).","⚠️ Du bist nah an deinem Tageslimit für Trades ({}/{}).","⚠️ Estás cerca de tu límite diario de operaciones ({}/{})."],
+"🛑 Günlük kayıp limitinin %{}’ine geldin.":["🛑 You've reached {}% of your daily loss limit.","🛑 Du hast {} % deines täglichen Verlustlimits erreicht.","🛑 Llegaste al {} % de tu límite de pérdida diaria."],
+"🎉 {} hedefini geçtin! Funded hesabın otomatik açıldı.":["🎉 You passed {}! Your Funded account was opened automatically.","🎉 Du hast {} bestanden! Dein Funded-Konto wurde automatisch eröffnet.","🎉 ¡Superaste {}! Tu cuenta Funded se abrió automáticamente."],
+"⛔ {} ihlal edildi ({}). Hesap kapandı, sadece görüntüleyebilirsin.":["⛔ {} was breached ({}). The account is closed and view only.","⛔ {} hat gegen eine Regel verstoßen ({}). Das Konto ist geschlossen und kann nur noch angesehen werden.","⛔ {} fue infringida ({}). La cuenta está cerrada y es solo de lectura."],
+"✓ {} tamamlandı. Tüm bakiyeyi çektin, hesap kapandı.":["✓ {} completed. You paid out the full balance and the account is closed.","✓ {} abgeschlossen. Du hast den gesamten Kontostand ausgezahlt, das Konto ist geschlossen.","✓ {} completada. Retiraste todo el saldo y la cuenta está cerrada."],
+"{} işlem aktarıldı.":[n=>n+(one(n)?" trade imported.":" trades imported."),n=>n+(one(n)?" Trade importiert.":" Trades importiert."),n=>n+(one(n)?" operación importada.":" operaciones importadas.")],
+/* takvim ve işlem girişi */
+"Ay net:":["Month net:","Monat netto:","Neto del mes:"],
+"Günün toplamı:":["Day total:","Tagessumme:","Total del día:"],
+"{} için işlem yok.":["No trades on {}.","Keine Trades am {}.","No hay operaciones el {}."],
+"Tüm pariteler ▾":["All pairs ▾","Alle Symbole ▾","Todos los pares ▾"],
+"Parite (US100, XAUUSD…)":["Pair (US100, XAUUSD…)","Symbol (US100, XAUUSD…)","Par (US100, XAUUSD…)"],
+"Forex":["Forex","Forex","Forex"],
+"Metal ve enerji":["Metals & energy","Metalle & Energie","Metales y energía"],
+"Endeks":["Indices","Indizes","Índices"],
+"Kripto":["Crypto","Krypto","Cripto"],
+"Listede yok. Yazdığın parite aynen kaydedilir.":["Not in the list. The pair you type will be saved as is.","Nicht in der Liste. Das eingegebene Symbol wird so gespeichert.","No está en la lista. El par que escribas se guardará tal cual."],
+"Kâr +":["Profit +","Gewinn +","Ganancia +"],
+"Zarar −":["Loss −","Verlust −","Pérdida −"],
+"Tutar ($)":["Amount ($)","Betrag ($)","Importe ($)"],
+"FOMO":["FOMO","FOMO","FOMO"],
+"Erken çıkış":["Early exit","Früher Ausstieg","Salida anticipada"],
+"SL oynattım":["Moved SL","SL verschoben","Moví el SL"],
+"Plansız":["Unplanned","Ohne Plan","Sin plan"],
+"İntikam":["Revenge","Revenge","Venganza"],
+"Plana uydum":["Followed plan","Plan befolgt","Seguí el plan"],
+"İşlem notu (opsiyonel)":["Trade note (optional)","Trade-Notiz (optional)","Nota de la operación (opcional)"],
+"📷 Galeriden seç":["📷 From gallery","📷 Aus Galerie","📷 Desde la galería"],
+"📋 Yapıştır":["📋 Paste","📋 Einfügen","📋 Pegar"],
+"İşlemi ekle":["Add trade","Trade hinzufügen","Añadir operación"],
+"Değişikliği kaydet":["Save changes","Änderungen speichern","Guardar cambios"],
+"Düzenlemeyi iptal et":["Cancel editing","Bearbeitung abbrechen","Cancelar edición"],
+"Günün notu":["Note of the day","Notiz des Tages","Nota del día"],
+"Bugün nasıl geçti? Duygular, hatalar, dersler…":["How did today go? Emotions, mistakes, lessons…","Wie lief es heute? Gefühle, Fehler, Lektionen…","¿Cómo te fue hoy? Emociones, errores, lecciones…"],
+"Çekimler (payout)":["Payouts","Auszahlungen","Retiros (payouts)"],
+"Çektiğim tutar ($)":["Amount paid out ($)","Ausgezahlter Betrag ($)","Importe retirado ($)"],
+"Çekim ekle":["Add payout","Auszahlung hinzufügen","Añadir retiro"],
+"📷 Dekont seç":["📷 Choose receipt","📷 Beleg wählen","📷 Elegir comprobante"],
+"Dekont: dosya seç ya da ekran görüntüsünü yapıştır.":["Receipt: choose a file or paste a screenshot.","Beleg: Datei wählen oder Screenshot einfügen.","Comprobante: elige un archivo o pega una captura."],
+"Dekont hazır: {}":["Receipt ready: {}","Beleg bereit: {}","Comprobante listo: {}"],
+"yapıştırılan görsel":["pasted image","eingefügtes Bild","imagen pegada"],
+"Dekont yüklenemedi, tutar yine de eklendi.":["The receipt couldn't be uploaded, but the amount was added.","Der Beleg konnte nicht hochgeladen werden, der Betrag wurde trotzdem hinzugefügt.","No se pudo subir el comprobante, pero el importe se añadió."],
+"Tüm bakiyeyi çektim":["I paid out the full balance","Ich habe den gesamten Kontostand ausgezahlt","Retiré todo el saldo"],
+"Hesap kapanır ve \"Tamamlandı\" yazar. Buffer bıraktıysan işaretleme, hesap devam eder.":["The account closes and shows \"Completed\". If you left a buffer, don't tick this and the account stays open.","Das Konto wird geschlossen und zeigt \"Abgeschlossen\". Wenn du einen Buffer stehen lässt, nicht ankreuzen, das Konto läuft weiter.","La cuenta se cierra y muestra \"Completada\". Si dejaste un buffer, no lo marques y la cuenta sigue abierta."],
+"Henüz çekim yok.":["No payouts yet.","Noch keine Auszahlungen.","Aún no hay retiros."],
+"Tüm bakiye":["Full balance","Gesamter Kontostand","Saldo total"],
+"Analiz (tüm işlemler)":["Analysis (all trades)","Analyse (alle Trades)","Análisis (todas las operaciones)"],
+"Yön":["Direction","Richtung","Dirección"],
+"Parite":["Pair","Symbol","Par"],
+"Hata etiketleri":["Mistake tags","Fehler-Tags","Etiquetas de error"],
+"Etiketler":["Tags","Tags","Etiquetas"],
+"Pariteler":["Pairs","Symbole","Pares"],
+"Hesaplamalar":["Calculations","Berechnungen","Cálculos"],
+/* ödüller */
+"Hedef {} · $100.000":["Target {} · $100,000","Ziel {} · $100.000","Objetivo {} · $100.000"],
+"ÇEKİLEN":["PAID OUT","AUSGEZAHLT","RETIRADO"],
+"KALAN":["REMAINING","VERBLEIBEND","RESTANTE"],
+"Geçmiş ödüller":["Payout history","Bisherige Auszahlungen","Historial de retiros"],
+"Çekim eklemek için ilgili hesabın sayfasını aç.":["To add a payout, open that account's page.","Um eine Auszahlung hinzuzufügen, öffne die Seite des Kontos.","Para añadir un retiro, abre la página de esa cuenta."],
+"Tamamlanan hedef":["Targets completed","Erreichte Ziele","Objetivos completados"],
+"Tamamlanan ödül":["Payouts completed","Abgeschlossene Auszahlungen","Retiros completados"],
+"Ortalama ödül":["Average payout","Durchschnittliche Auszahlung","Retiro medio"],
+/* özet */
+"Haftalık":["Weekly","Wöchentlich","Semanal"],
+"Aylık":["Monthly","Monatlich","Mensual"],
+"Tüm hesaplar":["All accounts","Alle Konten","Todas las cuentas"],
+"Bu dönemde işlem yok.":["No trades in this period.","Keine Trades in diesem Zeitraum.","No hay operaciones en este periodo."],
+"Önceki haftada işlem yok.":["No trades in the previous week.","Keine Trades in der Vorwoche.","No hubo operaciones la semana anterior."],
+"Önceki ayda işlem yok.":["No trades in the previous month.","Keine Trades im Vormonat.","No hubo operaciones el mes anterior."],
+"Karşılaştırma":["Comparison","Vergleich","Comparación"],
+"önceki haftaya göre":["vs. previous week","ggü. Vorwoche","frente a la semana anterior"],
+"önceki aya göre":["vs. previous month","ggü. Vormonat","frente al mes anterior"],
+"· Winrate {} →":["· Win rate {} →","· Trefferquote {} →","· Tasa de acierto {} →"],
+"Günlük sonuçlar":["Daily results","Tagesergebnisse","Resultados diarios"],
+"En iyi / en kötü gün":["Best / worst day","Bester / schlechtester Tag","Mejor / peor día"],
+"En iyi: {}":["Best: {}","Bester: {}","Mejor: {}"],
+"En kötü: {}":["Worst: {}","Schlechtester: {}","Peor: {}"],
+"Genel bakış":["Overview","Überblick","Resumen general"],
+/* notlar */
+"Yeni not… (öğrendiklerin, fikirlerin, örnekler)":["New note… (lessons, ideas, examples)","Neue Notiz… (Erkenntnisse, Ideen, Beispiele)","Nueva nota… (aprendizajes, ideas, ejemplos)"],
+"Henüz not yok.":["No notes yet.","Noch keine Notizen.","Aún no hay notas."],
+/* hesap notları */
+"Toplam hesap":["Total accounts","Konten gesamt","Cuentas totales"],
+"Çekim yapan":["With payouts","Mit Auszahlung","Con retiros"],
+"Hesap durumları":["Account statuses","Kontostatus","Estado de las cuentas"],
+/* hesap bağla */
+"Copy trade hesaplarınızı birbirine bağlayın. Yalnızca aynı boyuttaki hesaplar bağlanabilir. Ana hesaba girilen işlemler, bağlı hesaplara aynen geçer. Bağlandıktan önceki işlemler aktarılmaz.":["Link your copy trading accounts. Only accounts of the same size can be linked. Trades entered in the main account are copied exactly to the linked accounts. Trades from before linking are not copied.","Verknüpfe deine Copy-Trading-Konten. Nur gleich große Konten lassen sich verknüpfen. Trades im Hauptkonto werden genau so in die verknüpften Konten übernommen. Trades von vor der Verknüpfung werden nicht übertragen.","Vincula tus cuentas de copy trading. Solo se pueden vincular cuentas del mismo tamaño. Las operaciones del registro principal se copian tal cual en las cuentas vinculadas. Las operaciones anteriores al vínculo no se copian."],
+"Bağlı hesaplar":["Linked accounts","Verknüpfte Konten","Cuentas vinculadas"],
+"Ana hesap":["Main account","Hauptkonto","Cuenta principal"],
+"Bağlı":["Linked","Verknüpft","Vinculada"],
+"Bağı kaldır":["Unlink","Verknüpfung lösen","Desvincular"],
+"1. Ana hesabınızı seçin":["1. Choose your main account","1. Wähle dein Hauptkonto","1. Elige tu cuenta principal"],
+"2. Bağlayacağınız hesabı seçin":["2. Choose the account to link","2. Wähle das zu verknüpfende Konto","2. Elige la cuenta que vas a vincular"],
+"Bağlanabilecek hesap yok. Başlangıç bakiyesi girilmiş, ihlal olmamış hesap gerekir.":["No accounts can be linked. You need an account with a starting balance that hasn't been breached.","Keine Konten verknüpfbar. Du brauchst ein Konto mit Startkapital ohne Regelverstoß.","No hay cuentas para vincular. Se necesita una cuenta con saldo inicial y sin infracciones."],
+"Başka hesap yok.":["No other accounts.","Keine weiteren Konten.","No hay otras cuentas."],
+"Farklı boyut":["Different size","Andere Größe","Otro tamaño"],
+"Zaten bağlı":["Already linked","Bereits verknüpft","Ya vinculada"],
+"Bağla":["Link","Verknüpfen","Vincular"],
+"{} hesabına bundan sonra girilen işlemler seçtiğiniz {} hesaba aynen geçecek. Onaylıyor musunuz?":[(a,n)=>"From now on, trades entered in "+a+" will be copied exactly to the "+n+(one(n)?" account":" accounts")+" you selected. Confirm?",(a,n)=>"Ab jetzt werden Trades in "+a+" genau so in "+(one(n)?"das ausgewählte Konto":"die "+n+" ausgewählten Konten")+" übernommen. Bestätigen?",(a,n)=>"A partir de ahora, las operaciones que registres en "+a+" se copiarán tal cual en "+(one(n)?"la cuenta seleccionada":"las "+n+" cuentas seleccionadas")+". ¿Confirmas?"],
+"Ana hesaba girilen işlem, not ve fotoğraflar bağlı hesaba aynen geçer. Düzenleme ve silme de geçer.":["Trades, notes and photos entered in the main account are copied exactly to the linked account. Edits and deletions are copied too.","Trades, Notizen und Fotos im Hauptkonto werden genau so ins verknüpfte Konto übernommen. Auch Änderungen und Löschungen.","Las operaciones, notas y fotos del registro principal se copian tal cual en la cuenta vinculada. También las ediciones y eliminaciones."],
+"Bağlamadan önceki işlemler aktarılmaz.":["Trades from before linking are not copied.","Trades von vor der Verknüpfung werden nicht übertragen.","Las operaciones anteriores al vínculo no se copian."],
+/* rozetler */
+"Haftalık seri":["Weekly streak","Wochenserie","Racha semanal"],
+"Haftalık seri {}/7":["Weekly streak {}/7","Wochenserie {}/7","Racha semanal {}/7"],
+"Hafta sıfırlanmasına {} gün {} saat kaldı":[(d,h)=>"Week resets in "+d+(one(d)?" day, ":" days, ")+h+(one(h)?" hour":" hours"),(d,h)=>"Woche wird zurückgesetzt in "+d+(one(d)?" Tag und ":" Tagen und ")+h+(one(h)?" Stunde":" Stunden"),(d,h)=>"La semana se reinicia en "+d+(one(d)?" día y ":" días y ")+h+(one(h)?" hora":" horas")],
+"Hafta sıfırlanmasına {} saat kaldı":[h=>"Week resets in "+h+(one(h)?" hour":" hours"),h=>"Woche wird zurückgesetzt in "+h+(one(h)?" Stunde":" Stunden"),h=>"La semana se reinicia en "+h+(one(h)?" hora":" horas")],
+"Sunucu saati alınamadı":["Couldn't get server time","Serverzeit nicht verfügbar","No se pudo obtener la hora del servidor"],
+"Bugün sayıldı":["Counted today","Heute gezählt","Contado hoy"],
+"Giriş günlerin sunucu saatiyle sayılır. Şu an sunucu saatine ulaşılamıyor ({}). İnternete bağlıysan ve sorun sürerse yöneticiye bildir.":["Your login days are counted by server time. The server time can't be reached right now ({}). If you're online and the problem continues, tell the admin.","Deine Login-Tage werden nach Serverzeit gezählt. Die Serverzeit ist gerade nicht erreichbar ({}). Wenn du online bist und das Problem bleibt, melde es dem Admin.","Tus días de acceso se cuentan con la hora del servidor. Ahora no se puede acceder a la hora del servidor ({}). Si tienes conexión y el problema continúa, avisa al administrador."],
+"bekleniyor":["waiting","ausstehend","en espera"],
+"Toplam giriş günü":["Total login days","Login-Tage gesamt","Días de acceso totales"],
+"{} gün":[n=>n+(one(n)?" day":" days"),n=>n+(one(n)?" Tag":" Tage"),n=>n+(one(n)?" día":" días")],
+"Sıradaki rozet: {} gün, {} gün kaldı":[(a,b)=>"Next badge: "+a+" days, "+b+(one(b)?" day left":" days left"),(a,b)=>"Nächstes Abzeichen: "+a+" Tage, noch "+b+(one(b)?" Tag":" Tage"),(a,b)=>"Próxima insignia: "+a+" días, "+(one(b)?"queda ":"quedan ")+b+(one(b)?" día":" días")],
+"İlk giriş":["First login","Erster Login","Primer acceso"],
+"Haftalık bronz":["Weekly bronze","Wochen-Bronze","Bronce semanal"],
+"30 gün gümüş":["30-day silver","30-Tage-Silber","Plata 30 días"],
+"100 gün altın":["100-day gold","100-Tage-Gold","Oro 100 días"],
+"365 gün elmas":["365-day diamond","365-Tage-Diamant","Diamante 365 días"],
+"Giriş yaptığında":["When you log in","Beim Login","Al iniciar sesión"],
+"Haftada 7 gün gir":["Log in 7 days a week","7 Tage pro Woche einloggen","Entra 7 días a la semana"],
+"× {} kez kazanıldı":[n=>"× earned "+n+(one(n)?" time":" times"),n=>"× "+n+"-mal verdient",n=>"× conseguida "+n+(one(n)?" vez":" veces")],
+"{}/7 gün":["{}/7 days","{}/7 Tage","{}/7 días"],
+"{} · kazanıldı":["{} · earned","{} · verdient","{} · conseguida"],
+"Küçük rozetler":["Small badges","Kleine Abzeichen","Insignias pequeñas"],
+"İlk işlem":["First trade","Erster Trade","Primera operación"],
+"10 işlem notu":["10 trade notes","10 Trade-Notizen","10 notas de operación"],
+"İlk çekim":["First payout","Erste Auszahlung","Primer retiro"],
+"İlk Funded":["First Funded","Erstes Funded","Primera Funded"],
+"İlk Funded hesap":["First Funded account","Erstes Funded-Konto","Primera cuenta Funded"],
+"100 işlem":["100 trades","100 Trades","100 operaciones"],
+"Kişisel rekorlar":["Personal records","Persönliche Rekorde","Récords personales"],
+"En iyi gün":["Best day","Bester Tag","Mejor día"],
+"En iyi hafta":["Best week","Beste Woche","Mejor semana"],
+"{} haftası":["Week of {}","Woche vom {}","Semana del {}"],
+"En iyi işlem":["Best trade","Bester Trade","Mejor operación"],
+"En uzun kazanç serisi":["Longest winning streak","Längste Gewinnserie","Racha ganadora más larga"],
+"{} günü bitti":["ended {}","endete am {}","terminó el {}"],
+/* istatistik kartı */
+"Kart sadece Funded ve Live hesaplar için oluşur. Henüz böyle bir hesabın yok.":["Cards are only created for Funded and Live accounts. You don't have one yet.","Karten gibt es nur für Funded- und Live-Konten. Du hast noch keins.","Las tarjetas solo se crean para cuentas Funded y Live. Aún no tienes ninguna."],
+"Hesap seç":["Choose account","Konto wählen","Elegir cuenta"],
+"Bu ay henüz bitmedi. Kart, ay tamamlanınca oluşur.":["This month isn't over yet. The card is created when the month ends.","Dieser Monat ist noch nicht vorbei. Die Karte wird erstellt, wenn der Monat endet.","Este mes aún no ha terminado. La tarjeta se crea cuando acaba el mes."],
+"Bu hesapta bu ay işlem yok.":["No trades on this account this month.","Keine Trades auf diesem Konto in diesem Monat.","No hay operaciones en esta cuenta este mes."],
+"Bu hesap bu ayı kârda kapatmadı, bu yüzden kart oluşmuyor. Kart sadece kârlı aylar için hazırlanır.":["This account didn't finish the month in profit, so there's no card. Cards are only made for profitable months.","Dieses Konto hat den Monat nicht im Plus beendet, deshalb gibt es keine Karte. Karten gibt es nur für Gewinnmonate.","Esta cuenta no cerró el mes con beneficio, así que no hay tarjeta. Las tarjetas solo se crean para meses con beneficio."],
+"Kart sadece seçtiğin hesabın o aydaki sonucunu gösterir. Hesap adı ve bakiye kartta görünmez.":["The card only shows the selected account's result for that month. The account name and balance don't appear on it.","Die Karte zeigt nur das Monatsergebnis des gewählten Kontos. Kontoname und Kontostand erscheinen nicht.","La tarjeta solo muestra el resultado de ese mes de la cuenta elegida. El nombre y el saldo de la cuenta no aparecen."],
+"Resmi indir":["Download image","Bild herunterladen","Descargar imagen"],
+"TRADE GÜNLÜĞÜ":["TRADING JOURNAL","TRADING-JOURNAL","DIARIO DE TRADING"],
+"AYLIK KÂR":["MONTHLY PROFIT","MONATSGEWINN","BENEFICIO MENSUAL"],
+"KAZANMA ORANI":["WIN RATE","TREFFERQUOTE","TASA DE ACIERTO"],
+"PARİTE":["PAIR","SYMBOL","PAR"],
+/* görüş */
+"Önerinizi, karşılaştığınız bir hatayı ya da aklınıza takılan her şeyi yazın. Mesajınız doğrudan Sykle ekibine iletilir.":["Share an idea, a bug you ran into or anything on your mind. Your message goes straight to the Sykle team.","Schreib uns eine Idee, einen Fehler oder alles, was dir auffällt. Deine Nachricht geht direkt an das Sykle-Team.","Escríbenos una idea, un error que encontraste o lo que tengas en mente. Tu mensaje llega directamente al equipo de Sykle."],
+"Konu":["Topic","Thema","Tema"],
+"Öneri":["Suggestion","Vorschlag","Sugerencia"],
+"Hata":["Bug","Fehler","Error"],
+"Mesajınız…":["Your message…","Deine Nachricht…","Tu mensaje…"],
+"📷 Ekran görüntüsü":["📷 Screenshot","📷 Screenshot","📷 Captura de pantalla"],
+"Gönder":["Send","Senden","Enviar"],
+"Teşekkürler!":["Thank you!","Danke!","¡Gracias!"],
+"Görüşünüz bize ulaştı. Sykle'yi sizin geri bildirimlerinizle geliştiriyoruz.":["We received your feedback. We're building Sykle with your input.","Dein Feedback ist angekommen. Wir entwickeln Sykle mit deinen Rückmeldungen weiter.","Recibimos tus comentarios. Mejoramos Sykle con tus aportes."],
+"Yeni bildirim gönder":["Send more feedback","Weiteres Feedback senden","Enviar otro comentario"],
+"Lütfen bir mesaj yazın.":["Please write a message.","Bitte schreib eine Nachricht.","Escribe un mensaje."],
+"Göndermek için giriş yapmış olmalısınız.":["You need to be logged in to send.","Zum Senden musst du angemeldet sein.","Debes iniciar sesión para enviar."],
+"Gönderilemedi. Biraz sonra tekrar deneyin.":["Couldn't send. Please try again shortly.","Senden fehlgeschlagen. Versuch es gleich noch einmal.","No se pudo enviar. Inténtalo de nuevo en un momento."],
+"Hesabınız askıya alındığı için gönderilemedi.":["Couldn't send because your account is suspended.","Senden nicht möglich, weil dein Konto gesperrt ist.","No se pudo enviar porque tu cuenta está suspendida."],
+"İnternet bağlantısı yok. Tekrar deneyin.":["No internet connection. Please try again.","Keine Internetverbindung. Versuch es noch einmal.","Sin conexión a internet. Inténtalo de nuevo."],
+/* yedek */
+"Verilerin hesabına otomatik kaydedilir ve tüm cihazlarında aynıdır. İstersen ek olarak yedek dosyası da alabilirsin.":["Your data is saved to your account automatically and is the same on all your devices. You can also download a backup file if you like.","Deine Daten werden automatisch in deinem Konto gespeichert und sind auf allen Geräten gleich. Zusätzlich kannst du eine Backup-Datei herunterladen.","Tus datos se guardan automáticamente en tu cuenta y son iguales en todos tus dispositivos. Si quieres, también puedes descargar una copia de seguridad."],
+"Yedeği indir":["Download backup","Backup herunterladen","Descargar copia"],
+"Yedeği yükle":["Restore backup","Backup laden","Restaurar copia"],
+"Bu geçerli bir Sykle yedeği değil.":["This isn't a valid Sykle backup.","Das ist kein gültiges Sykle-Backup.","Esta no es una copia de seguridad válida de Sykle."],
+/* yönetici */
+"Bu sayfa sadece yöneticiye açık.":["This page is for admins only.","Diese Seite ist nur für Admins.","Esta página es solo para administradores."],
+"Veriler alınamadı: {}":["Couldn't load data: {}","Daten konnten nicht geladen werden: {}","No se pudieron cargar los datos: {}"],
+"Genel durum":["Overview","Überblick","Estado general"],
+"Toplam kullanıcı":["Total users","Nutzer gesamt","Usuarios totales"],
+"Bugün aktif":["Active today","Heute aktiv","Activos hoy"],
+"Bu hafta kaydolan":["Signed up this week","Diese Woche registriert","Registrados esta semana"],
+"Okunmamış görüş":["Unread feedback","Ungelesenes Feedback","Comentarios sin leer"],
+"Banlı kullanıcı":["Banned users","Gesperrte Nutzer","Usuarios bloqueados"],
+"Görüşler ({})":["Feedback ({})","Feedback ({})","Comentarios ({})"],
+"Kullanıcılar ({})":["Users ({})","Nutzer ({})","Usuarios ({})"],
+"Yeni":["New","Neu","Nuevo"],
+"Banlı":["Banned","Gesperrt","Bloqueado"],
+"İsimsiz":["No name","Ohne Namen","Sin nombre"],
+"İsimsiz · {}":["No name · {}","Ohne Namen · {}","Sin nombre · {}"],
+"Okundu":["Mark as read","Als gelesen markieren","Marcar como leído"],
+"Kullanıcıyı banla":["Ban user","Nutzer sperren","Bloquear usuario"],
+"Henüz görüş yok.":["No feedback yet.","Noch kein Feedback.","Aún no hay comentarios."],
+"Yönetici":["Admin","Admin","Admin"],
+"E-posta":["Email","E-Mail","Correo"],
+"{} · E-posta":["{} · Email","{} · E-Mail","{} · Correo"],
+"{} · Google":["{} · Google","{} · Google","{} · Google"],
+"Kayıt: {} · Son aktif: {}":["Joined: {} · Last active: {}","Registriert: {} · Zuletzt aktiv: {}","Registro: {} · Última actividad: {}"],
+"Sebep: {}":["Reason: {}","Grund: {}","Motivo: {}"],
+"Banı kaldır":["Unban","Sperre aufheben","Desbloquear"],
+"Bu kullanıcı banlansın mı?":["Ban this user?","Diesen Nutzer sperren?","¿Bloquear a este usuario?"],
+"{} banlansın mı?":["Ban {}?","{} sperren?","¿Bloquear al usuario {}?"],
+"Sebep yaz (isteğe bağlı). Vazgeçmek için İptal'e bas.":["Enter a reason (optional). Press Cancel to stop.","Grund eingeben (optional). Zum Abbrechen auf Abbrechen tippen.","Escribe un motivo (opcional). Pulsa Cancelar para no hacerlo."],
+"İşlem yapılamadı: {}":["Action failed: {}","Aktion fehlgeschlagen: {}","No se pudo completar: {}"],
+/* askıya alma */
+"Hesap askıya alındı":["Account suspended","Konto gesperrt","Cuenta suspendida"],
+"Bu hesap, Sykle kullanım koşullarına aykırı kullanım nedeniyle askıya alındı. Bu hesapla veri kaydedilemez ve görüş gönderilemez.":["This account was suspended for use that breaks the Sykle terms of use. Data can't be saved and feedback can't be sent with this account.","Dieses Konto wurde wegen eines Verstoßes gegen die Sykle-Nutzungsbedingungen gesperrt. Mit diesem Konto können keine Daten gespeichert und kein Feedback gesendet werden.","Esta cuenta fue suspendida por un uso contrario a las condiciones de uso de Sykle. Con esta cuenta no se pueden guardar datos ni enviar comentarios."],
+/* ad sorma */
+"Sana nasıl hitap edelim?":["What should we call you?","Wie sollen wir dich nennen?","¿Cómo quieres que te llamemos?"],
+"Adın":["Your name","Dein Name","Tu nombre"],
+"Şimdi değil":["Not now","Nicht jetzt","Ahora no"],
+"Panoda görsel yok.":["There's no image on the clipboard.","In der Zwischenablage ist kein Bild.","No hay ninguna imagen en el portapapeles."],
+"Yapıştırma izni verilmedi. Kutuya uzun basıp Yapıştır'ı dene.":["Paste permission wasn't granted. Long-press the box and try Paste.","Einfügen wurde nicht erlaubt. Halte das Feld gedrückt und tippe auf Einfügen.","No se concedió permiso para pegar. Mantén pulsado el cuadro y prueba Pegar."],
+"📷 Foto ekle":["📷 Add photo","📷 Foto hinzufügen","📷 Añadir foto"],
+"Son değişikliklerin buluta kaydedilemedi (internet yok gibi görünüyor). Yine de çıkış yapılsın mı? Kaydedilmemiş değişiklikler kaybolur.":["Your latest changes couldn't be saved to the cloud (you seem to be offline). Log out anyway? Unsaved changes will be lost.","Deine letzten Änderungen konnten nicht in der Cloud gespeichert werden (anscheinend offline). Trotzdem abmelden? Nicht gespeicherte Änderungen gehen verloren.","Tus últimos cambios no se pudieron guardar en la nube (parece que no hay conexión). ¿Cerrar sesión igualmente? Los cambios no guardados se perderán."],
+"Bağlantı kurulamadı. Sayfayı yenile.":["Couldn't connect. Reload the page.","Keine Verbindung. Lade die Seite neu.","No se pudo conectar. Recarga la página."],
+};
+window.SY_DICT=Object.assign(window.SY_DICT||{},D);
+})();
+/* giriş, kılavuz, koşullar, KVKK: [English, Deutsch, Español] */
+(function(){
+const D={
+/* giriş ekranı */
+"Trade günlüğün, her cihazda.":["Your trading journal, on every device.","Dein Trading-Journal, auf jedem Gerät.","Tu diario de trading, en todos tus dispositivos."],
+"Giriş yap":["Log in","Anmelden","Iniciar sesión"],
+"Kayıt ol":["Sign up","Registrieren","Registrarse"],
+"Doğrula":["Verify","Bestätigen","Verificar"],
+"Hesabımı oluştur":["Create my account","Mein Konto erstellen","Crear mi cuenta"],
+"Şifre sıfırlama bağlantısı gönder":["Send password reset link","Link zum Zurücksetzen senden","Enviar enlace para restablecer"],
+"Yeni şifreyi kaydet":["Save new password","Neues Passwort speichern","Guardar nueva contraseña"],
+"{} adresine <b>tek kullanımlık bir kod</b> gönderdik. Kodu aşağıya yaz.<br><span class=\"mu\">Gelen kutunda yoksa Spam / Gereksiz klasörüne bak.</span>":[
+ "We sent a <b>one-time code</b> to {}. Enter it below.<br><span class=\"mu\">If it's not in your inbox, check your Spam / Junk folder.</span>",
+ "Wir haben einen <b>Einmalcode</b> an {} gesendet. Gib ihn unten ein.<br><span class=\"mu\">Falls er nicht im Posteingang ist, sieh im Spam-Ordner nach.</span>",
+ "Enviamos un <b>código de un solo uso</b> a {}. Escríbelo abajo.<br><span class=\"mu\">Si no está en tu bandeja de entrada, revisa la carpeta de spam o correo no deseado.</span>"],
+"Kod":["Code","Code","Código"],
+"E-postan doğrulandı ✓":["Email verified ✓","E-Mail bestätigt ✓","Correo verificado ✓"],
+"Devam etmek için kullanıcı adını ve şifreni oluştur.":["Create your username and password to continue.","Lege Benutzernamen und Passwort fest, um fortzufahren.","Crea tu nombre de usuario y contraseña para continuar."],
+"Kullanıcı adı":["Username","Benutzername","Nombre de usuario"],
+"Şifre":["Password","Passwort","Contraseña"],
+"Şifre oluştur (en az 6 karakter)":["Create password (at least 6 characters)","Passwort festlegen (mind. 6 Zeichen)","Crea una contraseña (mín. 6 caracteres)"],
+"Şifre tekrar":["Repeat password","Passwort wiederholen","Repite la contraseña"],
+"Sykle'nin bir prop firm olmadığını, gerçek para, fon ya da ödeme olmadığını anladım ve kullanım koşullarını kabul ediyorum.":["I understand that Sykle is not a prop firm and that there is no real money, funding or payout, and I accept the terms of use.","Ich verstehe, dass Sykle keine Prop-Firma ist und es kein echtes Geld, keine Finanzierung und keine Auszahlung gibt, und ich akzeptiere die Nutzungsbedingungen.","Entiendo que Sykle no es una prop firm y que no hay dinero real, financiación ni pagos, y acepto las condiciones de uso."],
+"Kullanım koşullarını oku":["Read the terms of use","Nutzungsbedingungen lesen","Leer las condiciones de uso"],
+"Kişisel verilerinin nasıl işlendiğini":["You can read how your personal data is processed in the","Wie deine personenbezogenen Daten verarbeitet werden, erfährst du im","Puedes leer cómo se tratan tus datos personales en el"],
+"KVKK Aydınlatma Metni":["KVKK Privacy Notice","KVKK-Datenschutzhinweis","Aviso de privacidad KVKK"],
+"'nde okuyabilirsin.":[".",".","."],
+"Google ile devam et":["Continue with Google","Weiter mit Google","Continuar con Google"],
+"Hesap oluştur":["Create account","Konto erstellen","Crear cuenta"],
+"Şifremi unuttum":["Forgot password","Passwort vergessen","Olvidé mi contraseña"],
+"‹ Geri":["‹ Back","‹ Zurück","‹ Atrás"],
+"Kodu tekrar gönder":["Resend code","Code erneut senden","Reenviar código"],
+"‹ Girişe dön":["‹ Back to login","‹ Zurück zur Anmeldung","‹ Volver al inicio de sesión"],
+"Daha önce hangi yöntemle girdiysen aynısıyla gir (e-posta ve şifre ya da Google). Farklı yöntem, boş bir hesap açar.":["Log in the same way you did before (email and password or Google). A different method opens an empty account.","Melde dich so an wie bisher (E-Mail und Passwort oder Google). Eine andere Methode öffnet ein leeres Konto.","Entra con el mismo método que usaste antes (correo y contraseña o Google). Otro método abre una cuenta vacía."],
+"Yeni kod gönderildi.":["A new code has been sent.","Ein neuer Code wurde gesendet.","Se envió un código nuevo."],
+"Google girişi başlatılamadı.":["Couldn't start Google login.","Google-Anmeldung konnte nicht gestartet werden.","No se pudo iniciar sesión con Google."],
+"Kullanıcı adını yaz (en az 2 karakter).":["Enter your username (at least 2 characters).","Gib deinen Benutzernamen ein (mind. 2 Zeichen).","Escribe tu nombre de usuario (mín. 2 caracteres)."],
+"Devam etmek için kullanım koşullarını kabul et.":["Accept the terms of use to continue.","Akzeptiere die Nutzungsbedingungen, um fortzufahren.","Acepta las condiciones de uso para continuar."],
+"E-postana gelen kodu eksiksiz yaz.":["Enter the full code from your email.","Gib den vollständigen Code aus deiner E-Mail ein.","Escribe el código completo que te llegó por correo."],
+"Şifreler aynı değil.":["Passwords don't match.","Die Passwörter stimmen nicht überein.","Las contraseñas no coinciden."],
+"Kod hatalı ya da süresi dolmuş. Yeni kod iste.":["The code is wrong or has expired. Request a new one.","Der Code ist falsch oder abgelaufen. Fordere einen neuen an.","El código es incorrecto o ha caducado. Pide uno nuevo."],
+"E-posta ya da şifre hatalı.":["Wrong email or password.","E-Mail oder Passwort ist falsch.","Correo o contraseña incorrectos."],
+"Bu e-posta zaten kayıtlı. Giriş yapmayı dene.":["This email is already registered. Try logging in.","Diese E-Mail ist bereits registriert. Versuch dich anzumelden.","Este correo ya está registrado. Prueba a iniciar sesión."],
+"Şifre en az 6 karakter olmalı.":["Password must be at least 6 characters.","Das Passwort muss mindestens 6 Zeichen lang sein.","La contraseña debe tener al menos 6 caracteres."],
+"Geçerli bir e-posta yaz.":["Enter a valid email.","Gib eine gültige E-Mail ein.","Escribe un correo válido."],
+"Önce e-postanı onaylaman gerekiyor. Sana gönderdiğimiz bağlantıya tıkla.":["You need to confirm your email first. Click the link we sent you.","Du musst zuerst deine E-Mail bestätigen. Klicke auf den Link, den wir dir geschickt haben.","Primero debes confirmar tu correo. Pulsa el enlace que te enviamos."],
+"Onay e-postası şu an gönderilemedi. Biraz sonra tekrar dene.":["The confirmation email couldn't be sent right now. Try again shortly.","Die Bestätigungs-E-Mail konnte gerade nicht gesendet werden. Versuch es gleich noch einmal.","No se pudo enviar el correo de confirmación ahora. Inténtalo de nuevo en un momento."],
+"Çok sık denedin, biraz bekle.":["Too many attempts, please wait a moment.","Zu viele Versuche, bitte warte kurz.","Demasiados intentos, espera un momento."],
+"İnternet bağlantısı yok.":["No internet connection.","Keine Internetverbindung.","Sin conexión a internet."],
+"Bir hata oldu: {}":["Something went wrong: {}","Ein Fehler ist aufgetreten: {}","Algo salió mal: {}"],
+"bilinmiyor":["unknown","unbekannt","desconocido"],
+"Sıfırlama bağlantısı e-postana gönderildi.":["A reset link was sent to your email.","Ein Link zum Zurücksetzen wurde an deine E-Mail gesendet.","Se envió un enlace para restablecer a tu correo."],
+"Onay e-postası tekrar gönderildi. Spam klasörüne de bak.":["The confirmation email was sent again. Check your spam folder too.","Die Bestätigungs-E-Mail wurde erneut gesendet. Sieh auch im Spam-Ordner nach.","Se volvió a enviar el correo de confirmación. Revisa también la carpeta de spam."],
+"Onay e-postasını tekrar gönder":["Resend confirmation email","Bestätigungs-E-Mail erneut senden","Reenviar correo de confirmación"],
+"Bu hesap artık yok. İstersen yeniden kayıt olabilirsin.":["This account no longer exists. You can sign up again if you like.","Dieses Konto existiert nicht mehr. Du kannst dich gern neu registrieren.","Esta cuenta ya no existe. Si quieres, puedes registrarte de nuevo."],
+"Bu Google hesabında kayıtlı veri yok. Daha önce e-posta ve şifreyle girip veri girdiysen çıkış yapıp o şekilde gir.":["There's no data saved on this Google account. If you used email and password before and entered data, log out and log in that way.","Für dieses Google-Konto sind keine Daten gespeichert. Wenn du bisher E-Mail und Passwort genutzt und Daten eingegeben hast, melde dich ab und auf diese Weise wieder an.","No hay datos guardados en esta cuenta de Google. Si antes entraste con correo y contraseña y registraste datos, cierra sesión y entra de esa forma."],
+"Bağlantı kurulamadı. İnternetini kontrol edip sayfayı yenile.":["Couldn't connect. Check your internet and reload the page.","Keine Verbindung. Prüfe dein Internet und lade die Seite neu.","No se pudo conectar. Revisa tu conexión y recarga la página."],
+/* kullanım koşulları */
+"Kullanım koşulları":["Terms of use","Nutzungsbedingungen","Condiciones de uso"],
+"Sykle bir prop firm değildir.":["Sykle is not a prop firm.","Sykle ist keine Prop-Firma.","Sykle no es una prop firm."],
+"Gerçek para yatırılmaz, fon verilmez ve hiçbir ödeme yapılmaz.":["No real money is deposited, no funding is given and no payouts are made.","Es wird kein echtes Geld eingezahlt, keine Finanzierung vergeben und keine Auszahlung geleistet.","No se deposita dinero real, no se concede financiación y no se realiza ningún pago."],
+"Challenge ve Funded hesaplar demo, yani deneme amaçlıdır.":["Challenge and Funded accounts are demo accounts, for practice only.","Challenge- und Funded-Konten sind Demokonten, nur zum Üben.","Las cuentas Challenge y Funded son demo, solo para practicar."],
+"İşlem, kâr ve çekim kayıtlarını sen girersin. Sykle bunları doğrulamaz, kimseye para ya da fon vaat etmez.":["You enter your own trades, profits and payouts. Sykle doesn't verify them and doesn't promise money or funding to anyone.","Trades, Gewinne und Auszahlungen trägst du selbst ein. Sykle prüft sie nicht und verspricht niemandem Geld oder Finanzierung.","Tú registras tus operaciones, ganancias y retiros. Sykle no los verifica ni promete dinero o financiación a nadie."],
+"Sykle'yi kötüye kullanan ya da Sykle hakkında yanıltıcı iddialarda bulunan hesaplar askıya alınabilir.":["Accounts that misuse Sykle or make misleading claims about Sykle may be suspended.","Konten, die Sykle missbrauchen oder irreführende Behauptungen über Sykle verbreiten, können gesperrt werden.","Las cuentas que hagan un mal uso de Sykle o difundan afirmaciones engañosas sobre Sykle pueden ser suspendidas."],
+"Okudum, kabul ediyorum.":["I have read and accept them.","Ich habe sie gelesen und akzeptiere sie.","Las he leído y las acepto."],
+"Devam et":["Continue","Weiter","Continuar"],
+/* kullanım kılavuzu */
+"Başlangıç":["Getting started","Erste Schritte","Primeros pasos"],
+"Hesaplar sayfasında \"+ Hesap ekle\" ile hesabını ekle. Adı, başlangıç bakiyesini, kâr hedefini ve zarar limitlerini yaz.":["On the Accounts page, add your account with \"+ Add account\". Enter the name, starting balance, profit target and loss limits.","Füge dein Konto auf der Seite Konten mit \"+ Konto hinzufügen\" hinzu. Trage Namen, Startkapital, Gewinnziel und Verlustlimits ein.","En la página Cuentas, añade tu cuenta con \"+ Añadir cuenta\". Escribe el nombre, el saldo inicial, el objetivo de beneficio y los límites de pérdida."],
+"Hesabın sayfasında bir gün seç, paritenin, yönün, seansın ve tutarın ile işlemi ekle. İstersen not ve fotoğraf da ekle.":["On the account's page, pick a day and add the trade with its pair, direction, session and amount. You can add a note and photos too.","Wähle auf der Kontoseite einen Tag und füge den Trade mit Symbol, Richtung, Session und Betrag hinzu. Auf Wunsch auch eine Notiz und Fotos.","En la página de la cuenta, elige un día y añade la operación con su par, dirección, sesión e importe. Si quieres, añade también una nota y fotos."],
+"Çekim yaptığında hesabın sayfasından tutarı ve dekontu kaydet.":["When you get a payout, save the amount and receipt on the account's page.","Bei einer Auszahlung speicherst du Betrag und Beleg auf der Kontoseite.","Cuando hagas un retiro, guarda el importe y el comprobante en la página de la cuenta."],
+"Sayfalar":["Pages","Seiten","Páginas"],
+"Panel:":["Dashboard:","Dashboard:","Panel:"],
+"tarzını gösteren radar, en çok işlem gören semboller ve seanslar.":["a radar of your trading style, your most traded symbols and sessions.","ein Radar deines Trading-Stils, deine meistgehandelten Symbole und Sessions.","un radar de tu estilo, tus símbolos más operados y las sesiones."],
+"Hesaplar:":["Accounts:","Konten:","Cuentas:"],
+"tüm hesapların, limitleri ve hedefe kalan tutar.":["all your accounts, their limits and what's left to the target.","alle deine Konten, ihre Limits und der Betrag bis zum Ziel.","todas tus cuentas, sus límites y lo que falta para el objetivo."],
+"Ödüller:":["Rewards:","Belohnungen:","Recompensas:"],
+"çekimlerin ve 100 bin dolarlık hedef çubuğu.":["your payouts and the $100K goal bar.","deine Auszahlungen und der Zielbalken für $100.000.","tus retiros y la barra del objetivo de $100.000."],
+"Live:":["Live:","Live:","Live:"],
+"gerçek hesapların ve toplam kasa.":["your real accounts and total capital.","deine echten Konten und das Gesamtkapital.","tus cuentas reales y el capital total."],
+"Özet:":["Summary:","Übersicht:","Resumen:"],
+"haftalık ve aylık sonuçlar.":["weekly and monthly results.","Wochen- und Monatsergebnisse.","resultados semanales y mensuales."],
+"Notlar:":["Notes:","Notizen:","Notas:"],
+"öğrendiklerini fotoğrafla birlikte yaz.":["write down what you learned, with photos.","halte deine Erkenntnisse mit Fotos fest.","anota lo que aprendiste, con fotos."],
+"İstatistik kartı:":["Stats card:","Statistikkarte:","Tarjeta de estadísticas:"],
+"Funded ya da Live bir hesabının kârlı kapanan ayını altın kart olarak paylaş. Her hesabın kartı ayrıdır, kart ay bitince oluşur. Zararlı ayda kart oluşmaz, bakiye görünmez.":["share a profitable month of a Funded or Live account as a gold card. Each account has its own card, created when the month ends. Losing months get no card, and the balance is never shown.","teile einen Gewinnmonat eines Funded- oder Live-Kontos als goldene Karte. Jedes Konto hat seine eigene Karte, sie entsteht am Monatsende. Verlustmonate bekommen keine Karte, der Kontostand wird nie gezeigt.","comparte un mes con beneficio de una cuenta Funded o Live como tarjeta dorada. Cada cuenta tiene su propia tarjeta, que se crea al terminar el mes. Los meses con pérdidas no tienen tarjeta y el saldo nunca se muestra."],
+"Hesap notları:":["Account history:","Kontenhistorie:","Historial de cuentas:"],
+"tüm hesaplarının durumu, kaç hesap aldığın.":["the status of all your accounts and how many you've bought.","der Status all deiner Konten und wie viele du gekauft hast.","el estado de todas tus cuentas y cuántas has comprado."],
+"Görüşlerinizi bildirin:":["Send feedback:","Feedback senden:","Enviar comentarios:"],
+"öneri, hata ya da başka bir konuda bize yaz. İstersen ekran görüntüsü de ekle.":["write to us about an idea, a bug or anything else. You can add a screenshot too.","schreib uns zu einer Idee, einem Fehler oder etwas anderem. Auf Wunsch mit Screenshot.","escríbenos sobre una idea, un error o cualquier otra cosa. Si quieres, añade una captura."],
+"Hesap durumları":["Account statuses","Kontostatus","Estado de las cuentas"],
+"Geçildi:":["Passed:","Bestanden:","Superada:"],
+"Challenge hesabı kâr hedefine ulaşınca üstünde \"Geçildi\" yazar ve aynı ayarlarla yeni bir Funded hesap otomatik açılır. Geçilen Challenge sadece görüntülenir.":["when a Challenge account reaches its profit target it shows \"Passed\" and a new Funded account with the same settings opens automatically. A passed Challenge is view only.","erreicht ein Challenge-Konto sein Gewinnziel, steht dort \"Bestanden\" und ein neues Funded-Konto mit denselben Einstellungen wird automatisch eröffnet. Eine bestandene Challenge kann nur noch angesehen werden.","cuando una cuenta Challenge alcanza su objetivo de beneficio muestra \"Superada\" y se abre automáticamente una nueva cuenta Funded con los mismos ajustes. Un Challenge superado es solo de lectura."],
+"İhlal:":["Breached:","Verstoß:","Infringida:"],
+"günlük kayıp limitini ya da maksimum kayıp limitini aşan hesap (Challenge ya da Funded) otomatik \"İhlal\" olur ve kapanır. Challenge hedefe ulaşamadan limit aşılırsa da \"İhlal\" yazar. Hesap sayfasındaki \"İhlal yap\" ile elle de kapatabilirsin.":["an account (Challenge or Funded) that goes over its daily or maximum loss limit automatically becomes \"Breached\" and closes. If a Challenge goes over a limit before reaching its target, it also shows \"Breached\". You can also close an account yourself with \"Mark as breached\" on its page.","ein Konto (Challenge oder Funded), das sein tägliches oder maximales Verlustlimit überschreitet, wird automatisch zu \"Verstoß\" und geschlossen. Überschreitet eine Challenge ein Limit, bevor sie ihr Ziel erreicht, steht dort ebenfalls \"Verstoß\". Mit \"Als Verstoß markieren\" auf der Kontoseite kannst du es auch selbst schließen.","una cuenta (Challenge o Funded) que supera su límite de pérdida diaria o máxima pasa automáticamente a \"Infringida\" y se cierra. Si un Challenge supera un límite antes de alcanzar su objetivo, también muestra \"Infringida\". También puedes cerrarla tú con \"Marcar como infringida\" en su página."],
+"Tamamlandı:":["Completed:","Abgeschlossen:","Completada:"],
+"Funded hesapta tüm bakiyeyi çektiysen çekimi eklerken \"Tüm bakiyeyi çektim\" kutusunu işaretle. Hesap kapanır ve \"Tamamlandı\" yazar.":["if you paid out the full balance of a Funded account, tick \"I paid out the full balance\" when adding the payout. The account closes and shows \"Completed\".","hast du den gesamten Kontostand eines Funded-Kontos ausgezahlt, kreuze beim Hinzufügen der Auszahlung \"Ich habe den gesamten Kontostand ausgezahlt\" an. Das Konto wird geschlossen und zeigt \"Abgeschlossen\".","si retiraste todo el saldo de una cuenta Funded, marca \"Retiré todo el saldo\" al añadir el retiro. La cuenta se cierra y muestra \"Completada\"."],
+"Buffer:":["Buffer:","Buffer:","Buffer:"],
+"çekim yapıp hesapta bir miktar kâr (buffer) bıraktıysan kutuyu işaretleme. Hesap kapanmaz, aynen devam eder.":["if you took a payout and left some profit (a buffer) in the account, don't tick the box. The account doesn't close and carries on as before.","hast du eine Auszahlung genommen und etwas Gewinn (Buffer) im Konto gelassen, kreuze das Feld nicht an. Das Konto bleibt offen und läuft normal weiter.","si hiciste un retiro y dejaste algo de beneficio (buffer) en la cuenta, no marques la casilla. La cuenta no se cierra y sigue igual."],
+"İhlal ve Tamamlandı hesapları hesap sayfasındaki \"Yeniden aç\" ile geri açabilirsin.":["You can reopen Breached and Completed accounts with \"Reopen\" on the account's page.","Konten mit Verstoß oder Abgeschlossen kannst du auf der Kontoseite mit \"Wieder öffnen\" erneut öffnen.","Puedes reabrir las cuentas Infringidas y Completadas con \"Reabrir\" en la página de la cuenta."],
+"Kartların köşesindeki \"Demo Challenge\" ve \"Demo Funded\" etiketleri, bu hesapların deneme amaçlı olduğunu gösterir.":["The \"Demo Challenge\" and \"Demo Funded\" labels in the corner of the cards show that these accounts are for practice.","Die Labels \"Demo-Challenge\" und \"Demo-Funded\" in der Ecke der Karten zeigen, dass diese Konten zum Üben sind.","Las etiquetas \"Challenge demo\" y \"Funded demo\" en la esquina de las tarjetas indican que estas cuentas son de práctica."],
+"Consistency, en kârlı gününün toplam kârına oranıdır. Örnek: toplam kâr $2.000, en iyi gün $800 ise oran %40.":["Consistency is your most profitable day divided by your total profit. Example: total profit $2,000 and best day $800 gives 40%.","Konsistenz ist dein profitabelster Tag im Verhältnis zum Gesamtgewinn. Beispiel: Gesamtgewinn $2.000, bester Tag $800, ergibt 40 %.","La consistencia es tu día más rentable dividido entre tu beneficio total. Ejemplo: beneficio total $2.000 y mejor día $800 da un 40 %."],
+"Hesap eklerken ya da düzenlerken limiti %5'lik adımlarla seçersin (örneğin %45). Limit seçmezsen kutu görünmez.":["When you add or edit an account, you choose the limit in 5% steps (e.g. 45%). If you don't choose one, the box isn't shown.","Beim Hinzufügen oder Bearbeiten eines Kontos wählst du das Limit in 5-%-Schritten (z. B. 45 %). Ohne Limit wird das Feld nicht angezeigt.","Al añadir o editar una cuenta, eliges el límite en pasos del 5 % (p. ej. 45 %). Si no eliges ninguno, el recuadro no aparece."],
+"Hesap sayfasındaki Consistency kutusunda şu anki oranın yazar. Limitin altındaysa yeşil, üstündeyse kırmızıdır.":["The Consistency box on the account page shows your current ratio. It's green below the limit and red above it.","Das Feld Konsistenz auf der Kontoseite zeigt deinen aktuellen Wert. Unter dem Limit ist es grün, darüber rot.","El recuadro Consistencia de la página de la cuenta muestra tu ratio actual. Es verde por debajo del límite y rojo por encima."],
+"\"+$X kaldı\":":["\"+$X left\":","\"noch +$X\":","\"quedan +$X\":"],
+"bugün en fazla bu kadar daha kazanırsan oran limiti aşmaz.":["if you earn at most this much more today, the ratio stays within the limit.","verdienst du heute höchstens so viel mehr, bleibt der Wert im Limit.","si hoy ganas como máximo esta cantidad más, la ratio no supera el límite."],
+"\"+$X kâr gerekli\":":["\"+$X profit needed\":","\"+$X Gewinn nötig\":","\"faltan +$X de beneficio\":"],
+"oran limitin üstündeyse, limitin altına inmek için en iyi gününü geçmeyen günlerle bu kadar daha kâr etmen gerekir.":["if the ratio is above your limit, you need this much more profit on days that don't beat your best day to get back under it.","liegt der Wert über dem Limit, brauchst du so viel mehr Gewinn an Tagen, die deinen besten Tag nicht übertreffen, um wieder darunter zu kommen.","si la ratio supera tu límite, necesitas esta cantidad más de beneficio en días que no superen tu mejor día para volver por debajo."],
+"Hesap eklerken ya da düzenlerken \"Min. işlem günü\" (örneğin 5) ve \"Günlük min. kâr %\" (örneğin 0,5) yazarsın. Gün sayısını boş bırakırsan kutu görünmez.":["When you add or edit an account, you enter \"Min. days\" (e.g. 5) and \"Daily min. %\" (e.g. 0.5). If you leave the number of days empty, the box isn't shown.","Beim Hinzufügen oder Bearbeiten eines Kontos trägst du \"Min. Tage\" (z. B. 5) und \"Tagesmin. %\" (z. B. 0,5) ein. Lässt du die Anzahl der Tage leer, wird das Feld nicht angezeigt.","Al añadir o editar una cuenta, escribes \"Días mín.\" (p. ej. 5) y \"% mín. diario\" (p. ej. 0,5). Si dejas vacío el número de días, el recuadro no aparece."],
+"Bir günün sayılması için o günün kârı, bir önceki günün kapanış bakiyesinin en az bu yüzdesi kadar olmalı. Örnek: 50.000$ bakiyede %0,5 = en az 250$ kâr. Yüzdeyi boş bırakırsan %0,5 kabul edilir, 0 yazarsan kârlı her gün sayılır.":["For a day to count, its profit must be at least this percentage of the previous day's closing balance. Example: with a $50,000 balance, 0.5% = at least $250 profit. If you leave the percentage empty, 0.5% is used. If you enter 0, every profitable day counts.","Damit ein Tag zählt, muss sein Gewinn mindestens diesen Prozentsatz des Schlusskontostands vom Vortag betragen. Beispiel: Bei $50.000 Kontostand sind 0,5 % = mindestens $250 Gewinn. Lässt du den Prozentsatz leer, gilt 0,5 %. Bei 0 zählt jeder Gewinntag.","Para que un día cuente, su beneficio debe ser al menos este porcentaje del saldo de cierre del día anterior. Ejemplo: con un saldo de $50.000, 0,5 % = al menos $250 de beneficio. Si dejas el porcentaje vacío, se usa 0,5 %. Si escribes 0, cuenta cualquier día con beneficio."],
+"Funded hesapta buffer bırakarak çekim yaparsan sayım sıfırlanır, bir sonraki çekim için günler yeniden sayılır.":["If you take a payout from a Funded account and leave a buffer, the count resets and the days are counted again for the next payout.","Nimmst du bei einem Funded-Konto eine Auszahlung und lässt einen Buffer stehen, wird die Zählung zurückgesetzt und die Tage für die nächste Auszahlung neu gezählt.","Si haces un retiro de una cuenta Funded dejando un buffer, el conteo se reinicia y los días se cuentan de nuevo para el siguiente retiro."],
+"Tamamlanınca kutu yeşil olur ve \"Tamamlandı ✓\" yazar.":["When it's done, the box turns green and shows \"Completed ✓\".","Ist es geschafft, wird das Feld grün und zeigt \"Abgeschlossen ✓\".","Cuando se cumple, el recuadro se pone verde y muestra \"Completado ✓\"."],
+"kazanan işlemlerin tüm işlemlere oranı. Başabaş (0) işlemler de hesaba katılır, çünkü kayıp da olabilirlerdi.":["winning trades divided by all trades. Breakeven (0) trades are included too, because they could have been losses.","Gewinntrades im Verhältnis zu allen Trades. Breakeven-Trades (0) zählen mit, weil sie auch Verluste hätten sein können.","operaciones ganadoras divididas entre todas las operaciones. Las operaciones en breakeven (0) también cuentan, porque podrían haber sido pérdidas."],
+"Copy trade yapıyorsan aynı boyuttaki hesapları bağlayabilirsin.":["If you copy trade, you can link accounts of the same size.","Wenn du Copy-Trading machst, kannst du gleich große Konten verknüpfen.","Si haces copy trading, puedes vincular cuentas del mismo tamaño."],
+"Önce ana hesabı, sonra bağlanacak hesabı seçersin. Hesaplar sen onaylamadan bağlanmaz.":["First you choose the main account, then the account to link. Accounts are never linked until you confirm.","Zuerst wählst du das Hauptkonto, dann das zu verknüpfende Konto. Ohne deine Bestätigung wird nichts verknüpft.","Primero eliges la cuenta principal y luego la que vas a vincular. Las cuentas no se vinculan hasta que lo confirmes."],
+"Giriş serisi ve rozetler":["Login streak and badges","Login-Serie und Abzeichen","Racha de accesos e insignias"],
+"Her gün uygulamaya girdiğinde o gün sayılır, işlem açman gerekmez.":["Every day you open the app counts. You don't need to place a trade.","Jeder Tag, an dem du die App öffnest, zählt. Du musst dafür nicht traden.","Cada día que entras en la app cuenta. No necesitas abrir ninguna operación."],
+"İlk giriş:":["First login:","Erster Login:","Primer acceso:"],
+"üye olduğunda.":["when you sign up.","bei der Registrierung.","al registrarte."],
+"Haftalık bronz:":["Weekly bronze:","Wochen-Bronze:","Bronce semanal:"],
+"pazartesiden pazara 7 gün gir.":["log in all 7 days from Monday to Sunday.","logge dich von Montag bis Sonntag an allen 7 Tagen ein.","entra los 7 días de lunes a domingo."],
+"30 gün gümüş, 100 gün altın, 365 gün elmas:":["30-day silver, 100-day gold, 365-day diamond:","30-Tage-Silber, 100-Tage-Gold, 365-Tage-Diamant:","Plata 30 días, oro 100 días, diamante 365 días:"],
+"toplam giriş günü.":["total login days.","Login-Tage insgesamt.","días de acceso totales."],
+"Küçük rozetler:":["Small badges:","Kleine Abzeichen:","Insignias pequeñas:"],
+"ilk işlem, 10 işlem notu, ilk çekim, ilk Funded hesap, 100 işlem.":["first trade, 10 trade notes, first payout, first Funded account, 100 trades.","erster Trade, 10 Trade-Notizen, erste Auszahlung, erstes Funded-Konto, 100 Trades.","primera operación, 10 notas de operación, primer retiro, primera cuenta Funded, 100 operaciones."],
+"Günler Türkiye saatine ve sunucu saatine göre sayılır.":["Days are counted in Türkiye time, using the server clock.","Die Tage werden nach türkischer Zeit und der Serveruhr gezählt.","Los días se cuentan según la hora de Turquía y el reloj del servidor."],
+"Giriş ve hesap":["Login and account","Login und Konto","Acceso y cuenta"],
+"Hangi yöntemle kayıt olduysan (e-posta ve şifre ya da Google) hep onunla gir. Farklı yöntem boş bir hesap açar.":["Always log in the way you signed up (email and password or Google). A different method opens an empty account.","Melde dich immer so an, wie du dich registriert hast (E-Mail und Passwort oder Google). Eine andere Methode öffnet ein leeres Konto.","Entra siempre con el método con el que te registraste (correo y contraseña o Google). Otro método abre una cuenta vacía."],
+"Verilerin hesabına otomatik kaydedilir, tüm cihazlarında aynıdır.":["Your data is saved to your account automatically and is the same on all your devices.","Deine Daten werden automatisch in deinem Konto gespeichert und sind auf allen Geräten gleich.","Tus datos se guardan automáticamente en tu cuenta y son iguales en todos tus dispositivos."],
+"Yedek sayfasından verilerini dosya olarak indirebilirsin.":["You can download your data as a file from the Backup page.","Auf der Seite Backup kannst du deine Daten als Datei herunterladen.","Puedes descargar tus datos como archivo desde la página Copia de seguridad."],
+"KVKK Aydınlatma Metni ve Gizlilik Politikası için menüdeki <b>Gizlilik ve KVKK</b> sayfasına bak.":["For the KVKK Privacy Notice and Privacy Policy, see the <b>Privacy & KVKK</b> page in the menu.","Den KVKK-Datenschutzhinweis und die Datenschutzrichtlinie findest du im Menü unter <b>Datenschutz & KVKK</b>.","Consulta el Aviso de privacidad KVKK y la Política de privacidad en la página <b>Privacidad y KVKK</b> del menú."],
+/* KVKK */
+"Gizlilik Politikası":["Privacy Policy","Datenschutzrichtlinie","Política de privacidad"],
+"6698 sayılı Kişisel Verilerin Korunması Kanunu (\"KVKK\") kapsamında, Sykle uygulamasını kullanırken kişisel verilerinin nasıl işlendiğini aşağıda açıklıyoruz.":["Under Turkish Personal Data Protection Law No. 6698 (\"KVKK\"), we explain below how your personal data is processed when you use the Sykle app.","Gemäß dem türkischen Gesetz Nr. 6698 zum Schutz personenbezogener Daten (\"KVKK\") erklären wir hier, wie deine personenbezogenen Daten bei der Nutzung der Sykle-App verarbeitet werden.","De acuerdo con la Ley turca n.º 6698 de Protección de Datos Personales (\"KVKK\"), explicamos a continuación cómo se tratan tus datos personales cuando usas la app Sykle."],
+"1. Veri sorumlusu":["1. Data controller","1. Verantwortlicher","1. Responsable del tratamiento"],
+"Sykle uygulamasının sahibi. İletişim:":["The owner of the Sykle app. Contact:","Der Inhaber der Sykle-App. Kontakt:","El titular de la app Sykle. Contacto:"],
+"2. İşlenen kişisel veriler":["2. Personal data processed","2. Verarbeitete personenbezogene Daten","2. Datos personales tratados"],
+"Kimlik:":["Identity:","Identität:","Identidad:"],
+"kullanıcı adın (Google ile girersen Google'daki adın).":["your username (your Google name if you log in with Google).","dein Benutzername (bei Google-Anmeldung dein Google-Name).","tu nombre de usuario (tu nombre de Google si entras con Google)."],
+"İletişim:":["Contact:","Kontakt:","Contacto:"],
+"e-posta adresin.":["your email address.","deine E-Mail-Adresse.","tu dirección de correo."],
+"Kullanıcı içerikleri:":["User content:","Nutzerinhalte:","Contenido del usuario:"],
+"girdiğin hesap, işlem, çekim ve not kayıtları, yüklediğin fotoğraf ve dekontlar, gönderdiğin görüşler.":["the accounts, trades, payouts and notes you enter, the photos and receipts you upload, and the feedback you send.","die von dir eingetragenen Konten, Trades, Auszahlungen und Notizen, hochgeladene Fotos und Belege sowie dein gesendetes Feedback.","las cuentas, operaciones, retiros y notas que registras, las fotos y comprobantes que subes y los comentarios que envías."],
+"İşlem güvenliği:":["Security:","Sicherheit:","Seguridad:"],
+"şifren (şifrelenmiş olarak saklanır, kimse göremez), oturum bilgileri, giriş zamanları, IP adresi ve teknik kayıtlar.":["your password (stored encrypted, nobody can see it), session data, login times, IP address and technical logs.","dein Passwort (verschlüsselt gespeichert, niemand kann es sehen), Sitzungsdaten, Login-Zeiten, IP-Adresse und technische Protokolle.","tu contraseña (guardada cifrada, nadie puede verla), datos de sesión, horas de acceso, dirección IP y registros técnicos."],
+"3. İşleme amaçları":["3. Purposes of processing","3. Zwecke der Verarbeitung","3. Finalidades del tratamiento"],
+"Hesabını oluşturmak, e-postanı doğrulamak ve giriş yapmanı sağlamak,":["to create your account, verify your email and let you log in,","um dein Konto zu erstellen, deine E-Mail zu bestätigen und dir die Anmeldung zu ermöglichen,","crear tu cuenta, verificar tu correo y permitirte iniciar sesión,"],
+"Kayıtlarını saklamak ve cihazların arasında senkronlamak,":["to store your records and sync them across your devices,","um deine Einträge zu speichern und zwischen deinen Geräten zu synchronisieren,","guardar tus registros y sincronizarlos entre tus dispositivos,"],
+"Uygulamanın güvenliğini sağlamak, kötüye kullanımı önlemek,":["to keep the app secure and prevent misuse,","um die App sicher zu halten und Missbrauch zu verhindern,","mantener la app segura y evitar usos indebidos,"],
+"Görüş ve taleplerine dönüş yapmak, uygulamayı geliştirmek.":["to respond to your feedback and requests and improve the app.","um auf dein Feedback und deine Anfragen zu antworten und die App zu verbessern.","responder a tus comentarios y solicitudes y mejorar la app."],
+"4. Hukuki sebepler ve toplama yöntemi":["4. Legal grounds and method of collection","4. Rechtsgrundlagen und Art der Erhebung","4. Bases jurídicas y forma de recogida"],
+"Verilerin, uygulamayı kullanman sırasında elektronik ortamda otomatik yollarla toplanır. KVKK m.5/2-c (bir sözleşmenin kurulması veya ifasıyla doğrudan ilgili olması), m.5/2-ç (hukuki yükümlülük) ve m.5/2-f (ilgili kişinin temel hak ve özgürlüklerine zarar vermemek kaydıyla meşru menfaat) hukuki sebeplerine dayanılarak işlenir.":["Your data is collected electronically and automatically while you use the app. It is processed on the legal grounds of KVKK Art. 5/2-c (directly related to the conclusion or performance of a contract), Art. 5/2-ç (legal obligation) and Art. 5/2-f (legitimate interest, provided it does not harm your fundamental rights and freedoms).","Deine Daten werden während der Nutzung der App elektronisch und automatisch erhoben. Sie werden auf Grundlage von KVKK Art. 5/2-c (unmittelbar für den Abschluss oder die Erfüllung eines Vertrags erforderlich), Art. 5/2-ç (rechtliche Verpflichtung) und Art. 5/2-f (berechtigtes Interesse, sofern deine Grundrechte und Grundfreiheiten nicht verletzt werden) verarbeitet.","Tus datos se recogen de forma electrónica y automática mientras usas la app. Se tratan con base en el art. 5/2-c de la KVKK (relación directa con la celebración o ejecución de un contrato), el art. 5/2-ç (obligación legal) y el art. 5/2-f (interés legítimo, siempre que no perjudique tus derechos y libertades fundamentales)."],
+"5. Aktarım":["5. Transfers","5. Übermittlung","5. Transferencias"],
+"Sykle kendi sunucusunu işletmez. Verilerin, hizmetin çalışması için şu hizmet sağlayıcıların sistemlerinde işlenir: Supabase (veritabanı, giriş ve dosya depolama; sunucu Almanya/Frankfurt'ta), Google (doğrulama e-postalarının gönderimi ve \"Google ile giriş\"), GitHub (uygulama sayfasının barındırılması). Bu sağlayıcılar yurt dışında bulunduğundan verilerin yurt dışına aktarılmış olur. Verilerin satılmaz ve reklam amacıyla kimseyle paylaşılmaz. Kanunen yetkili kurumların talebi halinde ilgili mevzuat çerçevesinde paylaşılabilir.":["Sykle doesn't run its own servers. To provide the service, your data is processed on the systems of these providers: Supabase (database, login and file storage; servers in Frankfurt, Germany), Google (sending verification emails and \"Continue with Google\"), GitHub (hosting the app page). Because these providers are outside Türkiye, your data is transferred abroad. Your data is never sold or shared with anyone for advertising. It may be shared with legally authorized authorities on request, within the applicable law.","Sykle betreibt keine eigenen Server. Für den Dienst werden deine Daten auf den Systemen folgender Anbieter verarbeitet: Supabase (Datenbank, Anmeldung und Dateispeicher; Server in Frankfurt, Deutschland), Google (Versand der Bestätigungs-E-Mails und \"Weiter mit Google\"), GitHub (Hosting der App-Seite). Da diese Anbieter außerhalb der Türkei sitzen, werden deine Daten ins Ausland übermittelt. Deine Daten werden nicht verkauft und nicht zu Werbezwecken weitergegeben. Auf Anfrage gesetzlich befugter Behörden können sie im Rahmen der geltenden Gesetze weitergegeben werden.","Sykle no gestiona servidores propios. Para prestar el servicio, tus datos se tratan en los sistemas de estos proveedores: Supabase (base de datos, inicio de sesión y almacenamiento de archivos; servidores en Fráncfort, Alemania), Google (envío de correos de verificación y \"Continuar con Google\"), GitHub (alojamiento de la página de la app). Como estos proveedores están fuera de Turquía, tus datos se transfieren al extranjero. Tus datos no se venden ni se comparten con nadie con fines publicitarios. Pueden compartirse con autoridades legalmente competentes que lo soliciten, conforme a la normativa aplicable."],
+"6. Saklama süresi":["6. Retention period","6. Speicherdauer","6. Plazo de conservación"],
+"Verilerin hesabın açık kaldığı sürece saklanır. Hesabının silinmesini istersen verilerin silinir. Kodu doğrulanmayan yarım kayıtlar 30 dakika içinde otomatik silinir.":["Your data is kept as long as your account is open. If you ask for your account to be deleted, your data is deleted. Unfinished sign-ups whose code isn't verified are deleted automatically within 30 minutes.","Deine Daten werden gespeichert, solange dein Konto besteht. Wenn du die Löschung deines Kontos verlangst, werden deine Daten gelöscht. Unvollständige Registrierungen ohne bestätigten Code werden innerhalb von 30 Minuten automatisch gelöscht.","Tus datos se conservan mientras tu cuenta siga abierta. Si pides que se elimine tu cuenta, se eliminan tus datos. Los registros incompletos cuyo código no se verificó se eliminan automáticamente en 30 minutos."],
+"7. Hakların (KVKK m.11)":["7. Your rights (KVKK Art. 11)","7. Deine Rechte (KVKK Art. 11)","7. Tus derechos (KVKK art. 11)"],
+"Kişisel verilerinin işlenip işlenmediğini öğrenme, işlenmişse bilgi talep etme, işlenme amacını ve amacına uygun kullanılıp kullanılmadığını öğrenme, aktarıldığı üçüncü kişileri bilme, eksik veya yanlış işlenmişse düzeltilmesini, silinmesini veya yok edilmesini isteme, bu işlemlerin aktarılan üçüncü kişilere bildirilmesini isteme, münhasıran otomatik sistemlerle analiz edilmesi sonucunda aleyhine bir sonuç çıkmasına itiraz etme ve kanuna aykırı işleme nedeniyle zarara uğrarsan zararın giderilmesini talep etme haklarına sahipsin. Taleplerini":["You have the right to learn whether your personal data is processed and, if so, to request information about it; to learn the purpose of processing and whether it is used for that purpose; to know the third parties it is transferred to; to ask for it to be corrected if incomplete or wrong, or to be erased or destroyed; to ask that these actions be reported to the third parties it was transferred to; to object to a result against you that comes solely from automated analysis; and to claim compensation if you suffer damage from unlawful processing. You can send your requests to","Du hast das Recht zu erfahren, ob deine personenbezogenen Daten verarbeitet werden, und gegebenenfalls Auskunft darüber zu verlangen; den Zweck der Verarbeitung zu erfahren und ob sie zweckgemäß verwendet werden; die Dritten zu kennen, an die sie übermittelt werden; bei unvollständiger oder falscher Verarbeitung die Berichtigung sowie die Löschung oder Vernichtung zu verlangen; zu verlangen, dass diese Maßnahmen den Dritten mitgeteilt werden, an die die Daten übermittelt wurden; einem nachteiligen Ergebnis zu widersprechen, das ausschließlich durch automatisierte Analyse entsteht; und Schadenersatz zu verlangen, wenn dir durch rechtswidrige Verarbeitung ein Schaden entsteht. Deine Anfragen kannst du an","Tienes derecho a saber si se tratan tus datos personales y, en tal caso, a solicitar información; a conocer la finalidad del tratamiento y si se usan conforme a ella; a conocer los terceros a los que se transfieren; a pedir su rectificación si están incompletos o son incorrectos, o su supresión o destrucción; a pedir que estas acciones se comuniquen a los terceros a los que se transfirieron; a oponerte a un resultado en tu contra derivado exclusivamente de un análisis automatizado; y a reclamar una indemnización si sufres daños por un tratamiento ilícito. Puedes enviar tus solicitudes a"],
+"adresine yazabilirsin. Talebin en geç 30 gün içinde ücretsiz olarak sonuçlandırılır.":[". Your request will be handled free of charge within 30 days at the latest."," senden. Deine Anfrage wird spätestens innerhalb von 30 Tagen kostenlos bearbeitet.",". Tu solicitud se resolverá de forma gratuita en un plazo máximo de 30 días."],
+"Sykle'de reklam, takip çerezi ya da üçüncü taraf analiz aracı kullanılmaz.":["Sykle uses no ads, tracking cookies or third-party analytics tools.","Sykle verwendet keine Werbung, keine Tracking-Cookies und keine Analysetools von Drittanbietern.","Sykle no usa publicidad, cookies de seguimiento ni herramientas de análisis de terceros."],
+"Tarayıcında sadece uygulamanın çalışması için gereken bilgiler (oturumun ve verilerinin cihazdaki kopyası) tutulur.":["Your browser only keeps what the app needs to work (your session and a copy of your data on the device).","In deinem Browser wird nur gespeichert, was die App zum Funktionieren braucht (deine Sitzung und eine Kopie deiner Daten auf dem Gerät).","Tu navegador solo guarda lo necesario para que la app funcione (tu sesión y una copia de tus datos en el dispositivo)."],
+"Fotoğrafların tahmin edilemeyen özel bağlantılarla saklanır. Bağlantıyı bilmeyen kimse fotoğraflarına ulaşamaz. Bağlantıyı başkasıyla paylaşırsan o kişi görebilir.":["Your photos are stored under private links that can't be guessed. Nobody without the link can reach them. If you share a link with someone, they can see that photo.","Deine Fotos werden unter privaten, nicht erratbaren Links gespeichert. Ohne den Link kann niemand darauf zugreifen. Teilst du einen Link, kann die Person das Foto sehen.","Tus fotos se guardan con enlaces privados imposibles de adivinar. Nadie sin el enlace puede acceder a ellas. Si compartes un enlace con alguien, esa persona podrá ver la foto."],
+"Şifren şifrelenmiş olarak saklanır. Sykle dahil kimse şifreni göremez.":["Your password is stored encrypted. Nobody, including Sykle, can see it.","Dein Passwort wird verschlüsselt gespeichert. Niemand, auch nicht Sykle, kann es sehen.","Tu contraseña se guarda cifrada. Nadie, ni siquiera Sykle, puede verla."],
+"Her kullanıcı sadece kendi verisini görebilir. Bu kural sadece uygulamada değil, veritabanında da uygulanır.":["Each user can only see their own data. This rule is enforced in the database too, not just in the app.","Jeder Nutzer sieht nur seine eigenen Daten. Diese Regel gilt nicht nur in der App, sondern auch in der Datenbank.","Cada usuario solo puede ver sus propios datos. Esta regla se aplica también en la base de datos, no solo en la app."],
+"Bu metinler değişirse güncel hali her zaman bu sayfada yer alır.":["If these texts change, the current version is always on this page.","Ändern sich diese Texte, findest du die aktuelle Fassung immer auf dieser Seite.","Si estos textos cambian, la versión vigente estará siempre en esta página."],
+"Son güncelleme: 17 Kasım 2026":["Last updated: November 17, 2026","Zuletzt aktualisiert: 17. November 2026","Última actualización: 17 de noviembre de 2026"],
+};
+window.SY_DICT=Object.assign(window.SY_DICT||{},D);
+})();
+(function(){
+const D={
+"veya ekran görüntüsünü yapıştır":["or paste a screenshot","oder Screenshot einfügen","o pega una captura"],
+"Gönderiliyor…":["Sending…","Wird gesendet…","Enviando…"],
+"Henüz kayıt yok.":["No records yet.","Noch keine Einträge.","Aún no hay registros."],
+"sykle-yedek.json":["sykle-backup.json","sykle-backup.json","sykle-copia.json"],
+"· Çekim":["· Payout","· Auszahlung","· Retiro"],
+};
+window.SY_DICT=Object.assign(window.SY_DICT||{},D);
+})();
+
+</script>
+<script>
+/* Sykle dil desteği: Türkçe (asıl), English, Deutsch, Español */
+(function(){
+var LANGS=["tr","en","de","es"];
+var L=null;try{L=localStorage.getItem("sykleLang")}catch(e){}
+if(LANGS.indexOf(L)<0){var n=((navigator.languages&&navigator.languages[0])||navigator.language||"tr").slice(0,2).toLowerCase();L=LANGS.indexOf(n)>=0?n:"en"}
+var LOC={tr:"tr-TR",en:"en-US",de:"de-DE",es:"es-ES"}[L],IX={en:0,de:1,es:2}[L];
+window.SY_L=L;window.SY_LOC=LOC;window.SY_LANGS=[["tr","Türkçe"],["en","English"],["de","Deutsch"],["es","Español"]];
+document.documentElement.lang=L;
+window.SY_SET=function(l){try{localStorage.setItem("sykleLang",l)}catch(e){}};
+/* tarih yardımcıları */
+var cap=function(s){return s?s.charAt(0).toLocaleUpperCase(LOC)+s.slice(1):s};
+window.SY_MN=[0,1,2,3,4,5,6,7,8,9,10,11].map(function(m){return cap(new Intl.DateTimeFormat(LOC,{month:"long",timeZone:"UTC"}).format(new Date(Date.UTC(2026,m,15))))});
+window.SY_WD=({tr:["Pzt","Sal","Çar","Per","Cum","Cmt","Paz"],en:["Mon","Tue","Wed","Thu","Fri","Sat","Sun"],de:["Mo","Di","Mi","Do","Fr","Sa","So"],es:["Lun","Mar","Mié","Jue","Vie","Sáb","Dom"]})[L];
+/* gün + ay (+ yıl): 17 Kasım · November 17 · 17. November · 17 de noviembre */
+window.SY_DM=function(d,m,y){var o={day:"numeric",month:"long",timeZone:"UTC"};if(y!=null)o.year="numeric";return new Intl.DateTimeFormat(LOC,o).format(new Date(Date.UTC(y==null?2026:+y,+m,+d)))};
+/* kısa: 16 Kasım · Nov 16 · 16. Nov. · 16 nov */
+window.SY_DMS=function(d,m){return L==="tr"?window.SY_DM(d,m):new Intl.DateTimeFormat(LOC,{day:"numeric",month:"short",timeZone:"UTC"}).format(new Date(Date.UTC(2026,+m,+d))).replace(/\.$/,L==="de"?".":"")};
+/* ay + yıl: Kasım 2026 · November 2026 · November 2026 · Noviembre de 2026 */
+window.SY_MY=function(m,y){return cap(new Intl.DateTimeFormat(LOC,{month:"long",year:"numeric",timeZone:"UTC"}).format(new Date(Date.UTC(+y,+m,15))))};
+var D=window.SY_DICT||{};
+window.SY_T=function(s){return tr(s)};
+var E={},U={},P=[],HP=[];
+function esc(s){return s.replace(/[.*+?^$()|[\]\\]/g,"\\$&")}
+if(IX!=null){Object.keys(D).forEach(function(k){var v=D[k][IX];if(v==null)return;
+ if(k.indexOf("{}")>=0){var re=new RegExp("^"+esc(k).replace(/\\\{\\\}|\{\}/g,"([\\s\\S]*?)")+"$");(k.indexOf("<")>=0?HP:P).push([re,v,k.length])}
+ else{E[k]=v;var u=k.toLocaleUpperCase("tr-TR");if(u!==k&&!(u in E))U[u]=v}});
+ P.sort(function(a,b){return b[2]-a[2]});HP.sort(function(a,b){return b[2]-a[2]})}
+var PCT=L==="en"?"$1$2%":"$1$2 %";
+function num(c){return L==="en"&&/^[+−-]?\d+,\d+$/.test(c)?c.replace(",","."):c}
+function fill(out,caps){if(typeof out==="function")return out.apply(null,caps.map(function(c){var t=look(c);return t!=null?t:num(c)}));var i=0;return out.replace(/\{(\d?)\}/g,function(_,d){var c=caps[d?+d-1:i++];if(c==null)return"";var t=look(c);return t!=null?t:num(c)})}
+function look(c){if(!c)return null;
+ if(Object.prototype.hasOwnProperty.call(E,c))return E[c];
+ if(Object.prototype.hasOwnProperty.call(U,c))return U[c].toLocaleUpperCase(LOC);
+ if(/^[+−-]?%\d+(?:[.,]\d+)?$/.test(c))return num(c.replace(/^([+−-]?)%(.*)$/,"$1$2"))+(L==="en"?"%":" %");
+ for(var i=0;i<P.length;i++){var m=c.match(P[i][0]);if(m)return fill(P[i][1],m.slice(1))}
+ return null}
+function tr(s){if(IX==null||s==null)return s;s=String(s);var m=s.match(/^(\s*)([\s\S]*?)(\s*)$/),c=m[2].replace(/\s+/g," ");if(!c)return s;var t=look(c);return t==null?s:m[1]+t+m[3]}
+window.SY_TR=tr;
+if(IX==null)return;
+/* mesaj kutuları ve tuval (paylaşım kartı) */
+var trM=function(s){return s==null?s:String(s).split("\n").map(tr).join("\n")};
+var oa=window.alert,oc=window.confirm,op=window.prompt;
+window.alert=function(m){return oa.call(window,trM(m))};window.confirm=function(m){return oc.call(window,trM(m))};window.prompt=function(m,d){return op.call(window,trM(m),d)};
+var C=window.CanvasRenderingContext2D&&CanvasRenderingContext2D.prototype;
+if(C){["fillText","strokeText","measureText"].forEach(function(f){var o=C[f];C[f]=function(t){var a=[].slice.call(arguments);a[0]=tr(t);if(f==="fillText"&&t!=null&&look(String(t).trim())==null)miss(String(t));return o.apply(this,a)}})}
+/* sayfadaki yazılar */
+var INL={B:1,I:1,STRONG:1,EM:1,BR:1,SMALL:1,U:1,SPAN:1,A:1,CODE:1,SUP:1,SUB:1};
+var SKIP={SCRIPT:1,STYLE:1,TEXTAREA:1,NOSCRIPT:1};
+var done=new WeakMap(),unitDone=new WeakSet(),attrDone=new WeakMap();
+window.SY_MISS=window.SY_MISS||null;/* test için: çevrilemeyen yazılar */
+function miss(k){if(window.SY_MISS&&/[A-Za-zÇĞİÖŞÜçğıöşü]/.test(k))window.SY_MISS[k]=1}
+function inlineOnly(el){for(var c=el.firstChild;c;c=c.nextSibling){if(c.nodeType===1){if(!INL[c.tagName]||!inlineOnly(c))return false}}return true}
+function isUnit(el){var t=false,e=false;for(var c=el.firstChild;c;c=c.nextSibling){if(c.nodeType===3&&/\S/.test(c.nodeValue))t=true;else if(c.nodeType===1)e=true}return t&&e&&inlineOnly(el)}
+function inDone(n){for(var p=n.parentNode;p&&p.nodeType===1;p=p.parentNode){if(unitDone.has(p))return true;if(p.isContentEditable||p.hasAttribute("data-noi18n"))return true}return false}
+function unit(el){var k=el.innerHTML.replace(/\s+/g," ").trim(),v=null;
+ if(Object.prototype.hasOwnProperty.call(E,k))v=E[k];else for(var i=0;i<HP.length;i++){var m=k.match(HP[i][0]);if(m){v=fill(HP[i][1],m.slice(1));break}}
+ if(v==null){if(window.SY_UMISS)window.SY_UMISS[k]=1;return false}
+ unitDone.add(el);if(el.innerHTML!==v)el.innerHTML=v;done.set(el,el.innerHTML);return true}
+function txt(n){var p=n.parentNode;if(!p||SKIP[p.tagName]||inDone(n))return;var v=n.nodeValue;if(done.get(n)===v)return;
+ var m=v.match(/^(\s*)([\s\S]*?)(\s*)$/),c=m[2].replace(/\s+/g," "),h=c?look(c):null;
+ if(h!=null){var t=m[1]+h+m[3];if(t!==v){if(p.tagName==="OPTION"&&!p.hasAttribute("value"))p.setAttribute("value",c);n.nodeValue=t}}else if(c&&!/^[\s\d.,:+−\-$%/()·–—×✓|<>=]*$/.test(c))miss(c);
+ done.set(n,n.nodeValue)}
+var AT=["placeholder","title","aria-label","alt"];
+function attrs(el){for(var i=0;i<AT.length;i++){var a=AT[i],v=el.getAttribute(a);if(v==null)continue;var m=attrDone.get(el)||{};if(m[a]===v)continue;var c=v.replace(/\s+/g," ").trim(),h=c?look(c):null,t=h!=null?h:v;if(t!==v)el.setAttribute(a,t);else if(h==null)miss(v);m[a]=t;attrDone.set(el,m)}}
+function walk(r){if(r.nodeType===3){txt(r);return}if(r.nodeType!==1)return;if(r.tagName==="TEXTAREA"){attrs(r);return}if(SKIP[r.tagName])return;
+ if(r.hasAttribute&&r.hasAttribute("data-noi18n"))return;
+ if(unitDone.has(r)&&done.get(r)===r.innerHTML)return;
+ attrs(r);
+ if(isUnit(r)&&!inDone(r)){if(unit(r))return}
+ for(var c=r.firstChild;c;c=c.nextSibling)walk(c)}
+window.SY_WALK=function(){if(document.body)walk(document.body)};
+new MutationObserver(function(ms){for(var i=0;i<ms.length;i++){var m=ms[i];
+ if(m.type==="childList"){var t=m.target;if(t.nodeType===1&&unitDone.has(t)){if(done.get(t)===t.innerHTML)continue;unitDone.delete(t);walk(t);continue}
+  if(inDone(t))continue;
+  if(t.nodeType===1&&isUnit(t)&&!inDone(t)&&unit(t))continue;
+  for(var j=0;j<m.addedNodes.length;j++)walk(m.addedNodes[j])}
+ else if(m.type==="characterData"){var p=m.target.parentNode;if(p&&unitDone.has(p)){unitDone.delete(p);walk(p)}else txt(m.target)}
+ else if(m.type==="attributes")attrs(m.target)}}).observe(document.documentElement,{childList:true,subtree:true,characterData:true,attributes:true,attributeFilter:AT});
+})();
+
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="apple-mobile-web-app-title" content="Sykle">
 <meta http-equiv="Cache-Control" content="no-cache">
@@ -46,7 +692,7 @@ button.s{padding:6px 10px;font-size:13px}
 .mu{color:var(--mu);font-size:13px}
 .ac{display:block;width:100%;text-align:left;background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:12px;margin-bottom:10px}
 .ac b{font-size:16px}
-.ac .rw{display:flex;justify-content:space-between;margin-top:4px}
+.ac .rw{display:flex;justify-content:space-between;margin-top:4px}.ac .rw b{white-space:nowrap}
 .ah{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}.ah>span{min-width:0}
 .dlb{flex:none;font-size:10px;letter-spacing:.04em;padding:2px 8px;border-radius:99px;border:1px solid #2c3550;color:#8fa6d6;background:#0d1220;white-space:nowrap}.dlb.live{border-color:#1f4a3a;color:var(--g);background:#0b1a14}
 .ckl{display:flex;gap:10px;align-items:flex-start;font-size:14px;margin:4px 0 6px;cursor:pointer}.ckl input{flex:none;width:18px;height:18px;margin:1px 0 0;padding:0;accent-color:var(--ac)}
@@ -106,6 +752,9 @@ details.kg{background:var(--card);border:1px solid var(--bd);border-radius:14px;
 #dr button.it{display:flex;align-items:center;gap:14px;width:100%;text-align:left;border:0;background:transparent;padding:11px 10px;border-radius:10px;font-size:15px;color:var(--tx)}
 #dr button.it.on{background:#101a2b;box-shadow:inset 3px 0 0 var(--ac);color:var(--ac)}
 #dr .ico{width:22px;height:22px;flex:none}
+#dr .lgl{margin:0 0 4px 36px;border-left:1px solid #262626;padding-left:6px}
+#dr .lgl button.it{padding:9px 10px;font-size:14px}
+#dr .lgl .ico{width:18px;height:18px;color:var(--ac)}
 #dr .us{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:8px;border-top:1px solid #262626;padding:12px 10px 0}
 #dr .us b{display:block;font-weight:500;font-size:14px}
 #dr .us span{font-size:12px;color:var(--mu);word-break:break-all}
@@ -231,19 +880,19 @@ window.splashGo=function(){var t=window._spT;if(t)clearTimeout(t);requestAnimati
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
 <script>
 // Her yayında bu sürüm değişir; açık uygulamalar yeni sürümü görünce kendini yeniler.
-const APP_V="2026.11.18-7";
+const APP_V="2026.11.18-8";
 const KEY="tradeJournalV2";
 const SES=["NY Açılış","London","Asya","Seans dışı"];
 const TAGS=["FOMO","Erken çıkış","SL oynattım","Plansız","İntikam","Plana uydum"];
-const MN=["Ocak","Şubat","Mart","Nisan","Mayıs","Haziran","Temmuz","Ağustos","Eylül","Ekim","Kasım","Aralık"];
+const MN=SY_MN;
 const $=id=>document.getElementById(id);
 const pad=n=>String(n).padStart(2,"0");
 const key=d=>d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate());
 const uid=()=>Date.now()+""+Math.random().toString(36).slice(2,6);
-const fm=n=>(n>0?"+":n<0?"−":"")+"$"+Math.abs(Math.round(n*100)/100).toLocaleString("tr-TR");
+const fm=n=>(n>0?"+":n<0?"−":"")+"$"+Math.abs(Math.round(n*100)/100).toLocaleString(SY_LOC);
 const cls=n=>n>0?"g":n<0?"r":"";
 const wc=s=>s.n?(s.wr>50?"g":s.wr<50?"r":""):"";
-const th=v=>v?(+v).toLocaleString("tr-TR"):"";
+const th=v=>v?(+v).toLocaleString(SY_LOC):"";
 const num=id=>+($(id).value.replace(/\D/g,"")||0);
 function esc(s){return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
 const chip=(l,on,att)=>`<button class="s chip ${on?"on":""}" ${att}>${esc(l)}</button>`;
@@ -293,7 +942,7 @@ return{net,n:T.length,w:w.length,l:l.length,wr:T.length?Math.round(w.length/T.le
 aw:w.length?gw/w.length:0,al:l.length?gl/l.length:0,ad:nd?net/nd:0,pf:gl?(gw/gl).toFixed(2):(gw?"∞":"–"),pay:P.reduce((a,p)=>a+p.amt,0)}}
 const card=(l,v,c)=>`<div class="st"><small>${l}</small><b class="${c||""}">${v}</b></div>`;
 function statCards(s){return card("Net K/Z",fm(s.net),cls(s.net))+card("Winrate",s.wr+"%",wc(s))+card("Trade yapılan gün",s.nd)+card("İşlem sayısı",s.n+" <span class=mu>("+s.w+"K / "+s.l+"Z)</span>")+
-card("Ort. kazanç (işlem)",fm(s.aw),"g")+card("Ort. kayıp (işlem)",s.al?"−$"+Math.round(s.al):"$0","r")+card("Günlük ort. K/Z",fm(s.ad),cls(s.ad))+card("Profit factor",s.pf)+card("Toplam çekim","$"+Math.round(s.pay).toLocaleString("tr-TR"),"g")}
+card("Ort. kazanç (işlem)",fm(s.aw),"g")+card("Ort. kayıp (işlem)",s.al?"−$"+Math.round(s.al):"$0","r")+card("Günlük ort. K/Z",fm(s.ad),cls(s.ad))+card("Profit factor",s.pf)+card("Toplam çekim","$"+Math.round(s.pay).toLocaleString(SY_LOC),"g")}
 function rows(T,f,desc){const m={};T.forEach(t=>{(f(t)||[]).forEach(k=>{const o=m[k]||(m[k]={n:0,w:0,p:0});o.n++;o.p+=t.pnl;if(t.pnl>0)o.w++})});
 return Object.entries(m).sort((a,b)=>desc?b[1].p-a[1].p:a[1].p-b[1].p).map(([k,o])=>`<div class="tr"><span>${esc(k)} <span class="mu">${o.n} işlem · %${Math.round(o.w/o.n*100)}</span></span><b class="${cls(o.p)}">${fm(o.p)}</b></div>`).join("")||`<div class="mu">Veri yok</div>`}
 const hd=t=>`<div style="margin:12px 0 2px"><b>${t}</b></div>`;
@@ -331,7 +980,7 @@ $("pf").onchange=e=>setPd(e.target.files[0]||null);
 $("pclip").onclick=()=>clip(setPd);
 
 // ---- menü / gezinme
-const IC={x:'<line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>',grid:'<rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/>',layers:'<polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/>',award:'<circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/>',pie:'<path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/>',bars:'<path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/>',note:'<path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>',out:'<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/>',menu:'<line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/>',link:'<path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>',list:'<line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/>',down:'<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>',lock:'<rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/>',medal:'<circle cx="12" cy="15" r="6"/><path d="M8 2h8l-2.5 6.2"/><path d="M8 2l2.5 6.2"/>',image:'<rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>',book:'<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>',bell:'<path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/>',msg:'<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>',shield:'<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>'};
+const IC={globe:'<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9M12 3c-2.5 2.6-3.8 5.6-3.8 9s1.3 6.4 3.8 9"/>',check:'<polyline points="20 6 9 17 4 12"/>',x:'<line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>',grid:'<rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/>',layers:'<polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/>',award:'<circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/>',pie:'<path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/>',bars:'<path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/>',note:'<path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>',out:'<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/>',menu:'<line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/>',link:'<path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>',list:'<line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/>',down:'<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>',lock:'<rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/>',medal:'<circle cx="12" cy="15" r="6"/><path d="M8 2h8l-2.5 6.2"/><path d="M8 2l2.5 6.2"/>',image:'<rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>',book:'<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>',bell:'<path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/>',msg:'<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>',shield:'<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>'};
 const ico=n=>`<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${IC[n]}</svg>`;
 const fn=()=>{const m=(user&&user.user_metadata)||{};return String(m.name||m.full_name||S.pn||"").trim()};
 const fst=()=>fn().split(/\s+/)[0];
@@ -340,9 +989,11 @@ if(!t.firstChild){t.innerHTML='<i id="tp"></i>'+[["home","grid","Panel"],["list"
 const xb=$("xb");xb.classList.toggle("hid",view==="home"||view==="list"||view==="pay");if(!xb.firstChild){xb.innerHTML=ico("x");xb.onclick=goBack}
 const p=$("tp");p.style.opacity=x==null?0:1;if(x!=null)p.style.transform="translateX("+x*100+"%)";
 t.querySelectorAll("[data-tb]").forEach((b,i)=>b.classList.toggle("on",i===x))}
+let lgOpen=false;
+async function setLang(l){lgOpen=false;if(l===SY_L){menu();return}SY_SET(l);showSp();try{if(user){await within(push(),4000,false);await within(sb.auth.updateUser({data:{lang:l}}),3000,null)}}catch(e){}location.reload()}
 function menu(){const nb=(v,l,i)=>`<button data-go="${v}" class="it ${view===v?"on":""}">${ico(i)}${l}</button>`;
-$("dr").innerHTML=`<div class="lo">SYKLE</div>`+nb("live","Live","pie")+nb("lk","Hesap bağla","link")+`<h3>Günlük</h3>`+nb("sum","Özet","bars")+nb("notes","Notlar","note")+nb("an","Hesap notları","list")+`<h3>Rozetler</h3>`+nb("bd","Rozetlerim","medal")+nb("sc","İstatistik kartı","image")+`<h3>Diğer</h3>`+nb("bk","Yedek","down")+nb("fb","Görüşlerinizi bildirin","msg")+nb("kg","Kullanım kılavuzu","book")+nb("kv","Gizlilik ve KVKK","lock")+(isAdm?`<h3>Yönetim</h3>`+nb("ad","Yönetici paneli","shield"):"")+(user?`<div class="us"><div style="min-width:0"><b>${esc(fn()||"Hesabım")}</b><span>${esc(user.email||"")}</span><div class="mu" id="sst" style="margin-top:2px">${syncSt}</div></div><button data-out="1" aria-label="Çıkış yap">${ico("out")}</button></div>`:"");
-$("dr").querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>go(b.dataset.go));
+$("dr").innerHTML=`<div class="lo">SYKLE</div>`+nb("live","Live","pie")+nb("lk","Hesap bağla","link")+`<h3>Günlük</h3>`+nb("sum","Özet","bars")+nb("notes","Notlar","note")+nb("an","Hesap notları","list")+`<h3>Rozetler</h3>`+nb("bd","Rozetlerim","medal")+nb("sc","İstatistik kartı","image")+`<h3>Diğer</h3>`+nb("bk","Yedek","down")+nb("fb","Görüşlerinizi bildirin","msg")+nb("kg","Kullanım kılavuzu","book")+nb("kv","Gizlilik ve KVKK","lock")+`<button class="it" id="lgb" aria-expanded="${lgOpen}">${ico("globe")}<span style="flex:1">Dil</span><span class="mu" data-noi18n style="font-size:13px">${(SY_LANGS.find(x=>x[0]===SY_L)||SY_LANGS[0])[1]} ${lgOpen?"▴":"▾"}</span></button>`+(lgOpen?`<div class="lgl" data-noi18n>${SY_LANGS.map(x=>`<button class="it ${x[0]===SY_L?"on":""}" data-lang="${x[0]}"><span style="flex:1">${x[1]}</span>${x[0]===SY_L?ico("check"):""}</button>`).join("")}</div>`:"")+(isAdm?`<h3>Yönetim</h3>`+nb("ad","Yönetici paneli","shield"):"")+(user?`<div class="us"><div style="min-width:0"><b>${esc(fn()||"Hesabım")}</b><span>${esc(user.email||"")}</span><div class="mu" id="sst" style="margin-top:2px">${syncSt}</div></div><button data-out="1" aria-label="Çıkış yap">${ico("out")}</button></div>`:"");
+$("dr").querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>go(b.dataset.go));$("lgb").onclick=()=>{lgOpen=!lgOpen;menu()};$("dr").querySelectorAll("[data-lang]").forEach(b=>b.onclick=()=>setLang(b.dataset.lang));
 const ob=$("dr").querySelector("[data-out]");if(ob)ob.onclick=logout;tbSet();blSet()}
 const SEC={home:"home",list:"list",live:"list",det:"det",pay:"pay",notes:"notes",sum:"sum",an:"an",lk:"lk",bk:"bk",bd:"bd",sc:"sc",kg:"kg",fb:"fb",ad:"ad",kv:"kv"};
 let hist=[],noHist=false;
@@ -364,8 +1015,8 @@ $("ov").onclick=()=>{$("dr").classList.remove("o");$("ov").style.display="none"}
 
 // ---- ana sayfa / hesap listeleri
 function accCard(a){const T=S.trades.filter(t=>t.a===a.id),P=S.payouts.filter(p=>p.a===a.id),s=calc(T,P),bal=(+a.size||0)+s.net-s.pay;
-return `<button class="ac" data-acc="${a.id}"><div class="ah"><span><b>${esc(a.name)}</b>${stTag(a)} <span class="mu">${esc(a.firm||"")}</span></span>${demoLb(a)}</div><div class="rw"><span>Net <b class="${cls(s.net)}">${fm(s.net)}</b></span><span>Winrate <b class="${wc(s)}">${s.wr}%</b></span>${+a.size?`<span>Bakiye <b>$${Math.round(bal).toLocaleString("tr-TR")}</b></span>`:""}</div>${closed(a)?"":limBars(a,T,s)}</button>`}
-const usd=v=>"$"+Math.round(v).toLocaleString("tr-TR");
+return `<button class="ac" data-acc="${a.id}"><div class="ah"><span><b>${esc(a.name)}</b>${stTag(a)} <span class="mu">${esc(a.firm||"")}</span></span>${demoLb(a)}</div><div class="rw"><span>Net <b class="${cls(s.net)}">${fm(s.net)}</b></span><span>Winrate <b class="${wc(s)}">${s.wr}%</b></span>${+a.size?`<span>Bakiye <b>$${Math.round(bal).toLocaleString(SY_LOC)}</b></span>`:""}</div>${closed(a)?"":limBars(a,T,s)}</button>`}
+const usd=v=>"$"+Math.round(v).toLocaleString(SY_LOC);
 const lcol=f=>f>=.7?"var(--r)":f>=.4?"#e9bd55":"var(--g)";
 const lmb=(lab,txt,f,col)=>`<div class="lm"><div class="lt"><span>${lab}</span><b>${txt}</b></div><div class="pgb"><i style="width:${Math.round(Math.max(0,Math.min(1,f))*100)}%;background:${col}"></i></div></div>`;
 function limBars(a,T,s){let h="";const tp=T.filter(t=>t.d===key(today)).reduce((x,t)=>x+t.pnl,0);
@@ -375,7 +1026,7 @@ if(+a.tg>0&&a.ph==="Challenge"){const f=s.net/a.tg;h+=lmb("Kâr hedefi",s.net>=a
 return h}
 function bindAcc(id){$(id).querySelectorAll("[data-acc]").forEach(b=>b.onclick=()=>go("det",b.dataset.acc))}
 function kasa(A){let tot=0,net=0,pay=0;A.forEach(a=>{const s=calc(S.trades.filter(t=>t.a===a.id),S.payouts.filter(p=>p.a===a.id));tot+=(+a.size||0)+s.net-s.pay;net+=s.net;pay+=s.pay});
-return `<div class="card"><h2>Toplam kasa</h2><b style="font-size:30px">$${Math.round(tot).toLocaleString("tr-TR")}</b><div class="mu" style="margin-top:4px">Net K/Z <b class="${cls(net)}">${fm(net)}</b> · Çekim <b class="g">$${Math.round(pay).toLocaleString("tr-TR")}</b></div></div>`}
+return `<div class="card"><h2>Toplam kasa</h2><b style="font-size:30px">$${Math.round(tot).toLocaleString(SY_LOC)}</b><div class="mu" style="margin-top:4px">Net K/Z <b class="${cls(net)}">${fm(net)}</b> · Çekim <b class="g">$${Math.round(pay).toLocaleString(SY_LOC)}</b></div></div>`}
 function radar(V){const n=V.length,cx=150,cy=125,R=78,pt=(i,r)=>{const a=-Math.PI/2+i*2*Math.PI/n;return[cx+r*Math.cos(a),cy+r*Math.sin(a)]};let g="";
 [.25,.5,.75,1].forEach(f=>{g+=`<polygon points="${V.map((_,i)=>pt(i,R*f).map(x=>x.toFixed(1)).join(",")).join(" ")}" fill="none" stroke="#2a2a30"/>`});
 V.forEach((_,i)=>{const[x,y]=pt(i,R);g+=`<line x1="${cx}" y1="${cy}" x2="${x.toFixed(1)}" y2="${y.toFixed(1)}" stroke="#2a2a30"/>`});
@@ -392,7 +1043,7 @@ top.map((o,i)=>`<div class="tr"><span><span class="dot" style="background:${col[
 const MK=[["Sydney","Australia/Sydney",7,16],["Tokyo","Asia/Tokyo",9,18],["London","Europe/London",8,17],["New York","America/New_York",8,17]];
 function tzOff(tz,d){const f=new Intl.DateTimeFormat("en-US",{timeZone:tz,hourCycle:"h23",year:"numeric",month:"numeric",day:"numeric",hour:"numeric",minute:"numeric"}).formatToParts(d),g=k=>+f.find(x=>x.type===k).value;
 return (Date.UTC(g("year"),g("month")-1,g("day"),g("hour"),g("minute"))-Date.UTC(d.getUTCFullYear(),d.getUTCMonth(),d.getUTCDate(),d.getUTCHours(),d.getUTCMinutes()))/60000}
-function mkHTML(){const d=new Date(),um=d.getUTCHours()*60+d.getUTCMinutes(),tr=d.toLocaleTimeString("tr-TR",{timeZone:"Europe/Istanbul",hour:"2-digit",minute:"2-digit"});
+function mkHTML(){const d=new Date(),um=d.getUTCHours()*60+d.getUTCMinutes(),tr=d.toLocaleTimeString(SY_LOC,{timeZone:"Europe/Istanbul",hour:"2-digit",minute:"2-digit"});
 let h=`<div class="mu" style="margin:0 0 10px">${pad(d.getUTCHours())}:${pad(d.getUTCMinutes())} UTC · ${tr} Türkiye</div>`;
 MK.forEach(([nm,tz,st,en])=>{let off=0;try{off=tzOff(tz,d)}catch(e){}
 const lm=um+off,ld=new Date(d.getTime()+off*60000).getUTCDay(),lh=((lm%1440)+1440)%1440/60;
@@ -425,7 +1076,7 @@ $("f-cn").innerHTML=`<option value="0">Consistency limiti yok</option>`+Array.fr
 ["size","tg","dl","ml","mt","md"].forEach(k=>$("f-"+k).oninput=e=>{e.target.value=th(e.target.value.replace(/\D/g,""))});
 $("newacc").onclick=()=>openForm();
 $("fcan").onclick=()=>$("form").classList.add("hid");
-$("fsave").onclick=()=>{const live=lt==="live",o={name:$("f-name").value.trim()||"Hesap "+(S.accounts.length+1),firm:$("f-firm").value.trim(),size:num("f-size"),tg:num("f-tg"),dl:num("f-dl"),ml:num("f-ml"),mt:num("f-mt"),cn:live?0:+$("f-cn").value||0,md:live?0:Math.min(365,num("f-md")),mp:(()=>{const v=parseFloat(($("f-mp").value||"").replace(",","."));return isNaN(v)?0.5:Math.max(0,Math.min(100,v))})()};
+$("fsave").onclick=()=>{const live=lt==="live",o={name:$("f-name").value.trim()||SY_T("Hesap")+" "+(S.accounts.length+1),firm:$("f-firm").value.trim(),size:num("f-size"),tg:num("f-tg"),dl:num("f-dl"),ml:num("f-ml"),mt:num("f-mt"),cn:live?0:+$("f-cn").value||0,md:live?0:Math.min(365,num("f-md")),mp:(()=>{const v=parseFloat(($("f-mp").value||"").replace(",","."));return isNaN(v)?0.5:Math.max(0,Math.min(100,v))})()};
 if(editId){const a=acc(editId);Object.assign(a,o);if(!live)a.ph=$("f-ph").value;const id=editId;save();go("det",id)}
 else{S.accounts.push({id:uid(),ph:live?"Live":$("f-ph").value,...o});save();go(live?"live":"list")}};
 
@@ -463,15 +1114,15 @@ else if(+a.mt>0&&td.length>=a.mt*0.8)w+=`⚠️ Günlük işlem limitine yaklaş
 if(+a.dl>0&&tp<0&&-tp>=a.dl*0.7)w+=(w?"<br>":"")+`🛑 Günlük kayıp limitinin %${Math.round(-tp/a.dl*100)}’ine geldin.`}
 $("warn").innerHTML=w?`<div class="card" style="border-color:var(--r)">${w}</div>`:"";
 let ex="";
-if(+a.size)ex+=card("Bakiye","$"+Math.round(a.size+s.net-s.pay).toLocaleString("tr-TR"));
-if(+a.tg)ex+=card("Hedefe kalan","$"+Math.round(Math.max(0,a.tg-s.net)).toLocaleString("tr-TR"));
-if(+a.dl)ex+=card("Bugün / günlük limit",fm(tp)+" / $"+a.dl.toLocaleString("tr-TR"),tp<0&&-tp>=a.dl*0.7?"r":"");
-if(+a.ml)ex+=card("Maks. kayba kalan","$"+Math.round(a.ml+s.net).toLocaleString("tr-TR"),a.ml+s.net<a.ml*0.3?"r":"");
+if(+a.size)ex+=card("Bakiye","$"+Math.round(a.size+s.net-s.pay).toLocaleString(SY_LOC));
+if(+a.tg)ex+=card("Hedefe kalan","$"+Math.round(Math.max(0,a.tg-s.net)).toLocaleString(SY_LOC));
+if(+a.dl)ex+=card("Bugün / günlük limit",fm(tp)+" / $"+a.dl.toLocaleString(SY_LOC),tp<0&&-tp>=a.dl*0.7?"r":"");
+if(+a.ml)ex+=card("Maks. kayba kalan","$"+Math.round(a.ml+s.net).toLocaleString(SY_LOC),a.ml+s.net<a.ml*0.3?"r":"");
 $("dstats").innerHTML=ex+statCards(s)+consCard(a,T)+mdCard(a,T,P);
 // ay takvimi
 const first=new Date(cy,cm,1),dim=new Date(cy,cm+1,0).getDate(),off=(first.getDay()+6)%7,ms=cy+"-"+pad(cm+1)+"-";
 const mp=T.filter(t=>t.d.startsWith(ms)).reduce((x,t)=>x+t.pnl,0);
-let h=`<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px"><button class="s" id="cpv">‹</button><div style="text-align:center"><b>${MN[cm]} ${cy}</b><div class="mu">Ay net: <b class="${cls(mp)}">${fm(mp)}</b></div></div><button class="s" id="cnx">›</button></div><div class="cal">`+["Pzt","Sal","Çar","Per","Cum","Cmt","Paz"].map(n=>`<div class="dn">${n}</div>`).join("");
+let h=`<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px"><button class="s" id="cpv">‹</button><div style="text-align:center"><b>${SY_MY(cm,cy)}</b><div class="mu">Ay net: <b class="${cls(mp)}">${fm(mp)}</b></div></div><button class="s" id="cnx">›</button></div><div class="cal">`+SY_WD.map(n=>`<div class="dn">${n}</div>`).join("");
 for(let i=0;i<off;i++)h+=`<div class="day x"></div>`;
 for(let d=1;d<=dim;d++){const k=ms+pad(d),L=T.filter(t=>t.d===k),p=L.reduce((x,t)=>x+t.pnl,0),has=L.length;
 h+=`<button class="day ${has?(p>0?"w":p<0?"l":""):""} ${k===sel?"sel":""} ${k===key(today)?"td":""}" data-k="${k}"><i>${d}</i><span class="${has?cls(p):""}">${has?(p>0?"+":"")+Math.round(p):""}</span></button>`}
@@ -481,9 +1132,9 @@ const mv=n=>{cm+=n;if(cm<0){cm=11;cy--}if(cm>11){cm=0;cy++}sel=(cy===today.getFu
 $("cpv").onclick=()=>mv(-1);$("cnx").onclick=()=>mv(1);
 $("ctd").onclick=()=>{cy=today.getFullYear();cm=today.getMonth();sel=key(today);det()};
 $("calc").querySelectorAll(".day[data-k]").forEach(b=>b.onclick=()=>{sel=b.dataset.k;det()});
-$("dt").textContent=new Date(sel+"T00:00:00").toLocaleDateString("tr-TR",{weekday:"long",day:"numeric",month:"long",year:"numeric"});
+$("dt").textContent=new Date(sel+"T00:00:00").toLocaleDateString(SY_LOC,{weekday:"long",day:"numeric",month:"long",year:"numeric"});
 const L=T.filter(t=>t.d===sel),dp=L.reduce((x,t)=>x+t.pnl,0);
-$("list").innerHTML=(L.length?`<div class="mu" style="margin-bottom:4px">Günün toplamı: <b class="${cls(dp)}">${fm(dp)}</b></div>`:`<div class="mu">${new Date(sel+"T00:00:00").toLocaleDateString("tr-TR",{day:"numeric",month:"long"})} için işlem yok.</div>`)+
+$("list").innerHTML=(L.length?`<div class="mu" style="margin-bottom:4px">Günün toplamı: <b class="${cls(dp)}">${fm(dp)}</b></div>`:`<div class="mu">${new Date(sel+"T00:00:00").toLocaleDateString(SY_LOC,{day:"numeric",month:"long"})} için işlem yok.</div>`)+
 L.map(t=>`<div class="tr" style="align-items:flex-start"><div style="flex:1;min-width:0"><b>${esc(t.sym)}</b><span class="tag">${t.dir}</span><span class="tag">${esc(t.ss||"")}</span>${t.src?`<span class="tag" style="background:#12322a;color:var(--g)">Bağlı</span>`:""}${(t.tag||[]).map(x=>`<span class="tag">${esc(x)}</span>`).join("")}${t.note?`<small>${esc(t.note)}</small>`:""}${thumbs(t.im)}</div><div style="text-align:right"><b class="${cls(t.pnl)}">${fm(t.pnl)}</b>${br?"":`<br><button class="s" data-ed="${t.id}">✏️ Düzenle</button> <button class="s" data-del="${t.id}">🗑 Sil</button>`}</div></div>`).join("");
 $("list").querySelectorAll("[data-del]").forEach(b=>b.onclick=()=>conf(b,()=>{tomb([b.dataset.del]);S.trades=S.trades.filter(t=>t.id!==b.dataset.del);mirrorDel(b.dataset.del);save();render()}));
 $("list").querySelectorAll("[data-ed]").forEach(b=>b.onclick=()=>{const t=S.trades.find(x=>x.id===b.dataset.ed);if(!t)return;et=t.id;sg=t.pnl<0?-1:1;tg=new Set(t.tag||[]);tIm=[...(t.im||[])];
@@ -523,7 +1174,7 @@ $("brbtn").onclick=function(){conf(this,()=>{const a=acc(cur);a.br=true;a.nobr=f
 $("del").onclick=function(){conf(this,()=>{const a=acc(cur),live=a.ph==="Live";unlinkAcc(a.id);tomb([a.id,...S.trades.filter(t=>t.a===a.id).map(t=>t.id),...S.payouts.filter(p=>p.a===a.id).map(p=>p.id)]);S.accounts=S.accounts.filter(x=>x.id!==a.id);S.trades=S.trades.filter(t=>t.a!==a.id);S.payouts=S.payouts.filter(p=>p.a!==a.id);save();go(live?"live":"list")})};
 
 // ---- çekimler
-const payRow=(p,nm,ro)=>`<div class="tr"><div><b class="g">$${Math.round(p.amt).toLocaleString("tr-TR")}</b> <span class="mu">${p.d}${nm?" · "+esc(nm):""}</span>${p.full?'<span class="tag" style="background:#12322a;color:var(--g)">Tüm bakiye</span>':""}</div><div>${p.url?(p.ct&&p.ct.startsWith("image")?`<img src="${p.url}" data-vw="${p.url}" style="height:44px;border-radius:6px;vertical-align:middle" alt="">`:`<a href="${p.url}" target="_blank" style="color:var(--ac)">Dekont</a>`):""} ${ro?"":`<button class="s" data-dp="${p.id}">✕</button>`}</div></div>`;
+const payRow=(p,nm,ro)=>`<div class="tr"><div><b class="g">$${Math.round(p.amt).toLocaleString(SY_LOC)}</b> <span class="mu">${p.d}${nm?" · "+esc(nm):""}</span>${p.full?'<span class="tag" style="background:#12322a;color:var(--g)">Tüm bakiye</span>':""}</div><div>${p.url?(p.ct&&p.ct.startsWith("image")?`<img src="${p.url}" data-vw="${p.url}" style="height:44px;border-radius:6px;vertical-align:middle" alt="">`:`<a href="${p.url}" target="_blank" style="color:var(--ac)">Dekont</a>`):""} ${ro?"":`<button class="s" data-dp="${p.id}">✕</button>`}</div></div>`;
 function bindPay(id){$(id).querySelectorAll("[data-dp]").forEach(b=>b.onclick=()=>conf(b,()=>{tomb([b.dataset.dp]);S.payouts=S.payouts.filter(p=>p.id!==b.dataset.dp);save();render()}))}
 $("addpay").onclick=async()=>{const a=acc(cur);if(!a||closed(a))return;const v=parseFloat(($("pay").value||"").replace(",","."));if(isNaN(v)||v<=0)return;
 const o={id:uid(),a:cur,d:sel,amt:v};if(a.ph==="Funded"&&$("pfull").checked)o.full=true;let err="";
@@ -544,7 +1195,7 @@ const A=S.accounts,n=A.length,cnt=(ph,k)=>A.filter(a=>(!ph||a.ph===ph)&&stOf(a)=
 const chip2=(l,v,c)=>`<div><small>${l}</small><b class="${c||""}">${v}</b></div>`;
 $("v-an").innerHTML=`<div class="card"><h2>Toplam hesap</h2><b style="font-size:32px">${n}</b><div class="vl" style="margin-top:12px">${chip2("Challenge",ch)}${chip2("Funded",fu,"g")}${chip2("Live",lv)}${chip2("Geçildi",ps,ps?"g":"")}${chip2("Tamamlandı",dn,dn?"g":"")}${chip2("İhlal",br,br?"r":"")}${chip2("Çekim yapan",pa,"g")}</div></div>`+
 (n?A.map(a=>{const P=S.payouts.filter(p=>p.a===a.id),pt=P.reduce((x,p)=>x+p.amt,0);
-return `<div class="card" style="margin-bottom:10px"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><b>${esc(a.name)}${stTag(a)}</b>${demoLb(a)}</div>${+a.size?`<div class="mu" style="margin-top:4px">$${(+a.size).toLocaleString("tr-TR")}${a.firm?" · "+esc(a.firm):""}</div>`:""}${P.length?`<div style="margin-top:6px" class="g">Çekim yaptı · ${usd(pt)} (${P.length} kez)</div>`:""}</div>`}).join(""):`<div class="card mu">Henüz hesap yok.</div>`)}
+return `<div class="card" style="margin-bottom:10px"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><b>${esc(a.name)}${stTag(a)}</b>${demoLb(a)}</div>${+a.size?`<div class="mu" style="margin-top:4px">$${(+a.size).toLocaleString(SY_LOC)}${a.firm?" · "+esc(a.firm):""}</div>`:""}${P.length?`<div style="margin-top:6px" class="g">Çekim yaptı · ${usd(pt)} (${P.length} kez)</div>`:""}</div>`}).join(""):`<div class="card mu">Henüz hesap yok.</div>`)}
 
 // ---- hesap bağla (copy trade)
 let lk={m:null,pick:{},st:0};
@@ -585,7 +1236,7 @@ $("n-new").placeholder="Yeni not… (öğrendiklerin, fikirlerin, örnekler)";
 $("n-th").innerHTML=nIm.map((u,i)=>`<span class="pt"><img src="${u}" data-vw="${u}" alt=""><button class="x" data-rm="${i}">✕</button></span>`).join("");
 $("n-th").querySelectorAll("[data-rm]").forEach(b=>b.onclick=()=>{nIm.splice(+b.dataset.rm,1);notesView()});
 const L=S.nt.filter(n=>n.k===k).sort((a,b)=>b.ts-a.ts);
-$("n-l").innerHTML=L.map(n=>`<div class="card"><div class="mu" style="margin-bottom:6px">${new Date(n.ts).toLocaleDateString("tr-TR",{day:"numeric",month:"long",year:"numeric"})}</div><textarea data-n="${n.id}">${esc(n.tx||"")}</textarea>${n.im.length?`<div class="th">${n.im.map((u,i)=>`<span class="pt"><img src="${u}" data-vw="${u}" alt=""><button class="x" data-ni="${n.id}|${i}">✕</button></span>`).join("")}</div>`:""}<div style="display:flex;justify-content:space-between;margin-top:8px"><label class="lb">📷 Foto ekle<input type="file" accept="image/*" multiple data-nf="${n.id}" class="hid"></label><button class="s" data-nd="${n.id}">Sil</button></div></div>`).join("")||`<div class="mu">Henüz kayıt yok.</div>`;
+$("n-l").innerHTML=L.map(n=>`<div class="card"><div class="mu" style="margin-bottom:6px">${new Date(n.ts).toLocaleDateString(SY_LOC,{day:"numeric",month:"long",year:"numeric"})}</div><textarea data-n="${n.id}">${esc(n.tx||"")}</textarea>${n.im.length?`<div class="th">${n.im.map((u,i)=>`<span class="pt"><img src="${u}" data-vw="${u}" alt=""><button class="x" data-ni="${n.id}|${i}">✕</button></span>`).join("")}</div>`:""}<div style="display:flex;justify-content:space-between;margin-top:8px"><label class="lb">📷 Foto ekle<input type="file" accept="image/*" multiple data-nf="${n.id}" class="hid"></label><button class="s" data-nd="${n.id}">Sil</button></div></div>`).join("")||`<div class="mu">Henüz kayıt yok.</div>`;
 const q=s=>$("n-l").querySelectorAll(s);
 q("[data-n]").forEach(t=>t.oninput=()=>{const n=S.nt.find(x=>x.id===t.dataset.n);if(n){n.tx=t.value;save()}});
 q("[data-nd]").forEach(b=>b.onclick=()=>conf(b,()=>{tomb([b.dataset.nd]);S.nt=S.nt.filter(x=>x.id!==b.dataset.nd);save();notesView()}));
@@ -609,14 +1260,14 @@ S.trades.push(trI={id:uid(),a:cur,d:key(d),ss:hh<7?"Asya":hh<13?"London":hh<21?"
 save();render();notice=n+" işlem aktarıldı.";$("nt").innerHTML=`<div class="card" style="border-color:var(--g)">${notice}</div>`;notice="";e.target.value=""};
 
 // ---- yedek ve hesaba senkron
-$("bk").onclick=()=>{const b=new Blob([JSON.stringify(S,null,1)],{type:"application/json"}),u=URL.createObjectURL(b),a=document.createElement("a");a.href=u;a.download="sykle-yedek.json";document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),2000)};
+$("bk").onclick=()=>{const b=new Blob([JSON.stringify(S,null,1)],{type:"application/json"}),u=URL.createObjectURL(b),a=document.createElement("a");a.href=u;a.download=SY_T("sykle-yedek.json");document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),2000)};
 $("rb").onclick=()=>$("rf").click();
 $("rf").onchange=async e=>{const f=e.target.files[0];if(!f)return;try{const d=JSON.parse(await f.text());if(!d||!Array.isArray(d.accounts))throw 0;S=d;S.ts=Date.now();S.dt=1;S.rs=1;norm();persist();go("home")}catch(x){alert("Bu geçerli bir Sykle yedeği değil.")}e.target.value=""};
 // ---- özet sayfası
 let sper="w",soff=0,sacc="all";
 function sumRange(o){const n=new Date(today);
-if(sper==="w"){const d=(n.getDay()+6)%7;n.setDate(n.getDate()-d+o*7);const e=new Date(n);e.setDate(e.getDate()+6);return[key(n),key(e),n.getDate()+" "+MN[n.getMonth()]+" – "+e.getDate()+" "+MN[e.getMonth()]]}
-const a=new Date(today.getFullYear(),today.getMonth()+o,1),e=new Date(a.getFullYear(),a.getMonth()+1,0);return[key(a),key(e),MN[a.getMonth()]+" "+a.getFullYear()]}
+if(sper==="w"){const d=(n.getDay()+6)%7;n.setDate(n.getDate()-d+o*7);const e=new Date(n);e.setDate(e.getDate()+6);return[key(n),key(e),SY_DM(n.getDate(),n.getMonth())+" – "+SY_DM(e.getDate(),e.getMonth())]}
+const a=new Date(today.getFullYear(),today.getMonth()+o,1),e=new Date(a.getFullYear(),a.getMonth()+1,0);return[key(a),key(e),SY_MY(a.getMonth(),a.getFullYear())]}
 function sumData(o){const[a,b,l]=sumRange(o),ok=x=>sacc==="all"||x===sacc;
 return{a,b,l,T:S.trades.filter(t=>t.d>=a&&t.d<=b&&ok(t.a)),P:S.payouts.filter(p=>p.d>=a&&p.d<=b&&ok(p.a))}}
 function sumView(){$("ttl").textContent="Özet";
@@ -624,7 +1275,7 @@ const cu=sumData(soff),pv=sumData(soff-1),s=calc(cu.T,cu.P),ps=calc(pv.T,pv.P);
 const by={};cu.T.forEach(t=>by[t.d]=(by[t.d]||0)+t.pnl);
 const days=Object.entries(by).sort((x,y)=>x[0]<y[0]?-1:1),mx=Math.max(1,...days.map(d=>Math.abs(d[1])));
 const best=days.slice().sort((x,y)=>y[1]-x[1])[0],worst=days.slice().sort((x,y)=>x[1]-y[1])[0];
-const dl=d=>{const p=d.split("-");return +p[2]+" "+MN[+p[1]-1]};
+const dl=d=>{const p=d.split("-");return SY_DMS(+p[2],+p[1]-1)};
 const diff=s.net-ps.net,pl=sper==="w"?"önceki haftaya":"önceki aya";
 $("v-sum").innerHTML=`<div class="pb">${chip("Haftalık",sper==="w",'data-sp="w"')}${chip("Aylık",sper==="m",'data-sp="m"')}<select id="sacc"><option value="all">Tüm hesaplar</option>${S.accounts.map(a=>`<option value="${a.id}" ${sacc===a.id?"selected":""}>${esc(a.name)}</option>`).join("")}</select></div>
 <div class="card" style="display:flex;justify-content:space-between;align-items:center"><button class="s" id="sprev">‹</button><b>${cu.l}</b><button class="s" id="snext" ${soff>=0?"disabled":""}>›</button></div>
@@ -682,7 +1333,7 @@ return `<svg viewBox="0 0 440 500" role="img" aria-label="${esc(nm||"")}"><defs>
 function blSet(){const b=$("bl");if(!b)return;const u=S.nf.filter(x=>!x.rd).length;b.innerHTML=ico("bell")+(u?"<i></i>":"")}
 function nfOpen(){let p=$("nfp");if(p){p.remove();return}
 p=document.createElement("div");p.id="nfp";
-p.innerHTML=`<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px"><b>Bildirimler</b>${S.nf.length?`<button class="s" id="nfc">Temizle</button>`:""}</div>`+(S.nf.length?S.nf.slice(0,20).map(x=>`<div class="it2" data-nf="${x.id}">${ico("medal")}<div style="flex:1"><div>${esc(x.tx)}</div><div class="mu">${new Date(x.ts).toLocaleDateString("tr-TR",{day:"numeric",month:"long"})}</div></div>${x.rd?"":'<span class="tag" style="background:#12322a;color:var(--g)">Yeni</span>'}</div>`).join(""):`<div class="mu" style="padding:10px 0">Henüz bildirim yok.</div>`);
+p.innerHTML=`<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px"><b>Bildirimler</b>${S.nf.length?`<button class="s" id="nfc">Temizle</button>`:""}</div>`+(S.nf.length?S.nf.slice(0,20).map(x=>`<div class="it2" data-nf="${x.id}">${ico("medal")}<div style="flex:1"><div>${esc(x.tx)}</div><div class="mu">${new Date(x.ts).toLocaleDateString(SY_LOC,{day:"numeric",month:"long"})}</div></div>${x.rd?"":'<span class="tag" style="background:#12322a;color:var(--g)">Yeni</span>'}</div>`).join(""):`<div class="mu" style="padding:10px 0">Henüz bildirim yok.</div>`);
 document.body.appendChild(p);
 p.querySelectorAll("[data-nf]").forEach(e=>e.onclick=()=>{p.remove();go("bd")});
 if($("nfc"))$("nfc").onclick=()=>{S.nf=[];save();p.remove();blSet()};
@@ -693,7 +1344,7 @@ document.addEventListener("click",e=>{const p=$("nfp");if(p&&!p.contains(e.targe
 function weekRing(n){const r=34,cx=42,cy=42,g=[];for(let i=0;i<7;i++){const a0=(-90+i*360/7+5)*Math.PI/180,a1=(-90+(i+1)*360/7-5)*Math.PI/180;
 g.push(`<path d="M${(cx+r*Math.cos(a0)).toFixed(1)} ${(cy+r*Math.sin(a0)).toFixed(1)} A${r} ${r} 0 0 1 ${(cx+r*Math.cos(a1)).toFixed(1)} ${(cy+r*Math.sin(a1)).toFixed(1)}" fill="none" stroke="${i<n?"#cd7f32":"#26262b"}" stroke-width="8" stroke-linecap="round"/>`)}
 return `<svg viewBox="0 0 84 84" width="92" height="92" role="img" aria-label="Haftalık seri ${n}/7">${g.join("")}<text x="42" y="47" text-anchor="middle" font-size="17" font-weight="600" fill="#f2f2f2">${n}/7</text></svg>`}
-function trDateTR(d){const p=d.split("-");return +p[2]+" "+MN[+p[1]-1]+" "+p[0]}
+function trDateTR(d){const p=d.split("-");return SY_DM(+p[2],+p[1]-1,p[0])}
 function records(){const D={},W={};S.trades.forEach(t=>{D[t.d]=(D[t.d]||0)+t.pnl;const m=monOf(t.d);W[m]=(W[m]||0)+t.pnl});
 const best=o=>Object.entries(o).sort((a,b)=>b[1]-a[1])[0],bt=[...S.trades].sort((a,b)=>b.pnl-a.pnl)[0];
 let st=0,mx=0,mxd="";Object.keys(D).sort().forEach(d=>{if(D[d]>0){st++;if(st>mx){mx=st;mxd=d}}else st=0});
@@ -754,14 +1405,14 @@ function scView(){$("ttl").textContent="İstatistik kartı";
 const A=S.accounts.filter(a=>a.ph==="Funded"||a.ph==="Live");
 if(!A.length){$("v-sc").innerHTML=`<div class="card mu">Kart sadece Funded ve Live hesaplar için oluşur. Henüz böyle bir hesabın yok.</div>`;return}
 if(!A.some(a=>a.id===scAcc))scAcc=A[0].id;
-const d=new Date(today.getFullYear(),today.getMonth()+scOff,1),ms=d.getFullYear()+"-"+pad(d.getMonth()+1),T=S.trades.filter(t=>t.a===scAcc&&t.d.startsWith(ms+"-")),net=T.reduce((q,t)=>q+t.pnl,0),lb=MN[d.getMonth()]+" "+d.getFullYear();
+const d=new Date(today.getFullYear(),today.getMonth()+scOff,1),ms=d.getFullYear()+"-"+pad(d.getMonth()+1),T=S.trades.filter(t=>t.a===scAcc&&t.d.startsWith(ms+"-")),net=T.reduce((q,t)=>q+t.pnl,0),lb=SY_MY(d.getMonth(),d.getFullYear());
 let x=null,h=`<div class="card"><div class="mu" style="margin-bottom:6px">Hesap seç</div><select id="sca" style="width:100%">${A.map(a=>`<option value="${a.id}" ${a.id===scAcc?"selected":""}>${esc(a.name)}${+a.size?" · "+usd(a.size):""} · ${a.ph}</option>`).join("")}</select></div><div class="card" style="display:flex;justify-content:space-between;align-items:center"><button class="s" id="scp" aria-label="Önceki ay">‹</button><b>${lb}</b><button class="s" id="scn" aria-label="Sonraki ay" ${scOff>=0?"disabled":""}>›</button></div>`;
 const cur=trDay(nowMs()).slice(0,7);
 if(ms>=cur)h+=`<div class="card mu">Bu ay henüz bitmedi. Kart, ay tamamlanınca oluşur.</div>`;
 else if(!T.length)h+=`<div class="card mu">Bu hesapta bu ay işlem yok.</div>`;
 else if(net<=0)h+=`<div class="card mu">Bu hesap bu ayı kârda kapatmadı, bu yüzden kart oluşmuyor. Kart sadece kârlı aylar için hazırlanır.</div>`;
 else{const cn={};T.forEach(t=>{if(t.sym&&t.sym!=="?")cn[t.sym]=(cn[t.sym]||0)+1});const tp=Object.entries(cn).sort((q,r)=>r[1]-q[1])[0];
-x={kind:"m",stats:[["KAZANMA ORANI","%"+calc(T,[]).wr],["PARİTE",tp?tp[0]:"–"]],lab:"AYLIK KÂR",am:"+"+usd(net),pill:lb.toLocaleUpperCase("tr-TR")};
+x={kind:"m",stats:[["KAZANMA ORANI","%"+calc(T,[]).wr],["PARİTE",tp?tp[0]:"–"]],lab:"AYLIK KÂR",am:"+"+usd(net),pill:lb.toLocaleUpperCase(SY_LOC)};
 h+=`<canvas id="scc" style="width:100%;border-radius:14px;border:1px solid var(--bd)"></canvas><div style="display:flex;gap:8px;margin-top:12px"><button class="p" id="scs" style="flex:1">Paylaş</button><button id="scd" style="flex:1">Resmi indir</button></div><p class="mu" style="margin-top:8px">Kart sadece seçtiğin hesabın o aydaki sonucunu gösterir. Hesap adı ve bakiye kartta görünmez.</p>`}
 $("v-sc").innerHTML=h;
 $("sca").onchange=e=>{scAcc=e.target.value;scView()};
@@ -842,7 +1493,7 @@ try{const[st,fb,us]=await Promise.all([sb.rpc("admin_stats"),sb.from("feedback")
 const e=st.error||fb.error||us.error;if(e)throw e;adD={st:st.data||{},fb:fb.data||[],us:us.data||[],err:""}}
 catch(e){adD={st:{},fb:[],us:[],err:String((e&&e.message)||e)}}
 adBusy=false;if(view==="ad")adView()}
-const dtm=x=>x?new Date(x).toLocaleString("tr-TR",{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"}):"–";
+const dtm=x=>x?new Date(x).toLocaleString(SY_LOC,{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"}):"–";
 function adView(){$("ttl").textContent="Yönetici paneli";const V=$("v-ad");
 if(!isAdm){V.innerHTML=`<div class="card mu">Bu sayfa sadece yöneticiye açık.</div>`;return}
 if(!adD){V.innerHTML=`<div class="card mu">Yükleniyor…</div>`;if(!adBusy)adLoad();return}
@@ -992,7 +1643,7 @@ if(pv==="google"&&!verOk){pendSes=ses;if(verBusy)return;verBusy=true;
 sb.rpc(LINKOK?"mark_verified":"am_verified").then(r=>{LINKOK=false;verBusy=false;if(r&&r.data===true){verOk=true;pendSes=null;enter(ses)}else gate(ses)}).catch(()=>{verBusy=false;gate(ses)});return}
 if(pv==="google"&&!md.setup){pendSes=ses;hideSp();if(lgMode!=="setpw"||$("lg").classList.contains("hid")){lgMode="setpw";showLogin()}return}
 if(md.needpw){pendSes=ses;hideSp();if(lgMode!=="setpw"||$("lg").classList.contains("hid")){lgMode="setpw";showLogin()}return}
-const nu=!user;user=ses.user;hideLogin();render();
+const nu=!user;{let ls=null;try{ls=localStorage.getItem("sykleLang")}catch(e){}if(!ls&&md.lang&&SY_LANGS.some(x=>x[0]===md.lang)){SY_SET(md.lang);if(md.lang!==SY_L){location.reload();return}}}user=ses.user;hideLogin();render();
 if(nu){showSp();const to=setTimeout(hideSp,5000);pull(true).finally(async()=>{clearTimeout(to);hideSp();render();if(await chkRole())return;
 if(!S.tos&&user&&user.user_metadata&&user.user_metadata.tos){S.tos=Date.now();save()}
 const nx=()=>{if(!fn()&&!S.pq)askName()};if(!S.tos)tosAsk(nx);else nx();loginTick()})}else hideSp()}

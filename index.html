@@ -223,7 +223,7 @@ details.kg{background:var(--card);border:1px solid var(--bd);border-radius:14px;
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
 <script>
 // Her yayında bu sürüm değişir; açık uygulamalar yeni sürümü görünce kendini yeniler.
-const APP_V="2026.11.17-7";
+const APP_V="2026.11.17-8";
 const KEY="tradeJournalV2";
 const SES=["NY Açılış","London","Asya","Seans dışı"];
 const TAGS=["FOMO","Erken çıkış","SL oynattım","Plansız","İntikam","Plana uydum"];
@@ -796,6 +796,7 @@ if(view==="fb"){fbView();if(err)$("fbe").textContent=err}}
 // ---- yönetici paneli: yetki veritabanında (admins tablosu), sadece yönetici görür
 let isAdm=false,adTab="fb",adD=null,adBusy=false;
 async function chkRole(){if(!sb||!user)return false;
+try{const g=await sb.auth.getUser();const m=String((g&&g.error&&g.error.message)||"").toLowerCase();if(g&&g.error&&(m.includes("not exist")||m.includes("not found")||g.error.status===403||g.error.status===404)){await forceOut("Bu hesap artık yok. İstersen yeniden kayıt olabilirsin.");return true}}catch(e){}
 try{const b=await sb.rpc("am_banned");if(!b.error&&b.data===true){showBan();return true}}catch(e){}
 try{const a=await sb.rpc("is_admin");isAdm=!a.error&&a.data===true}catch(e){isAdm=false}
 menu();return false}
@@ -849,10 +850,15 @@ if(d&&cts>lts){S=d.data||{};S.ts=cts;norm();try{localStorage.setItem(KEY,JSON.st
 else if((!d&&(S.accounts.length||S.trades.length||S.nt.length))||(d&&lts>cts))await push();
 else setSt("☁️ Senkron")}
 catch(e){setSt("⚠️ Çevrimdışı")}}
-async function logout(){if(!await push()){alert("Veriler henüz buluta kaydedilemedi. İnternete bağlanınca tekrar dene.");return}
-try{await sb.auth.signOut()}catch(e){}
-user=null;isAdm=false;adD=null;verOk=false;S={accounts:[],trades:[],notes:{},payouts:[],nt:[]};norm();try{localStorage.removeItem(KEY);localStorage.removeItem("sykleUid")}catch(e){}
-$("dr").classList.remove("o");$("ov").style.display="none";lgMode="in";showLogin()}
+const within=(p,ms,v)=>Promise.race([p,new Promise(r=>setTimeout(()=>r(v),ms))]);
+async function logout(){const ob=$("dr").querySelector("[data-out]");if(ob)ob.disabled=true;$("dr").classList.remove("o");$("ov").style.display="none";showSp();
+const ok=await within(push(),5000,false);
+if(!ok){let gone=false;try{const g=await within(sb.auth.getUser(),4000,{error:null});gone=!!(g&&g.error)}catch(e){}
+if(!gone&&!confirm("Son değişikliklerin buluta kaydedilemedi (internet yok gibi görünüyor). Yine de çıkış yapılsın mı? Kaydedilmemiş değişiklikler kaybolur.")){if(ob)ob.disabled=false;hideSp();return}}
+await forceOut()}
+async function forceOut(msg){clearTimeout(pushT);try{await within(sb.auth.signOut(),3000)}catch(e){}try{await sb.auth.signOut({scope:"local"})}catch(e){}
+user=null;isAdm=false;adD=null;verOk=false;pendSes=null;S={accounts:[],trades:[],notes:{},payouts:[],nt:[]};norm();try{localStorage.removeItem(KEY);localStorage.removeItem("sykleUid")}catch(e){}
+$("dr").classList.remove("o");$("ov").style.display="none";lgMode="in";showLogin();if(msg)lgMsg(msg);setTimeout(hideSp,400)}
 function lgMsg(t,ok){const m=$("lgm");if(m){m.textContent=t||"";m.style.color=ok?"var(--g)":"var(--r)"}}
 function showLogin(){const L=$("lg"),m=lgMode,t={in:"Giriş yap",up:"Kayıt ol",code:"Doğrula",setpw:"Hesabımı oluştur",reset:"Şifre sıfırlama bağlantısı gönder",newpw:"Yeni şifreyi kaydet"};
 L.classList.remove("hid");

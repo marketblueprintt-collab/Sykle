@@ -575,6 +575,11 @@ const D={
 "1 Step Nitro":["1 Step Nitro","1 Step Nitro","1 Step Nitro"],
 "2-Step Plus":["2-Step Plus","2-Step Plus","2-Step Plus"],
 "Perps 1-Step Infinity":["Perps 1-Step Infinity","Perps 1-Step Infinity","Perps 1-Step Infinity"],
+"FundingPips":["FundingPips","FundingPips","FundingPips"],
+"2 Step Standard":["2 Step Standard","2 Step Standard","2 Step Standard"],
+"2 Step Pro":["2 Step Pro","2 Step Pro","2 Step Pro"],
+"2 Step Flex":["2 Step Flex","2 Step Flex","2 Step Flex"],
+"1 Step Flex":["1 Step Flex","1 Step Flex","1 Step Flex"],
 "Perps 1-Step Infinity Plus":["Perps 1-Step Infinity Plus","Perps 1-Step Infinity Plus","Perps 1-Step Infinity Plus"],
 "%{} → %{}":["{}% → {}%","{} % → {} %","{} % → {} %"],
 "%{} · {}":["{}% · {}","{} % · {}","{} % · {}"],
@@ -926,7 +931,7 @@ window.splashGo=function(){var t=window._spT;if(t)clearTimeout(t);requestAnimati
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
 <script>
 // Her yayında bu sürüm değişir; açık uygulamalar yeni sürümü görünce kendini yeniler.
-const APP_V="2026.11.18-9";
+const APP_V="2026.11.18-10";
 const KEY="tradeJournalV2";
 const SES=["NY Açılış","London","Asya","Seans dışı"];
 const TAGS=["FOMO","Erken çıkış","SL oynattım","Plansız","İntikam","Plana uydum"];
@@ -954,7 +959,12 @@ const FIRMS=[
  {id:"nitro",n:"1 Step Nitro",sz:[5,10,25,50,100,200,300],ph:[{tg:10,cn:50,cb:"t"}],dl:4,dl300:3,ml:6,mt:"l",fu:{cn:45,md:5,mp:.5}},
  {id:"2sp",n:"2-Step Plus",sz:[5,10,25,50,100,200],ph:[{tg:8,md:3},{tg:5,md:3}],dl:4,ml:10,mt:"s",fu:{md:5,mp:.5}},
  {id:"inf",n:"Perps 1-Step Infinity",sz:[5,10,20],ph:[{tg:9}],dl:3,ml:3,mt:"s",fu:{}},
- {id:"infp",n:"Perps 1-Step Infinity Plus",sz:[5,10,20],ph:[{tg:10}],dl:3,ml:5,mt:"s",fu:{}}]}];
+ {id:"infp",n:"Perps 1-Step Infinity Plus",sz:[5,10,20],ph:[{tg:10}],dl:3,ml:5,mt:"s",fu:{}}]},
+{id:"fp",n:"FundingPips",sn:"FundingPips",p:[
+ {id:"2ss",n:"2 Step Standard",sz:[5,10,25,50,100],ph:[{tg:8,md:3},{tg:5,md:3}],dl:5,ml:10,mt:"s",fu:{}},
+ {id:"2spro",n:"2 Step Pro",sz:[5,10,25,50,100,200],ph:[{tg:6,md:2},{tg:6,md:2}],dl:3,ml:6,mt:"s",fu:{}},
+ {id:"2sf",n:"2 Step Flex",sz:[5,10,25,50,100],ph:[{tg:10,md:1},{tg:6,md:1}],dl:4,ml:12,mt:"s",fu:{}},
+ {id:"1sf",n:"1 Step Flex",sz:[5,10,25,50,100],ph:[{tg:12}],dl:3,ml:12,mt:"s",fu:{}}]}];
 const tplOf=a=>{if(!a||!a.tp)return null;const q=a.tp.split("."),F=FIRMS.find(x=>x.id===q[0]),P=F&&F.p.find(x=>x.id===q[1]);return P?{F,P}:null};
 const dlPct=(P,size)=>size>=300000&&P.dl300?P.dl300:P.dl;
 // adım: 1..n = Challenge aşaması, 0 = Funded

@@ -943,7 +943,7 @@ window.splashGo=function(){var t=window._spT;if(t)clearTimeout(t);requestAnimati
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
 <script>
 // Her yayında bu sürüm değişir; açık uygulamalar yeni sürümü görünce kendini yeniler.
-const APP_V="2026.11.18-13";
+const APP_V="2026.11.18-14";
 const KEY="tradeJournalV2";
 const SES=["NY Açılış","London","Asya","Seans dışı"];
 const TAGS=["FOMO","Erken çıkış","SL oynattım","Plansız","İntikam","Plana uydum"];
@@ -1043,7 +1043,7 @@ return m}
 const PROMO={url:"https://fundedtradermarkets.com/ref/syk",code:"SYK"};
 function promoBar(){let x=0;try{x=+localStorage.getItem("syklePromoX")||0}catch(e){}if(Date.now()-x<7*864e5)return"";
 return `<div class="pbar" id="pbar"><div style="flex:1;min-width:0"><span>${PROMO.code?`FTM'de challenge mı alacaksın? <b>${PROMO.code}</b> koduyla maksimum indirimle al.`:"FTM'de challenge mı alacaksın? Sykle bağlantısıyla al."}</span><small>Affiliate bağlantısı</small></div><a href="${PROMO.url}" target="_blank" rel="noopener sponsored">FTM'ye git ↗</a><button class="x" data-pxx="1" aria-label="Kapat">✕</button></div>`}
-function promoBox(){return `<div class="pbox"><b>FTM hesabın yok mu?</b><div style="margin-top:4px">${PROMO.code?`<b>${PROMO.code}</b> koduyla FTM'den maksimum indirimle challenge alabilirsin.`:"Sykle bağlantısıyla FTM'den challenge alabilirsin."}</div><div class="row">${PROMO.code?`<button class="s" data-pcp="1" style="flex:1">Kodu kopyala</button>`:""}<a class="p" href="${PROMO.url}" target="_blank" rel="noopener sponsored" style="flex:1">FTM'ye git ↗</a></div><small>Affiliate bağlantısı: Sykle bu bağlantıdan komisyon alabilir.</small></div>`}
+function promoBox(){return `<div class="pbox"><b>FTM hesabın yok mu?</b><div style="margin-top:4px">${PROMO.code?`<b>${PROMO.code}</b> koduyla FTM'den maksimum indirimle challenge alabilirsin.`:"Sykle bağlantısıyla FTM'den challenge alabilirsin."}</div><div class="row">${PROMO.code?`<button class="s" data-pcp="1" style="flex:1">Kodu kopyala</button>`:""}<a class="p" href="${PROMO.url}" target="_blank" rel="noopener sponsored" style="flex:1">FTM'ye git ↗</a></div><small>Affiliate bağlantısı</small></div>`}
 document.addEventListener("click",e=>{const t=e.target.closest&&e.target.closest("[data-pxx],[data-pcp]");if(!t)return;
 if(t.dataset.pxx){try{localStorage.setItem("syklePromoX",String(Date.now()))}catch(e){}const b=$("pbar");if(b)b.remove();return}
 const done=()=>{t.textContent="Kopyalandı ✓";setTimeout(()=>{t.textContent="Kodu kopyala"},1800)};

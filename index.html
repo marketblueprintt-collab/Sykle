@@ -223,7 +223,7 @@ details.kg{background:var(--card);border:1px solid var(--bd);border-radius:14px;
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
 <script>
 // Her yayında bu sürüm değişir; açık uygulamalar yeni sürümü görünce kendini yeniler.
-const APP_V="2026.11.17-5";
+const APP_V="2026.11.17-6";
 const KEY="tradeJournalV2";
 const SES=["NY Açılış","London","Asya","Seans dışı"];
 const TAGS=["FOMO","Erken çıkış","SL oynattım","Plansız","İntikam","Plana uydum"];
@@ -868,9 +868,9 @@ ${GOOGLE_ON&&(m==="in"||m==="up")?`<button class="p" id="lgg" style="background:
 <div style="margin-top:10px;display:flex;justify-content:space-between;flex-wrap:wrap">
 ${m==="in"?`<button class="lk" data-m="up">Hesap oluştur</button><button class="lk" data-m="reset">Şifremi unuttum</button>`:m==="newpw"?"":m==="setpw"?`<button class="lk" id="lgx">Çıkış yap</button>`:m==="code"?`<button class="lk" data-m="up">‹ Geri</button><button class="lk" id="lgrc">Kodu tekrar gönder</button>`:`<button class="lk" data-m="in">‹ Girişe dön</button>`}</div></div>
 ${m==="in"?`<p class="mu" style="text-align:center;font-size:13px;margin:14px 6px 0">Daha önce hangi yöntemle girdiysen aynısıyla gir (e-posta ve şifre ya da Google). Farklı yöntem, boş bir hesap açar.</p>`:""}</div>`;
-L.querySelectorAll("[data-m]").forEach(b=>b.onclick=()=>{lgMode=b.dataset.m;showLogin()});
+L.querySelectorAll("[data-m]").forEach(b=>b.onclick=async()=>{if(pendSes){pendSes=null;try{await sb.auth.signOut()}catch(e){}lgMode="in";showLogin();return}lgMode=b.dataset.m;showLogin()});
 if($("lgx"))$("lgx").onclick=async()=>{try{await sb.auth.signOut()}catch(e){}pendSes=null;lgMode="in";showLogin()};
-if($("lgrc"))$("lgrc").onclick=async function(){const b=this;b.disabled=true;try{await sendCode(otpEm);lgMsg("Yeni kod gönderildi.",1)}catch(e){lgMsg(trErr(e))}setTimeout(()=>{b.disabled=false},60000)};
+if($("lgrc"))$("lgrc").onclick=async function(){const b=this;b.disabled=true;try{await sendCode(otpEm,!!pendSes);lgMsg("Yeni kod gönderildi.",1)}catch(e){lgMsg(trErr(e))}setTimeout(()=>{b.disabled=false},60000)};
 if($("lgc"))setTimeout(()=>$("lgc").focus(),50);
 $("lgb").onclick=lgGo;L.querySelectorAll("input").forEach(i=>i.onkeydown=e=>{if(e.key==="Enter")lgGo()});
 if($("lgg"))$("lgg").onclick=async()=>{if(lgMode==="up"&&$("lgt")&&!$("lgt").checked){lgMsg("Devam etmek için kullanım koşullarını kabul et.");return}try{const r=await sb.auth.signInWithOAuth({provider:"google",options:{redirectTo:location.origin+location.pathname}});if(r.error)throw r.error}catch(e){lgMsg("Google girişi başlatılamadı.")}}}
@@ -894,16 +894,17 @@ async function lgGo(){if(!sb){lgMsg("Bağlantı kurulamadı. Sayfayı yenile.");
 const em=($("lge")?$("lge").value:"").trim(),pw=$("lgp")?$("lgp").value:"";lgMsg("");$("lgb").disabled=true;
 try{if(lgMode==="in"){if(!em||!pw)throw{message:"valid email"};const r=await sb.auth.signInWithPassword({email:em,password:pw});if(r.error)throw r.error;enter(r.data.session)}
 else if(lgMode==="up"){if(!em)throw{message:"valid email"};if(!$("lgt")||!$("lgt").checked)throw{message:"tos"};await sendCode(em);otpEm=em;lgMode="code";showLogin();return}
-else if(lgMode==="code"){const c=($("lgc").value||"").replace(/\D/g,"");if(c.length<6)throw{message:"code"};let r=await sb.auth.verifyOtp({email:otpEm,token:c,type:"email"});if(r.error){const r2=await sb.auth.verifyOtp({email:otpEm,token:c,type:"signup"});if(!r2.error)r=r2}if(r.error)throw r.error;enter(r.data.session);return}
+else if(lgMode==="code"){const c=($("lgc").value||"").replace(/\D/g,"");if(c.length<6)throw{message:"code"};let r=await sb.auth.verifyOtp({email:otpEm,token:c,type:"email"});if(r.error){const r2=await sb.auth.verifyOtp({email:otpEm,token:c,type:"signup"});if(!r2.error)r=r2}if(r.error)throw r.error;let ns=r.data.session;try{const u=await sb.auth.updateUser({data:{codeok:true}});if(!u.error){const g=await sb.auth.getSession();if(g.data&&g.data.session)ns=g.data.session}}catch(e){}pendSes=null;enter(ns);return}
 else if(lgMode==="setpw"){const nm=($("lgn").value||"").trim(),p2=$("lgp2").value;if(nm.length<2)throw{message:"name"};if(pw.length<6)throw{message:"at least 6"};if(pw!==p2)throw{message:"mismatch"};
-const r=await sb.auth.updateUser({password:pw,data:{name:nm,needpw:false,tos:true}});if(r.error)throw r.error;const s2=pendSes;pendSes=null;history.replaceState(null,"",location.pathname);const g=await sb.auth.getSession();enter((g.data&&g.data.session)||s2);return}
+const r=await sb.auth.updateUser({password:pw,data:{name:nm,needpw:false,tos:true,codeok:true}});if(r.error)throw r.error;const s2=pendSes;pendSes=null;history.replaceState(null,"",location.pathname);const g=await sb.auth.getSession();enter((g.data&&g.data.session)||s2);return}
 else if(lgMode==="reset"){if(!em)throw{message:"valid email"};const r=await sb.auth.resetPasswordForEmail(em,{redirectTo:location.origin+location.pathname});if(r.error)throw r.error;lgMsg("Sıfırlama bağlantısı e-postana gönderildi.",1)}
 else{if(pw.length<6)throw{message:"at least 6"};if($("lgp2")&&pw!==$("lgp2").value)throw{message:"mismatch"};const r=await sb.auth.updateUser({password:pw});if(r.error)throw r.error;RECOV=false;history.replaceState(null,"",location.pathname);const g=await sb.auth.getSession();enter(g.data.session)}}
 catch(e){lgMsg(trErr(e));if(String(e&&e.message||"").toLowerCase().includes("not confirmed")&&em)lgResend(em)}
 if($("lgb"))$("lgb").disabled=false}
 // tek kullanımlık kod ile kayıt
 let otpEm="",pendSes=null;
-async function sendCode(em){const r=await sb.auth.signInWithOtp({email:em,options:{shouldCreateUser:true,data:{needpw:true,tos:true},emailRedirectTo:location.origin+location.pathname}});if(r.error)throw r.error}
+let codeSent="",LINKOK=/type=(magiclink|signup|invite)/.test(location.hash);
+async function sendCode(em,existing){const r=await sb.auth.signInWithOtp({email:em,options:existing?{shouldCreateUser:false,emailRedirectTo:location.origin+location.pathname}:{shouldCreateUser:true,data:{needpw:true,tos:true},emailRedirectTo:location.origin+location.pathname}});if(r.error)throw r.error;codeSent=em}
 // onay e-postasını tekrar gönder
 function lgResend(em){const m=$("lgm");if(!m||$("lgr"))return;const b=document.createElement("button");b.id="lgr";b.className="lk";b.style.cssText="display:block;margin:-4px 0 10px;padding:4px 0";b.textContent="Onay e-postasını tekrar gönder";m.after(b);
 b.onclick=async()=>{b.disabled=true;try{const r=await sb.auth.resend({type:"signup",email:em,options:{emailRedirectTo:location.origin+location.pathname}});if(r.error)throw r.error;lgMsg("Onay e-postası tekrar gönderildi. Spam klasörüne de bak.",1)}catch(e){lgMsg(trErr(e))}setTimeout(()=>{b.disabled=false},30000)}}
@@ -915,7 +916,11 @@ d.innerHTML=`<div class="card" style="width:100%;max-width:360px;margin:0"><h2>H
 document.body.appendChild(d);
 $("ans").onclick=()=>{const v=$("ani").value.trim();if(!v){$("ani").focus();return}S.pn=v;save();d.remove();render()};
 $("anx").onclick=()=>{S.pq=1;save();d.remove()}}
-function enter(ses){if(!ses)return;const md=(ses.user&&ses.user.user_metadata)||{};
+function enter(ses){if(!ses)return;const md=(ses.user&&ses.user.user_metadata)||{},pv=(ses.user&&ses.user.app_metadata&&ses.user.app_metadata.provider)||"";
+if(pv==="google"&&!md.codeok&&!md.needpw){
+if(LINKOK){LINKOK=false;sb.auth.updateUser({data:{codeok:true}}).then(()=>sb.auth.getSession()).then(g=>enter((g.data&&g.data.session)||ses)).catch(()=>{});return}
+pendSes=ses;otpEm=ses.user.email||"";hideSp();if(lgMode==="code"&&!$("lg").classList.contains("hid"))return;
+lgMode="code";showLogin();if(codeSent!==otpEm)sendCode(otpEm,true).catch(e=>lgMsg(trErr(e)));return}
 if(md.needpw){pendSes=ses;hideSp();if(lgMode!=="setpw"||$("lg").classList.contains("hid")){lgMode="setpw";showLogin()}return}
 const nu=!user;user=ses.user;hideLogin();render();
 if(nu){showSp();const to=setTimeout(hideSp,5000);pull(true).finally(async()=>{clearTimeout(to);hideSp();render();if(await chkRole())return;

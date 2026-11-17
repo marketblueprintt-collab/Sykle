@@ -46,6 +46,11 @@ button.s{padding:6px 10px;font-size:13px}
 .ac{display:block;width:100%;text-align:left;background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:12px;margin-bottom:10px}
 .ac b{font-size:16px}
 .ac .rw{display:flex;justify-content:space-between;margin-top:4px}
+.ah{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}.ah>span{min-width:0}
+.dlb{flex:none;font-size:10px;letter-spacing:.04em;padding:2px 8px;border-radius:99px;border:1px solid #2c3550;color:#8fa6d6;background:#0d1220;white-space:nowrap}.dlb.live{border-color:#1f4a3a;color:var(--g);background:#0b1a14}
+.ckl{display:flex;gap:10px;align-items:flex-start;font-size:14px;margin:4px 0 6px;cursor:pointer}.ckl input{flex:none;width:18px;height:18px;margin:1px 0 0;padding:0;accent-color:var(--ac)}
+.fbc{white-space:pre-wrap;word-break:break-word;font-size:14px;margin-top:8px}
+.mdl{position:fixed;inset:0;z-index:97;background:rgba(0,0,0,.9);display:flex;align-items:center;justify-content:center;padding:20px;overflow:auto}.mdl .card{width:100%;max-width:400px;margin:0}
 .sgb{flex:1;padding:10px}
 .sgb.gon{background:var(--gb);border-color:var(--g);color:var(--g);font-weight:700}
 .sgb.ron{background:var(--rb);border-color:var(--r);color:var(--r);font-weight:700}
@@ -120,6 +125,8 @@ details.kg{background:var(--card);border:1px solid var(--bd);border-radius:14px;
 #lg h1{text-align:center;letter-spacing:.14em;font-size:34px;margin:0 0 4px}
 #lg .sb{text-align:center;color:var(--mu);margin:0 0 18px}
 #lg input{width:100%;margin-bottom:10px;flex:none}
+#lg .ckl input{width:18px;margin:1px 0 0}
+#lg details{margin:-2px 0 10px;font-size:14px}#lg details summary{color:var(--ac);cursor:pointer}
 #lg .lk{background:none;border:0;color:var(--ac);padding:6px 2px;font-size:14px}
 #lgm{min-height:20px;font-size:14px;margin:4px 0 10px}
 .bar{height:8px;border-radius:5px;min-width:3px}
@@ -153,12 +160,13 @@ details.kg{background:var(--card);border:1px solid var(--bd);border-radius:14px;
 <div class="row"><input id="f-size" type="text" inputmode="numeric" placeholder="Hesap büyüklüğü ($)"><input id="f-tg" type="text" inputmode="numeric" placeholder="Kâr hedefi ($)"></div>
 <div class="row"><input id="f-dl" type="text" inputmode="numeric" placeholder="Günlük kayıp limiti ($)"><input id="f-ml" type="text" inputmode="numeric" placeholder="Maks. kayıp limiti ($)"></div>
 <input id="f-mt" type="text" inputmode="numeric" placeholder="Günlük max işlem sayısı" style="width:100%;margin-bottom:8px">
+<select id="f-cn" style="width:100%;margin-bottom:8px"></select>
 <div class="row"><button class="p" id="fsave">Kaydet</button><button id="fcan">Vazgeç</button></div>
 </div>
 </section>
 
 <section id="v-det" class="hid">
-<div class="row" style="flex-wrap:wrap"><button class="s" id="edit">Düzenle</button><button class="s" id="imp">CSV içe aktar</button><input type="file" id="impf" accept=".csv,text/csv,text/plain" class="hid"><button class="s" id="brbtn">Breached yap</button><button class="s" id="del">Hesabı sil</button></div>
+<div class="row" style="flex-wrap:wrap"><button class="s" id="edit">Düzenle</button><button class="s" id="imp">CSV içe aktar</button><input type="file" id="impf" accept=".csv,text/csv,text/plain" class="hid"><button class="s" id="brbtn">İhlal yap</button><button class="s" id="del">Hesabı sil</button></div>
 <div id="brk"></div>
 <div id="warn"></div>
 <div class="stats" id="dstats"></div>
@@ -180,6 +188,7 @@ details.kg{background:var(--card);border:1px solid var(--bd);border-radius:14px;
 <h2>Çekimler (payout)</h2>
 <div class="row"><input id="pay" type="text" inputmode="decimal" placeholder="Çektiğim tutar ($)"><button class="s" id="addpay">Çekim ekle</button></div>
 <div class="row" style="flex-wrap:wrap"><label class="lb">📷 Dekont seç<input type="file" id="pf" accept="image/*,application/pdf" class="hid"></label><button class="s" id="pclip">📋 Yapıştır</button></div>
+<label class="ckl hid" id="pfullw"><input type="checkbox" id="pfull"><span>Tüm bakiyeyi çektim<br><span class="mu">Hesap kapanır ve "Tamamlandı" yazar. Buffer bıraktıysan işaretleme, hesap devam eder.</span></span></label>
 <div id="pn" class="mu" style="margin-bottom:8px">Dekont: dosya seç ya da ekran görüntüsünü yapıştır.</div>
 <div id="plist"></div>
 </div>
@@ -207,6 +216,8 @@ details.kg{background:var(--card);border:1px solid var(--bd);border-radius:14px;
 <section id="v-bd" class="hid"></section>
 <section id="v-sc" class="hid"></section>
 <section id="v-kg" class="hid"></section>
+<section id="v-fb" class="hid"></section>
+<section id="v-ad" class="hid"></section>
 </main>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
 <script>
@@ -239,18 +250,25 @@ const today=new Date();today.setHours(0,0,0,0);
 let sel=key(today),view="home",cur=null,editId=null,lt="prop",cy=today.getFullYear(),cm=today.getMonth();
 let et=null,sg=1,tg=new Set(),tIm=[],pendD=null,nIm=[],nMood="",notice="",ptgt="trade";
 const acc=id=>S.accounts.find(a=>a.id===id);
+// hesap durumu: done=Tamamlandı (Funded, tüm bakiye çekildi), pass=Geçildi (Challenge hedefi), br=İhlal
+const isDone=a=>a.ph==="Funded"&&S.payouts.some(p=>p.a===a.id&&p.full);
+const stOf=a=>isDone(a)?"done":(a.ph==="Challenge"&&a.passed)?"pass":a.br?"br":"";
+const closed=a=>!!stOf(a);
+const ST={done:["Tamamlandı","#12322a","var(--g)"],pass:["Geçildi","#12322a","var(--g)"],br:["İhlal","var(--rb)","var(--r)"]};
+const stTag=a=>{const k=stOf(a);return k?`<span class="tag" style="background:${ST[k][1]};color:${ST[k][2]}">${ST[k][0]}</span>`:""};
+const demoLb=a=>a.ph==="Live"?`<span class="dlb live">Live</span>`:`<span class="dlb">Demo ${esc(a.ph)}</span>`;
 
 // ---- kayıt + otomatik kurallar
 function auto(){const m=[];
 S.accounts.slice().forEach(a=>{
 const T=S.trades.filter(t=>t.a===a.id),net=T.reduce((x,t)=>x+t.pnl,0);
 if(a.ph==="Challenge"&&!a.passed&&!a.br&&+a.tg>0&&net>=a.tg){a.passed=true;
-S.accounts.push({id:uid(),name:a.name+" · Funded",firm:a.firm,size:a.size,tg:0,dl:a.dl,ml:a.ml,mt:a.mt,ph:"Funded",from:a.id});
+S.accounts.push({id:uid(),name:a.name+" · Funded",firm:a.firm,size:a.size,tg:0,dl:a.dl,ml:a.ml,mt:a.mt,cn:a.cn||0,ph:"Funded",from:a.id});
 m.push(`🎉 ${esc(a.name)} hedefini geçtin! Funded hesabın otomatik açıldı.`)}
-if(!a.br&&!a.nobr&&!a.passed){const byDay={};T.forEach(t=>byDay[t.d]=(byDay[t.d]||0)+t.pnl);
+if(!a.br&&!a.nobr&&!a.passed&&!isDone(a)){const byDay={};T.forEach(t=>byDay[t.d]=(byDay[t.d]||0)+t.pnl);
 const dayBr=+a.dl>0&&Object.values(byDay).some(v=>v<=-a.dl),maxBr=+a.ml>0&&net<=-a.ml;
 if(dayBr||maxBr){a.br=true;a.brw=maxBr?"Maksimum kayıp limiti":"Günlük kayıp limiti";
-m.push(`⛔ ${esc(a.name)} breached oldu (${a.brw}). Hesap kapandı, sadece görüntüleyebilirsin.`)}}});
+m.push(`⛔ ${esc(a.name)} ihlal edildi (${a.brw}). Hesap kapandı, sadece görüntüleyebilirsin.`)}}});
 return m}
 function persist(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}if(user)schedPush()}
 function save(){S.ts=Date.now();const m=auto();if(m.length)notice=m.join("<br>");awardAll();persist()}
@@ -280,7 +298,7 @@ async function clip(cb){try{const it=await navigator.clipboard.read();for(const 
 async function addTrImg(f){if(!f)return;tIm.push(await toImg(f));xr()}
 async function addNtImg(f){if(!f)return;nIm.push(await toImg(f));notesView()}
 function setPd(f){pendD=f;$("pn").textContent=f?"Dekont hazır: "+(f.name||"yapıştırılan görsel"):"Dekont: dosya seç ya da ekran görüntüsünü yapıştır."}
-function give(f){if(!f)return;if(view==="notes")addNtImg(f);else if(view==="det"){ptgt==="pay"?setPd(f):addTrImg(f)}}
+function give(f){if(!f)return;if(view==="notes")addNtImg(f);else if(view==="fb")fbImg(f);else if(view==="det"){ptgt==="pay"?setPd(f):addTrImg(f)}}
 document.addEventListener("focusin",e=>{ptgt=e.target.closest&&e.target.closest("#payc")?"pay":"trade"});
 document.addEventListener("paste",e=>{const it=[...((e.clipboardData&&e.clipboardData.items)||[])].find(i=>i.type&&i.type.startsWith("image"));if(it){e.preventDefault();give(it.getAsFile())}});
 function vwClose(){$("vw").style.display="none";$("vw").innerHTML=""}
@@ -301,7 +319,7 @@ $("pf").onchange=e=>setPd(e.target.files[0]||null);
 $("pclip").onclick=()=>clip(setPd);
 
 // ---- menü / gezinme
-const IC={x:'<line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>',grid:'<rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/>',layers:'<polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/>',award:'<circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/>',pie:'<path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/>',bars:'<path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/>',note:'<path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>',out:'<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/>',menu:'<line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/>',link:'<path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>',list:'<line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/>',down:'<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>',lock:'<rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/>',medal:'<circle cx="12" cy="15" r="6"/><path d="M8 2h8l-2.5 6.2"/><path d="M8 2l2.5 6.2"/>',image:'<rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>',book:'<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>',bell:'<path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/>'};
+const IC={x:'<line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>',grid:'<rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/>',layers:'<polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/>',award:'<circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/>',pie:'<path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/>',bars:'<path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/>',note:'<path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>',out:'<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/>',menu:'<line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/>',link:'<path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>',list:'<line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/>',down:'<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>',lock:'<rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/>',medal:'<circle cx="12" cy="15" r="6"/><path d="M8 2h8l-2.5 6.2"/><path d="M8 2l2.5 6.2"/>',image:'<rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>',book:'<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>',bell:'<path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/>',msg:'<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>',shield:'<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>'};
 const ico=n=>`<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${IC[n]}</svg>`;
 const fn=()=>{const m=(user&&user.user_metadata)||{};return String(m.name||m.full_name||S.pn||"").trim()};
 const fst=()=>fn().split(/\s+/)[0];
@@ -311,15 +329,15 @@ const xb=$("xb");xb.classList.toggle("hid",view==="home"||view==="list"||view===
 const p=$("tp");p.style.opacity=x==null?0:1;if(x!=null)p.style.transform="translateX("+x*100+"%)";
 t.querySelectorAll("[data-tb]").forEach((b,i)=>b.classList.toggle("on",i===x))}
 function menu(){const nb=(v,l,i)=>`<button data-go="${v}" class="it ${view===v?"on":""}">${ico(i)}${l}</button>`;
-$("dr").innerHTML=`<div class="lo">SYKLE</div>`+nb("live","Live","pie")+nb("lk","Hesap bağla","link")+`<h3>Günlük</h3>`+nb("sum","Özet","bars")+nb("notes","Notlar","note")+nb("an","Hesap notları","list")+`<h3>Rozetler</h3>`+nb("bd","Rozetlerim","medal")+nb("sc","İstatistik kartı","image")+`<h3>Diğer</h3>`+nb("bk","Yedek","down")+nb("kg","Kullanım kılavuzu","book")+(user?`<div class="us"><div style="min-width:0"><b>${esc(fn()||"Hesabım")}</b><span>${esc(user.email||"")}</span><div class="mu" id="sst" style="margin-top:2px">${syncSt}</div></div><button data-out="1" aria-label="Çıkış yap">${ico("out")}</button></div>`:"");
+$("dr").innerHTML=`<div class="lo">SYKLE</div>`+nb("live","Live","pie")+nb("lk","Hesap bağla","link")+`<h3>Günlük</h3>`+nb("sum","Özet","bars")+nb("notes","Notlar","note")+nb("an","Hesap notları","list")+`<h3>Rozetler</h3>`+nb("bd","Rozetlerim","medal")+nb("sc","İstatistik kartı","image")+`<h3>Diğer</h3>`+nb("bk","Yedek","down")+nb("fb","Görüşlerinizi bildirin","msg")+nb("kg","Kullanım kılavuzu","book")+(isAdm?`<h3>Yönetim</h3>`+nb("ad","Yönetici paneli","shield"):"")+(user?`<div class="us"><div style="min-width:0"><b>${esc(fn()||"Hesabım")}</b><span>${esc(user.email||"")}</span><div class="mu" id="sst" style="margin-top:2px">${syncSt}</div></div><button data-out="1" aria-label="Çıkış yap">${ico("out")}</button></div>`:"");
 $("dr").querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>go(b.dataset.go));
 const ob=$("dr").querySelector("[data-out]");if(ob)ob.onclick=logout;tbSet();blSet()}
-const SEC={home:"home",list:"list",live:"list",det:"det",pay:"pay",notes:"notes",sum:"sum",an:"an",lk:"lk",bk:"bk",bd:"bd",sc:"sc",kg:"kg"};
+const SEC={home:"home",list:"list",live:"list",det:"det",pay:"pay",notes:"notes",sum:"sum",an:"an",lk:"lk",bk:"bk",bd:"bd",sc:"sc",kg:"kg",fb:"fb",ad:"ad"};
 let hist=[],noHist=false;
 function goBack(){const h=hist.pop();noHist=true;if(h)go(h.v,h.c);else go("home");noHist=false}
 function go(v,id){if(!noHist&&v!==view){hist.push({v:view,c:cur});if(hist.length>30)hist.shift()}if(v==="home"&&!noHist)hist=[];view=v;if(id)cur=id;if(v==="list")lt="prop";if(v==="live")lt="live";
 $("dr").classList.remove("o");$("ov").style.display="none";
-["home","list","det","pay","notes","sum","an","lk","bk","bd","sc","kg"].forEach(x=>$("v-"+x).classList.toggle("hid",x!==SEC[v]));
+["home","list","det","pay","notes","sum","an","lk","bk","bd","sc","kg","fb","ad"].forEach(x=>$("v-"+x).classList.toggle("hid",x!==SEC[v]));
 $("form").classList.add("hid");
 if(v==="notes"){nIm=[];nMood="";$("n-new").value=""}
 et=null;if(v==="det"){const a=acc(cur);if(a){cy=today.getFullYear();cm=today.getMonth();sel=key(today)}}
@@ -328,13 +346,13 @@ function kbFix(){const a=document.activeElement;if(!(a&&/INPUT|TEXTAREA/.test(a.
 function render(){menu();
 $("nt").innerHTML=notice?`<div class="card" style="border-color:var(--g)">${notice}</div>`:"";notice="";
 if(view!=="lk")lk={m:null,pick:{},st:0};
-if(view==="home")home();else if(view==="list"||view==="live")listV();else if(view==="det")det();else if(view==="pay")payView();else if(view==="sum")sumView();else if(view==="an")anView();else if(view==="lk")lkView();else if(view==="bk")$("ttl").textContent="Yedek";else if(view==="bd")bdView();else if(view==="sc")scView();else if(view==="kg")kgView();else notesView()}
+if(view==="home")home();else if(view==="list"||view==="live")listV();else if(view==="det")det();else if(view==="pay")payView();else if(view==="sum")sumView();else if(view==="an")anView();else if(view==="lk")lkView();else if(view==="bk")$("ttl").textContent="Yedek";else if(view==="bd")bdView();else if(view==="sc")scView();else if(view==="kg")kgView();else if(view==="fb")fbView();else if(view==="ad")adView();else notesView()}
 $("mb").onclick=()=>{$("dr").classList.add("o");$("ov").style.display="block"};
 $("ov").onclick=()=>{$("dr").classList.remove("o");$("ov").style.display="none"};
 
 // ---- ana sayfa / hesap listeleri
 function accCard(a){const T=S.trades.filter(t=>t.a===a.id),P=S.payouts.filter(p=>p.a===a.id),s=calc(T,P),bal=(+a.size||0)+s.net-s.pay;
-return `<button class="ac" data-acc="${a.id}"><b>${esc(a.name)}</b> <span class="tag">${esc(a.ph)}</span>${a.br?'<span class="tag" style="background:var(--rb);color:var(--r)">İhlal</span>':""} <span class="mu">${esc(a.firm||"")}</span><div class="rw"><span>Net <b class="${cls(s.net)}">${fm(s.net)}</b></span><span>Winrate <b class="${wc(s)}">${s.wr}%</b></span>${+a.size?`<span>Bakiye <b>$${Math.round(bal).toLocaleString("tr-TR")}</b></span>`:""}</div>${a.br?"":limBars(a,T,s)}</button>`}
+return `<button class="ac" data-acc="${a.id}"><div class="ah"><span><b>${esc(a.name)}</b>${stTag(a)} <span class="mu">${esc(a.firm||"")}</span></span>${demoLb(a)}</div><div class="rw"><span>Net <b class="${cls(s.net)}">${fm(s.net)}</b></span><span>Winrate <b class="${wc(s)}">${s.wr}%</b></span>${+a.size?`<span>Bakiye <b>$${Math.round(bal).toLocaleString("tr-TR")}</b></span>`:""}</div>${closed(a)?"":limBars(a,T,s)}</button>`}
 const usd=v=>"$"+Math.round(v).toLocaleString("tr-TR");
 const lcol=f=>f>=.7?"var(--r)":f>=.4?"#e9bd55":"var(--g)";
 const lmb=(lab,txt,f,col)=>`<div class="lm"><div class="lt"><span>${lab}</span><b>${txt}</b></div><div class="pgb"><i style="width:${Math.round(Math.max(0,Math.min(1,f))*100)}%;background:${col}"></i></div></div>`;
@@ -387,23 +405,37 @@ $("lsum").innerHTML=live&&A.length?kasa(A):"";
 $("alist").innerHTML=A.map(accCard).join("")||`<div class="mu" style="margin-bottom:10px">Henüz hesap yok.</div>`;
 $("newacc").textContent=live?"+ Live hesap ekle":"+ Hesap ekle";bindAcc("alist")}
 function openForm(a){editId=a?a.id:null;$("ftt").textContent=a?"Hesabı düzenle":(lt==="live"?"Yeni Live hesap":"Yeni hesap");
-$("f-ph").classList.toggle("hid",lt==="live");
+$("f-ph").classList.toggle("hid",lt==="live");$("f-cn").classList.toggle("hid",lt==="live");$("f-cn").value=String(a&&+a.cn||0);
 $("f-name").value=a?a.name:"";$("f-firm").value=a?a.firm||"":"";$("f-ph").value=a&&a.ph!=="Live"?a.ph:"Challenge";
 $("f-size").value=a?th(a.size):"";$("f-tg").value=a?th(a.tg):"";$("f-dl").value=a?th(a.dl):"";$("f-ml").value=a?th(a.ml):"";$("f-mt").value=a?th(a.mt):"";
 $("form").classList.remove("hid");$("f-name").focus()}
+$("f-cn").innerHTML=`<option value="0">Consistency limiti yok</option>`+Array.from({length:20},(_,i)=>(i+1)*5).map(v=>`<option value="${v}">Consistency limiti %${v}</option>`).join("");
 ["size","tg","dl","ml","mt"].forEach(k=>$("f-"+k).oninput=e=>{e.target.value=th(e.target.value.replace(/\D/g,""))});
 $("newacc").onclick=()=>openForm();
 $("fcan").onclick=()=>$("form").classList.add("hid");
-$("fsave").onclick=()=>{const live=lt==="live",o={name:$("f-name").value.trim()||"Hesap "+(S.accounts.length+1),firm:$("f-firm").value.trim(),size:num("f-size"),tg:num("f-tg"),dl:num("f-dl"),ml:num("f-ml"),mt:num("f-mt")};
+$("fsave").onclick=()=>{const live=lt==="live",o={name:$("f-name").value.trim()||"Hesap "+(S.accounts.length+1),firm:$("f-firm").value.trim(),size:num("f-size"),tg:num("f-tg"),dl:num("f-dl"),ml:num("f-ml"),mt:num("f-mt"),cn:live?0:+$("f-cn").value||0};
 if(editId){const a=acc(editId);Object.assign(a,o);if(!live)a.ph=$("f-ph").value;const id=editId;save();go("det",id)}
 else{S.accounts.push({id:uid(),ph:live?"Live":$("f-ph").value,...o});save();go(live?"live":"list")}};
 
+// ---- consistency: en iyi günün kârı / toplam kâr
+function consCard(a,T){const L=+a.cn;if(!(L>0)||a.ph==="Live")return"";const D={};T.forEach(t=>D[t.d]=(D[t.d]||0)+t.pnl);
+const net=Object.values(D).reduce((x,v)=>x+v,0),best=Math.max(0,...Object.values(D)),l=L/100,box=(v,c,sub)=>`<div class="st"><small>Consistency</small><b class="${c}">${v}</b><div class="mu" style="font-size:11.5px;margin-top:2px">Limit %${L} · ${sub}</div></div>`;
+if(!(net>0&&best>0))return box("–","","henüz kâr yok");
+const r=best/net,ok=r<=l+1e-9,pc=(Math.round(r*1000)/10).toString().replace(".",",");
+if(!ok)return box("%"+pc,"r","+"+usd(best/l-net)+" kâr gerekli");
+if(l>=1)return box("%"+pc,"g","sınırsız");
+const t=D[key(today)]||0,ne=net-t,room=Math.max(0,l*ne/(1-l)-t);
+return box("%"+pc,"g","+"+usd(room)+" kaldı")}
 // ---- hesap detayı
 function det(){const a=acc(cur);if(!a){go("list");return}
 $("ttl").textContent=a.name;
-const T=S.trades.filter(t=>t.a===a.id),P=S.payouts.filter(p=>p.a===a.id),s=calc(T,P),br=!!a.br;
-$("brk").innerHTML=br?`<div class="card" style="border-color:var(--r)">⛔ <b>Hesap breached</b>${a.brw?" · "+esc(a.brw):""}. Sadece görüntüleme açık.<div style="margin-top:8px"><button class="s" id="reopen">Yeniden aç</button></div></div>`:"";
-if(br)$("reopen").onclick=()=>{a.br=false;a.nobr=true;delete a.brw;save();render()};
+const T=S.trades.filter(t=>t.a===a.id),P=S.payouts.filter(p=>p.a===a.id),s=calc(T,P),sk=stOf(a),br=!!sk;
+const ro=`<div style="margin-top:8px"><button class="s" id="reopen">Yeniden aç</button></div>`;
+$("brk").innerHTML=sk==="br"?`<div class="card" style="border-color:var(--r)">⛔ <b>Hesap ihlal edildi</b>${a.brw?" · "+esc(a.brw):""}. Sadece görüntüleme açık.${ro}</div>`:
+sk==="pass"?`<div class="card" style="border-color:var(--g)">✓ <b>Challenge geçildi.</b> Kâr hedefine ulaştın, Funded hesabın açıldı. Bu hesap artık sadece görüntülenir.</div>`:
+sk==="done"?`<div class="card" style="border-color:var(--g)">✓ <b>Hesap tamamlandı.</b> Tüm bakiye çekildi, hesap kapandı. Sadece görüntüleme açık.${ro}</div>`:"";
+if($("reopen"))$("reopen").onclick=()=>{if(sk==="done")S.payouts.forEach(p=>{if(p.a===a.id)delete p.full});else{a.br=false;a.nobr=true;delete a.brw}save();render()};
+$("pfullw").classList.toggle("hid",a.ph!=="Funded");$("pfull").checked=false;
 ["entry","payc","brbtn","imp"].forEach(i=>$(i).classList.toggle("hid",br));
 const td=T.filter(t=>t.d===key(today)),tp=td.reduce((x,t)=>x+t.pnl,0);let w="";
 if(!br){if(+a.mt>0&&td.length>=a.mt)w+=`⚠️ Bugün ${td.length} işlem açtın (limit ${a.mt}). Bugünlük dur.`;
@@ -415,7 +447,7 @@ if(+a.size)ex+=card("Bakiye","$"+Math.round(a.size+s.net-s.pay).toLocaleString("
 if(+a.tg)ex+=card("Hedefe kalan","$"+Math.round(Math.max(0,a.tg-s.net)).toLocaleString("tr-TR"));
 if(+a.dl)ex+=card("Bugün / günlük limit",fm(tp)+" / $"+a.dl.toLocaleString("tr-TR"),tp<0&&-tp>=a.dl*0.7?"r":"");
 if(+a.ml)ex+=card("Maks. kayba kalan","$"+Math.round(a.ml+s.net).toLocaleString("tr-TR"),a.ml+s.net<a.ml*0.3?"r":"");
-$("dstats").innerHTML=ex+statCards(s);
+$("dstats").innerHTML=ex+statCards(s)+consCard(a,T);
 // ay takvimi
 const first=new Date(cy,cm,1),dim=new Date(cy,cm+1,0).getDate(),off=(first.getDay()+6)%7,ms=cy+"-"+pad(cm+1)+"-";
 const mp=T.filter(t=>t.d.startsWith(ms)).reduce((x,t)=>x+t.pnl,0);
@@ -460,23 +492,23 @@ sallR();
 $("sg").querySelectorAll("[data-sg]").forEach(b=>b.onclick=()=>{sg=+b.dataset.sg;xr()});
 $("tg").querySelectorAll("[data-tg]").forEach(b=>b.onclick=()=>{const k=b.dataset.tg;tg.has(k)?tg.delete(k):tg.add(k);xr()});
 $("pth").querySelectorAll("[data-rm]").forEach(b=>b.onclick=()=>{tIm.splice(+b.dataset.rm,1);xr()})}
-$("add").onclick=()=>{const a=acc(cur);if(!a||a.br)return;const p=parseFloat(($("pnl").value||"").replace(",","."));if(isNaN(p)){$("pnl").focus();return}
+$("add").onclick=()=>{const a=acc(cur);if(!a||closed(a))return;const p=parseFloat(($("pnl").value||"").replace(",","."));if(isNaN(p)){$("pnl").focus();return}
 const pv=p<0?p:(sg<0?-p:p),o={ss:$("ses").value,sym:$("sym").value.trim().toUpperCase()||"?",dir:$("dir").value,pnl:pv,note:$("tn").value.trim(),tag:[...tg],im:[...tIm]},ex=et&&S.trades.find(x=>x.id===et);
 let tr=ex;if(ex){Object.assign(ex,o);mirrorUpd(ex)}else{tr={id:uid(),a:cur,d:sel,...o};S.trades.push(tr);mirror(tr)}
 et=null;$("pnl").value="";$("tn").value="";$("sym").value="";tg=new Set();tIm=[];save();render()};
 $("tcan").onclick=()=>{et=null;$("pnl").value="";$("tn").value="";$("sym").value="";tg=new Set();tIm=[];xr()};
 $("dn").oninput=()=>{S.notes[cur+"|"+sel]=$("dn").value;save()};
 $("edit").onclick=()=>{const a=acc(cur);lt=a.ph==="Live"?"live":"prop";go(a.ph==="Live"?"live":"list");openForm(a)};
-$("brbtn").onclick=function(){conf(this,()=>{const a=acc(cur);a.br=true;a.brw="Elle kapatıldı";save();render()})};
+$("brbtn").onclick=function(){conf(this,()=>{const a=acc(cur);a.br=true;a.nobr=false;a.brw="Elle kapatıldı";save();render()})};
 $("del").onclick=function(){conf(this,()=>{const a=acc(cur),live=a.ph==="Live";unlinkAcc(a.id);S.accounts=S.accounts.filter(x=>x.id!==a.id);S.trades=S.trades.filter(t=>t.a!==a.id);S.payouts=S.payouts.filter(p=>p.a!==a.id);save();go(live?"live":"list")})};
 
 // ---- çekimler
-const payRow=(p,nm,ro)=>`<div class="tr"><div><b class="g">$${Math.round(p.amt).toLocaleString("tr-TR")}</b> <span class="mu">${p.d}${nm?" · "+esc(nm):""}</span></div><div>${p.url?(p.ct&&p.ct.startsWith("image")?`<img src="${p.url}" data-vw="${p.url}" style="height:44px;border-radius:6px;vertical-align:middle" alt="">`:`<a href="${p.url}" target="_blank" style="color:var(--ac)">Dekont</a>`):""} ${ro?"":`<button class="s" data-dp="${p.id}">✕</button>`}</div></div>`;
+const payRow=(p,nm,ro)=>`<div class="tr"><div><b class="g">$${Math.round(p.amt).toLocaleString("tr-TR")}</b> <span class="mu">${p.d}${nm?" · "+esc(nm):""}</span>${p.full?'<span class="tag" style="background:#12322a;color:var(--g)">Tüm bakiye</span>':""}</div><div>${p.url?(p.ct&&p.ct.startsWith("image")?`<img src="${p.url}" data-vw="${p.url}" style="height:44px;border-radius:6px;vertical-align:middle" alt="">`:`<a href="${p.url}" target="_blank" style="color:var(--ac)">Dekont</a>`):""} ${ro?"":`<button class="s" data-dp="${p.id}">✕</button>`}</div></div>`;
 function bindPay(id){$(id).querySelectorAll("[data-dp]").forEach(b=>b.onclick=()=>conf(b,()=>{S.payouts=S.payouts.filter(p=>p.id!==b.dataset.dp);save();render()}))}
-$("addpay").onclick=async()=>{const a=acc(cur);if(!a||a.br)return;const v=parseFloat(($("pay").value||"").replace(",","."));if(isNaN(v)||v<=0)return;
-const o={id:uid(),a:cur,d:sel,amt:v};let err="";
+$("addpay").onclick=async()=>{const a=acc(cur);if(!a||closed(a))return;const v=parseFloat(($("pay").value||"").replace(",","."));if(isNaN(v)||v<=0)return;
+const o={id:uid(),a:cur,d:sel,amt:v};if(a.ph==="Funded"&&$("pfull").checked)o.full=true;let err="";
 if(pendD){try{if(pendD.type&&pendD.type.startsWith("image")){o.url=await toImg(pendD)}else o.url=await rawUp(pendD);o.ct=pendD.type}catch(e){err="Dekont yüklenemedi, tutar yine de eklendi."}}
-S.payouts.push(o);$("pay").value="";$("pf").value="";save();pendD=null;render();setPd(null);if(err)$("pn").textContent=err};
+S.payouts.push(o);$("pay").value="";$("pf").value="";if(o.full)notice=`✓ ${esc(a.name)} tamamlandı. Tüm bakiyeyi çektin, hesap kapandı.`;save();pendD=null;render();setPd(null);if(err)$("pn").textContent=err};
 function payView(){$("ttl").textContent="Ödüller";
 const P=[...S.payouts].sort((x,y)=>x.d<y.d?1:-1),tot=P.reduce((x,p)=>x+p.amt,0),G=100000,done=Math.floor(tot/G),cu=tot-done*G,pc=cu/G*100,f1=v=>v.toFixed(1).replace(".",",");
 let h="";
@@ -488,17 +520,17 @@ $("p-l").innerHTML=P.map(p=>payRow(p,(acc(p.a)||{}).name||"",false)).join("")||`
 
 // ---- hesap notları (sadece görüntüleme)
 function anView(){$("ttl").textContent="Hesap notları";
-const A=S.accounts,n=A.length,ch=A.filter(a=>!a.br&&a.ph==="Challenge").length,fu=A.filter(a=>!a.br&&a.ph==="Funded").length,lv=A.filter(a=>!a.br&&a.ph==="Live").length,br=A.filter(a=>a.br).length,pa=A.filter(a=>S.payouts.some(p=>p.a===a.id)).length;
+const A=S.accounts,n=A.length,cnt=(ph,k)=>A.filter(a=>(!ph||a.ph===ph)&&stOf(a)===k).length,ch=cnt("Challenge",""),fu=cnt("Funded",""),lv=cnt("Live",""),br=cnt(null,"br"),ps=cnt(null,"pass"),dn=cnt(null,"done"),pa=A.filter(a=>S.payouts.some(p=>p.a===a.id)).length;
 const chip2=(l,v,c)=>`<div><small>${l}</small><b class="${c||""}">${v}</b></div>`;
-$("v-an").innerHTML=`<div class="card"><h2>Toplam hesap</h2><b style="font-size:32px">${n}</b><div class="vl" style="margin-top:12px">${chip2("Challenge",ch)}${chip2("Funded",fu,"g")}${chip2("Live",lv)}${chip2("İhlal",br,br?"r":"")}${chip2("Çekim yapan",pa,"g")}</div></div>`+
+$("v-an").innerHTML=`<div class="card"><h2>Toplam hesap</h2><b style="font-size:32px">${n}</b><div class="vl" style="margin-top:12px">${chip2("Challenge",ch)}${chip2("Funded",fu,"g")}${chip2("Live",lv)}${chip2("Geçildi",ps,ps?"g":"")}${chip2("Tamamlandı",dn,dn?"g":"")}${chip2("İhlal",br,br?"r":"")}${chip2("Çekim yapan",pa,"g")}</div></div>`+
 (n?A.map(a=>{const P=S.payouts.filter(p=>p.a===a.id),pt=P.reduce((x,p)=>x+p.amt,0);
-return `<div class="card" style="margin-bottom:10px"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><b>${esc(a.name)}</b><span>${a.br?'<span class="tag" style="background:var(--rb);color:var(--r)">İhlal</span>':""}<span class="tag">${esc(a.ph)}</span></span></div>${+a.size?`<div class="mu" style="margin-top:4px">$${(+a.size).toLocaleString("tr-TR")}${a.firm?" · "+esc(a.firm):""}</div>`:""}${P.length?`<div style="margin-top:6px" class="g">Çekim yaptı · ${usd(pt)} (${P.length} kez)</div>`:""}</div>`}).join(""):`<div class="card mu">Henüz hesap yok.</div>`)}
+return `<div class="card" style="margin-bottom:10px"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><b>${esc(a.name)}${stTag(a)}</b>${demoLb(a)}</div>${+a.size?`<div class="mu" style="margin-top:4px">$${(+a.size).toLocaleString("tr-TR")}${a.firm?" · "+esc(a.firm):""}</div>`:""}${P.length?`<div style="margin-top:6px" class="g">Çekim yaptı · ${usd(pt)} (${P.length} kez)</div>`:""}</div>`}).join(""):`<div class="card mu">Henüz hesap yok.</div>`)}
 
 // ---- hesap bağla (copy trade)
 let lk={m:null,pick:{},st:0};
 const lkOf=id=>S.links.find(l=>l.m===id),lkCh=id=>S.links.find(l=>l.c.includes(id));
-function mirror(t){if(t.src)return;const l=lkOf(t.a);if(!l)return;l.c.forEach(cid=>{const c=acc(cid);if(!c||c.br)return;if(S.trades.some(x=>x.a===cid&&x.src===t.id))return;S.trades.push({...t,id:uid(),a:cid,src:t.id,tag:[...(t.tag||[])],im:[...(t.im||[])]})})}
-function mirrorUpd(t){S.trades.filter(x=>x.src===t.id).forEach(x=>{const c=acc(x.a);if(c&&c.br)return;Object.assign(x,{d:t.d,ss:t.ss,sym:t.sym,dir:t.dir,pnl:t.pnl,note:t.note,tag:[...(t.tag||[])],im:[...(t.im||[])]})})}
+function mirror(t){if(t.src)return;const l=lkOf(t.a);if(!l)return;l.c.forEach(cid=>{const c=acc(cid);if(!c||closed(c))return;if(S.trades.some(x=>x.a===cid&&x.src===t.id))return;S.trades.push({...t,id:uid(),a:cid,src:t.id,tag:[...(t.tag||[])],im:[...(t.im||[])]})})}
+function mirrorUpd(t){S.trades.filter(x=>x.src===t.id).forEach(x=>{const c=acc(x.a);if(c&&closed(c))return;Object.assign(x,{d:t.d,ss:t.ss,sym:t.sym,dir:t.dir,pnl:t.pnl,note:t.note,tag:[...(t.tag||[])],im:[...(t.im||[])]})})}
 function mirrorDel(id){S.trades=S.trades.filter(x=>x.src!==id)}
 function unlink(l,cid){const ids=new Set(S.trades.filter(t=>t.a===l.m).map(t=>t.id));
 S.trades.forEach(t=>{if(t.src&&ids.has(t.src)&&(!cid||t.a===cid)&&l.c.includes(t.a))delete t.src});
@@ -508,11 +540,11 @@ function lkView(){$("ttl").textContent="Hesap bağla";
 const rw=(cls2,att,txt,sub,sq)=>`<button class="lkr ${cls2}" ${att}><span class="ck ${sq?"sq":""}">${cls2.includes("s")?"✓":""}</span><span style="flex:1;min-width:0">${txt}</span><span class="mu">${sub}</span></button>`;
 let h=`<div class="card"><p class="mu" style="margin:0">Copy trade hesaplarınızı birbirine bağlayın. Yalnızca aynı boyuttaki hesaplar bağlanabilir. Ana hesaba girilen işlemler, bağlı hesaplara aynen geçer. Bağlandıktan önceki işlemler aktarılmaz.</p></div>`;
 if(S.links.length)h+=`<div class="card"><h2>Bağlı hesaplar</h2>`+S.links.map(l=>{const m=acc(l.m);return `<div style="margin-bottom:12px"><div class="tr" style="border:0"><span><b>${esc(m.name)}</b> <span class="tag" style="background:#12322a;color:var(--g)">Ana hesap</span></span><span class="mu">${usd(m.size)}</span></div>`+l.c.map(cid=>{const c=acc(cid);return `<div class="tr"><span>${esc(c.name)} <span class="tag" style="background:#12322a;color:var(--g)">Bağlı</span></span><button class="s" data-ul="${l.id}|${cid}">Bağı kaldır</button></div>`}).join("")+`</div>`}).join("")+`</div>`;
-const base=S.accounts.filter(a=>a.ph!=="Live"&&!a.br&&+a.size>0&&!lkCh(a.id));
+const base=S.accounts.filter(a=>a.ph!=="Live"&&!closed(a)&&+a.size>0&&!lkCh(a.id));
 h+=`<div class="card"><h2>1. Ana hesabınızı seçin</h2>`+(base.length?base.map(a=>rw(lk.m===a.id?"s":"",`data-lm="${a.id}"`,esc(a.name),usd(a.size))).join(""):`<div class="mu">Bağlanabilecek hesap yok. Başlangıç bakiyesi girilmiş, ihlal olmamış hesap gerekir.</div>`)+`</div>`;
 if(lk.m){const M=acc(lk.m);
 h+=`<div class="card"><h2>2. Bağlayacağınız hesabı seçin</h2>`+S.accounts.filter(a=>a.ph!=="Live"&&a.id!==lk.m).map(a=>{let why="";
-if(a.br)why="İhlal";else if(+a.size!==+M.size)why="Farklı boyut";else if(lkCh(a.id))why="Zaten bağlı";else if(lkOf(a.id))why="Ana hesap";
+if(closed(a))why=ST[stOf(a)][0];else if(+a.size!==+M.size)why="Farklı boyut";else if(lkCh(a.id))why="Zaten bağlı";else if(lkOf(a.id))why="Ana hesap";
 return why?rw("d","",esc(a.name),why,1):rw(lk.pick[a.id]?"s":"",`data-lp="${a.id}"`,esc(a.name),usd(a.size),1)}).join("")||`<div class="mu">Başka hesap yok.</div>`;
 const n=Object.keys(lk.pick).filter(k=>lk.pick[k]).length;
 h+=lk.st===1?`<div class="cnf"><p style="margin:0 0 12px">${esc(M.name)} hesabına bundan sonra girilen işlemler seçtiğiniz ${n} hesaba aynen geçecek. Onaylıyor musunuz?</p><div style="display:flex;gap:8px"><button id="lkn" style="flex:1">Vazgeç</button><button class="p" id="lky" style="flex:1">Onayla</button></div></div>`:`<button class="p" id="lkg" style="margin-top:6px;${n?"":"opacity:.45"}">Bağla</button>`;
@@ -722,11 +754,76 @@ function dl(f){const u=URL.createObjectURL(f),a=document.createElement("a");a.hr
 // kullanım kılavuzu
 function kgView(){$("ttl").textContent="Kullanım kılavuzu";const D=(t,b)=>`<details class="kg"><summary>${t}</summary>${b}</details>`;
 $("v-kg").innerHTML=D("Başlangıç",`<ul><li>Hesaplar sayfasında "+ Hesap ekle" ile hesabını ekle. Adı, başlangıç bakiyesini, kâr hedefini ve zarar limitlerini yaz.</li><li>Hesabın sayfasında bir gün seç, paritenin, yönün, seansın ve tutarın ile işlemi ekle. İstersen not ve fotoğraf da ekle.</li><li>Çekim yaptığında hesabın sayfasından tutarı ve dekontu kaydet.</li></ul>`)+
-D("Sayfalar",`<ul><li><b>Panel:</b> tarzını gösteren radar, en çok işlem gören semboller ve seanslar.</li><li><b>Hesaplar:</b> tüm hesapların, limitleri ve hedefe kalan tutar.</li><li><b>Ödüller:</b> çekimlerin ve 100 bin dolarlık hedef çubuğu.</li><li><b>Live:</b> gerçek hesapların ve toplam kasa.</li><li><b>Özet:</b> haftalık ve aylık sonuçlar.</li><li><b>Notlar:</b> öğrendiklerini fotoğrafla birlikte yaz.</li><li><b>İstatistik kartı:</b> Funded ya da Live bir hesabının kârlı kapanan ayını altın kart olarak paylaş. Her hesabın kartı ayrıdır, kart ay bitince oluşur. Zararlı ayda kart oluşmaz, bakiye görünmez.</li><li><b>Hesap notları:</b> tüm hesaplarının durumu, kaç hesap aldığın.</li></ul>`)+
-D("Hesap durumları",`<ul><li>Challenge hesabında kâr hedefini geçince hesap otomatik Funded olur.</li><li>Günlük ya da toplam zarar limitini aşan hesap otomatik "İhlal" durumuna geçer ve sadece görüntülenir.</li><li>Hesap sayfasından "Yeniden aç" ile geri açabilirsin.</li></ul>`)+
+D("Sayfalar",`<ul><li><b>Panel:</b> tarzını gösteren radar, en çok işlem gören semboller ve seanslar.</li><li><b>Hesaplar:</b> tüm hesapların, limitleri ve hedefe kalan tutar.</li><li><b>Ödüller:</b> çekimlerin ve 100 bin dolarlık hedef çubuğu.</li><li><b>Live:</b> gerçek hesapların ve toplam kasa.</li><li><b>Özet:</b> haftalık ve aylık sonuçlar.</li><li><b>Notlar:</b> öğrendiklerini fotoğrafla birlikte yaz.</li><li><b>İstatistik kartı:</b> Funded ya da Live bir hesabının kârlı kapanan ayını altın kart olarak paylaş. Her hesabın kartı ayrıdır, kart ay bitince oluşur. Zararlı ayda kart oluşmaz, bakiye görünmez.</li><li><b>Hesap notları:</b> tüm hesaplarının durumu, kaç hesap aldığın.</li><li><b>Görüşlerinizi bildirin:</b> öneri, hata ya da başka bir konuda bize yaz. İstersen ekran görüntüsü de ekle.</li></ul>`)+
+D("Hesap durumları",`<ul><li><b>Geçildi:</b> Challenge hesabı kâr hedefine ulaşınca üstünde "Geçildi" yazar ve aynı ayarlarla yeni bir Funded hesap otomatik açılır. Geçilen Challenge sadece görüntülenir.</li><li><b>İhlal:</b> günlük kayıp limitini ya da maksimum kayıp limitini aşan hesap (Challenge ya da Funded) otomatik "İhlal" olur ve kapanır. Challenge hedefe ulaşamadan limit aşılırsa da "İhlal" yazar. Hesap sayfasındaki "İhlal yap" ile elle de kapatabilirsin.</li><li><b>Tamamlandı:</b> Funded hesapta tüm bakiyeyi çektiysen çekimi eklerken "Tüm bakiyeyi çektim" kutusunu işaretle. Hesap kapanır ve "Tamamlandı" yazar.</li><li><b>Buffer:</b> çekim yapıp hesapta bir miktar kâr (buffer) bıraktıysan kutuyu işaretleme. Hesap kapanmaz, aynen devam eder.</li><li>İhlal ve Tamamlandı hesapları hesap sayfasındaki "Yeniden aç" ile geri açabilirsin.</li><li>Kartların köşesindeki "Demo Challenge" ve "Demo Funded" etiketleri, bu hesapların deneme amaçlı olduğunu gösterir.</li></ul>`)+
+D("Consistency (cons)",`<ul><li>Consistency, en kârlı gününün toplam kârına oranıdır. Örnek: toplam kâr $2.000, en iyi gün $800 ise oran %40.</li><li>Hesap eklerken ya da düzenlerken limiti %5'lik adımlarla seçersin (örneğin %45). Limit seçmezsen kutu görünmez.</li><li>Hesap sayfasındaki Consistency kutusunda şu anki oranın yazar. Limitin altındaysa yeşil, üstündeyse kırmızıdır.</li><li><b>"+$X kaldı":</b> bugün en fazla bu kadar daha kazanırsan oran limiti aşmaz.</li><li><b>"+$X kâr gerekli":</b> oran limitin üstündeyse, limitin altına inmek için en iyi gününü geçmeyen günlerle bu kadar daha kâr etmen gerekir.</li></ul>`)+
+D("Hesaplamalar",`<ul><li><b>Winrate:</b> kazanan işlemlerin tüm işlemlere oranı. Başabaş (0) işlemler de hesaba katılır, çünkü kayıp da olabilirlerdi.</li></ul>`)+
 D("Hesap bağla",`<ul><li>Copy trade yapıyorsan aynı boyuttaki hesapları bağlayabilirsin.</li><li>Önce ana hesabı, sonra bağlanacak hesabı seçersin. Hesaplar sen onaylamadan bağlanmaz.</li><li>Ana hesaba girilen işlem, not ve fotoğraflar bağlı hesaba aynen geçer. Düzenleme ve silme de geçer.</li><li>Bağlamadan önceki işlemler aktarılmaz.</li></ul>`)+
 D("Giriş serisi ve rozetler",`<ul><li>Her gün uygulamaya girdiğinde o gün sayılır, işlem açman gerekmez.</li><li><b>İlk giriş:</b> üye olduğunda.</li><li><b>Haftalık bronz:</b> pazartesiden pazara 7 gün gir.</li><li><b>30 gün gümüş, 100 gün altın, 365 gün elmas:</b> toplam giriş günü.</li><li><b>Küçük rozetler:</b> ilk işlem, 10 işlem notu, ilk çekim, ilk Funded hesap, 100 işlem.</li><li>Günler Türkiye saatine ve sunucu saatine göre sayılır.</li></ul>`)+
-D("Giriş ve hesap",`<ul><li>Hangi yöntemle kayıt olduysan (e-posta ve şifre ya da Google) hep onunla gir. Farklı yöntem boş bir hesap açar.</li><li>Verilerin hesabına otomatik kaydedilir, tüm cihazlarında aynıdır.</li><li>Yedek sayfasından verilerini dosya olarak indirebilirsin.</li></ul>`)}
+D("Giriş ve hesap",`<ul><li>Hangi yöntemle kayıt olduysan (e-posta ve şifre ya da Google) hep onunla gir. Farklı yöntem boş bir hesap açar.</li><li>Verilerin hesabına otomatik kaydedilir, tüm cihazlarında aynıdır.</li><li>Yedek sayfasından verilerini dosya olarak indirebilirsin.</li></ul>`)+
+D("Kullanım koşulları",TOS_TX)}
+
+// ---- kullanım koşulları (demo onayı)
+const TOS_TX=`<p style="margin:8px 0"><b>Sykle bir prop firm değildir.</b> Gerçek para yatırılmaz, fon verilmez ve hiçbir ödeme yapılmaz.</p><ul style="margin:0 0 10px;padding-left:18px;color:#cfcfd4;font-size:14px;line-height:1.5"><li>Challenge ve Funded hesaplar demo, yani deneme amaçlıdır.</li><li>İşlem, kâr ve çekim kayıtlarını sen girersin. Sykle bunları doğrulamaz, kimseye para ya da fon vaat etmez.</li><li>Sykle'yi kötüye kullanan ya da Sykle hakkında yanıltıcı iddialarda bulunan hesaplar askıya alınabilir.</li></ul>`;
+function tosAsk(then){if($("tos"))return;const d=document.createElement("div");d.id="tos";d.className="mdl";
+d.innerHTML=`<div class="card"><h2>Kullanım koşulları</h2>${TOS_TX}<label class="ckl"><input type="checkbox" id="tosc"><span>Okudum, kabul ediyorum.</span></label><button class="p" id="toss" disabled style="opacity:.45;margin-top:6px">Devam et</button></div>`;document.body.appendChild(d);
+$("tosc").onchange=e=>{$("toss").disabled=!e.target.checked;$("toss").style.opacity=e.target.checked?1:.45};
+$("toss").onclick=()=>{S.tos=Date.now();save();d.remove();if(then)then()}}
+
+// ---- görüşlerinizi bildirin
+let fbT="Öneri",fbMsg="",fbIm=null,fbSent=false,fbBusy=false;
+async function fbImg(f){if(!f)return;fbIm=await toImg(f);if(view==="fb")fbView()}
+function fbView(){$("ttl").textContent="Görüşlerinizi bildirin";const V=$("v-fb");
+if(fbSent){V.innerHTML=`<div class="card" style="text-align:center;padding:28px 16px"><div style="font-size:34px;margin-bottom:6px">🙏</div><b style="font-size:17px">Teşekkürler!</b><p class="mu" style="margin:8px 0 16px">Görüşünüz bize ulaştı. Sykle'yi sizin geri bildirimlerinizle geliştiriyoruz.</p><button class="p" id="fbn">Yeni bildirim gönder</button></div>`;$("fbn").onclick=()=>{fbSent=false;fbView()};return}
+V.innerHTML=`<div class="card"><p class="mu" style="margin-top:0">Önerinizi, karşılaştığınız bir hatayı ya da aklınıza takılan her şeyi yazın. Mesajınız doğrudan Sykle ekibine iletilir.</p><h2>Konu</h2><div style="display:flex;flex-wrap:wrap">${["Öneri","Hata","Diğer"].map(x=>chip(x,fbT===x,`data-ft="${x}"`)).join("")}</div><textarea id="fbm" maxlength="4000" placeholder="Mesajınız…" style="min-height:130px;margin-top:4px"></textarea><div class="row" style="flex-wrap:wrap;margin-top:8px"><label class="lb">📷 Ekran görüntüsü<input type="file" id="fbf" accept="image/*" class="hid"></label><button class="s" id="fbc">📋 Yapıştır</button><span class="mu">isteğe bağlı</span></div><div>${fbIm?`<span class="pt"><img src="${fbIm}" data-vw="${fbIm}" alt=""><button class="x" id="fbx">✕</button></span>`:""}</div><div id="fbe" style="font-size:14px;min-height:20px;margin:6px 0;color:var(--r)"></div><button class="p" id="fbs" ${fbBusy?"disabled":""}>${fbBusy?"Gönderiliyor…":"Gönder"}</button></div>`;
+$("fbm").value=fbMsg;$("fbm").oninput=e=>{fbMsg=e.target.value};
+V.querySelectorAll("[data-ft]").forEach(b=>b.onclick=()=>{fbT=b.dataset.ft;fbView()});
+$("fbf").onchange=async e=>{await fbImg(e.target.files[0]);e.target.value=""};
+$("fbc").onclick=()=>clip(fbImg);
+if($("fbx"))$("fbx").onclick=()=>{fbIm=null;fbView()};
+$("fbs").onclick=fbSend}
+async function fbSend(){if(fbBusy)return;const m=fbMsg.trim();if(!m){$("fbe").textContent="Lütfen bir mesaj yazın.";$("fbm").focus();return}
+if(!sb||!user){$("fbe").textContent="Göndermek için giriş yapmış olmalısınız.";return}
+fbBusy=true;fbView();let err="";
+try{const r=await sb.from("feedback").insert({user_id:user.id,email:user.email||null,name:fn()||null,topic:fbT,message:m.slice(0,4000),image:fbIm});if(r.error)throw r.error}
+catch(e){const x=String((e&&e.message)||e).toLowerCase();err=x.includes("fetch")||x.includes("network")?"İnternet bağlantısı yok. Tekrar deneyin.":x.includes("row-level")||x.includes("policy")?"Hesabınız askıya alındığı için gönderilemedi.":"Gönderilemedi. Biraz sonra tekrar deneyin."}
+fbBusy=false;if(!err){fbSent=true;fbMsg="";fbIm=null;fbT="Öneri"}
+if(view==="fb"){fbView();if(err)$("fbe").textContent=err}}
+
+// ---- yönetici paneli: yetki veritabanında (admins tablosu), sadece yönetici görür
+let isAdm=false,adTab="fb",adD=null,adBusy=false;
+async function chkRole(){if(!sb||!user)return false;
+try{const b=await sb.rpc("am_banned");if(!b.error&&b.data===true){showBan();return true}}catch(e){}
+try{const a=await sb.rpc("is_admin");isAdm=!a.error&&a.data===true}catch(e){isAdm=false}
+menu();return false}
+function showBan(){if($("ban"))return;const d=document.createElement("div");d.id="ban";d.className="mdl";d.style.zIndex=100;
+d.innerHTML=`<div class="card"><h2 style="color:var(--r)">Hesap askıya alındı</h2><p style="margin:0 0 12px">Bu hesap, Sykle kullanım koşullarına aykırı kullanım nedeniyle askıya alındı. Bu hesapla veri kaydedilemez ve görüş gönderilemez.</p><button class="p" id="banx">Çıkış yap</button></div>`;document.body.appendChild(d);
+$("banx").onclick=async()=>{try{await sb.auth.signOut()}catch(e){}d.remove();user=null;isAdm=false;S={accounts:[],trades:[],notes:{},payouts:[],nt:[]};norm();try{localStorage.removeItem(KEY);localStorage.removeItem("sykleUid")}catch(e){}lgMode="in";showLogin()}}
+async function adLoad(){adBusy=true;
+try{const[st,fb,us]=await Promise.all([sb.rpc("admin_stats"),sb.from("feedback").select("*").order("created_at",{ascending:false}).limit(200),sb.rpc("admin_users")]);
+const e=st.error||fb.error||us.error;if(e)throw e;adD={st:st.data||{},fb:fb.data||[],us:us.data||[],err:""}}
+catch(e){adD={st:{},fb:[],us:[],err:String((e&&e.message)||e)}}
+adBusy=false;if(view==="ad")adView()}
+const dtm=x=>x?new Date(x).toLocaleString("tr-TR",{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"}):"–";
+function adView(){$("ttl").textContent="Yönetici paneli";const V=$("v-ad");
+if(!isAdm){V.innerHTML=`<div class="card mu">Bu sayfa sadece yöneticiye açık.</div>`;return}
+if(!adD){V.innerHTML=`<div class="card mu">Yükleniyor…</div>`;if(!adBusy)adLoad();return}
+if(adD.err){V.innerHTML=`<div class="card" style="border-color:var(--r)">Veriler alınamadı: ${esc(adD.err)}<div style="margin-top:8px"><button class="s" id="adr">Tekrar dene</button></div></div>`;$("adr").onclick=()=>{adD=null;adView()};return}
+const st=adD.st,n0=v=>v==null?0:v,vv=(l,v,c)=>`<div><small>${l}</small><b class="${c||""}">${v}</b></div>`,me=user&&user.id,ban=new Set(adD.us.filter(u=>u.banned).map(u=>u.id));
+let h=`<div class="card"><div style="display:flex;justify-content:space-between;align-items:center"><h2 style="margin:0">Genel durum</h2><button class="s" id="adr">Yenile</button></div><div class="vl" style="margin-top:10px">${vv("Toplam kullanıcı",n0(st.total))}${vv("Bugün aktif",n0(st.today),"g")}${vv("Bu hafta kaydolan",n0(st.week))}${vv("Okunmamış görüş",n0(st.unread),st.unread?"r":"")}${vv("Banlı kullanıcı",n0(st.banned),st.banned?"r":"")}</div></div>`;
+h+=`<div class="pb" style="flex-wrap:wrap;gap:0">${chip("Görüşler ("+adD.fb.length+")",adTab==="fb",'data-at="fb"')}${chip("Kullanıcılar ("+adD.us.length+")",adTab==="us",'data-at="us"')}</div>`;
+const TC={"Öneri":["#0d1a33","var(--ac)"],"Hata":["var(--rb)","var(--r)"],"Diğer":["var(--bd)","var(--tx)"]};
+if(adTab==="fb")h+=adD.fb.length?adD.fb.map(f=>{const c=TC[f.topic]||TC["Diğer"];
+return `<div class="card" style="${f.read?"":"border-color:#34467a"}"><div style="display:flex;justify-content:space-between;gap:8px;align-items:flex-start"><div style="min-width:0"><span class="tag" style="margin:0;background:${c[0]};color:${c[1]}">${esc(f.topic)}</span>${f.read?"":'<span class="tag" style="background:#12322a;color:var(--g)">Yeni</span>'}${ban.has(f.user_id)?'<span class="tag" style="background:var(--rb);color:var(--r)">Banlı</span>':""}<div class="mu" style="margin-top:6px;word-break:break-all">${esc(f.name||"İsimsiz")} · ${esc(f.email||"")}</div></div><span class="mu" style="flex:none">${dtm(f.created_at)}</span></div><div class="fbc">${esc(f.message)}</div>${f.image&&/^data:image\//.test(f.image)?`<div class="th"><img src="${f.image}" data-vw="${f.image}" alt=""></div>`:""}<div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:10px">${f.read?"":`<button class="s" data-fr="${f.id}">Okundu</button>`}<button class="s" data-fd="${f.id}">Sil</button>${f.user_id!==me&&!ban.has(f.user_id)?`<button class="s" data-ub="${f.user_id}" style="color:var(--r)">Kullanıcıyı banla</button>`:""}</div></div>`}).join(""):`<div class="card mu">Henüz görüş yok.</div>`;
+else h+=adD.us.map(u=>`<div class="card" style="margin-bottom:10px"><div style="display:flex;justify-content:space-between;gap:8px;align-items:flex-start"><div style="min-width:0"><b>${esc(u.name||"İsimsiz")}</b>${u.id===me?'<span class="tag" style="background:#0d1a33;color:var(--ac)">Yönetici</span>':""}${u.banned?'<span class="tag" style="background:var(--rb);color:var(--r)">Banlı</span>':""}<div class="mu" style="word-break:break-all">${esc(u.email||"")} · ${u.provider==="google"?"Google":"E-posta"}</div><div class="mu">Kayıt: ${dtm(u.created_at)} · Son aktif: ${dtm(u.last_active)}</div>${u.banned&&u.reason?`<div class="mu" style="color:var(--r)">Sebep: ${esc(u.reason)}</div>`:""}</div>${u.id===me?"":u.banned?`<button class="s" data-uu="${u.id}" style="flex:none">Banı kaldır</button>`:`<button class="s" data-ub="${u.id}" style="color:var(--r);flex:none">Banla</button>`}</div></div>`).join("");
+V.innerHTML=h;
+const q=x=>V.querySelectorAll(x),run=async p=>{try{const r=await p;if(r.error)throw r.error}catch(e){alert("İşlem yapılamadı: "+((e&&e.message)||e))}adD=null;adView()};
+$("adr").onclick=()=>{adD=null;adView()};
+q("[data-at]").forEach(b=>b.onclick=()=>{adTab=b.dataset.at;adView()});
+q("[data-fr]").forEach(b=>b.onclick=()=>run(sb.from("feedback").update({read:true}).eq("id",b.dataset.fr)));
+q("[data-fd]").forEach(b=>b.onclick=()=>conf(b,()=>run(sb.from("feedback").delete().eq("id",b.dataset.fd))));
+q("[data-ub]").forEach(b=>b.onclick=()=>{const u=adD.us.find(x=>x.id===b.dataset.ub),why=prompt((u&&u.email?u.email+" banlansın mı?\n":"Bu kullanıcı banlansın mı?\n")+"Sebep yaz (isteğe bağlı). Vazgeçmek için İptal'e bas.","");if(why===null)return;run(sb.rpc("admin_ban",{target:b.dataset.ub,why}))});
+q("[data-uu]").forEach(b=>b.onclick=()=>conf(b,()=>run(sb.rpc("admin_unban",{target:b.dataset.uu}))))}
 
 // ---- giriş + bulut senkron (Supabase)
 const SB_URL="https://yenselnewdytltddwpvm.supabase.co",SB_KEY="sb_publishable_fgyTeoNz8eV0Vst0cnnuZA__aoVUsKf";
@@ -751,7 +848,7 @@ else setSt("☁️ Senkron")}
 catch(e){setSt("⚠️ Çevrimdışı")}}
 async function logout(){if(!await push()){alert("Veriler henüz buluta kaydedilemedi. İnternete bağlanınca tekrar dene.");return}
 try{await sb.auth.signOut()}catch(e){}
-user=null;S={accounts:[],trades:[],notes:{},payouts:[],nt:[]};norm();try{localStorage.removeItem(KEY);localStorage.removeItem("sykleUid")}catch(e){}
+user=null;isAdm=false;adD=null;S={accounts:[],trades:[],notes:{},payouts:[],nt:[]};norm();try{localStorage.removeItem(KEY);localStorage.removeItem("sykleUid")}catch(e){}
 $("dr").classList.remove("o");$("ov").style.display="none";lgMode="in";showLogin()}
 function lgMsg(t,ok){const m=$("lgm");if(m){m.textContent=t||"";m.style.color=ok?"var(--g)":"var(--r)"}}
 function showLogin(){const L=$("lg"),m=lgMode,t={in:"Giriş yap",up:"Hesap oluştur",reset:"Şifre sıfırlama bağlantısı gönder",newpw:"Yeni şifreyi kaydet"};
@@ -760,6 +857,7 @@ L.innerHTML=`<div class="bx"><h1>Sykle</h1><p class="sb">Trade günlüğün, her
 ${m==="up"?`<input id="lgn" type="text" autocomplete="given-name" placeholder="Adın">`:""}
 ${m!=="newpw"?`<input id="lge" type="email" inputmode="email" autocomplete="email" placeholder="E-posta" autocapitalize="none">`:""}
 ${m!=="reset"?`<input id="lgp" type="password" autocomplete="${m==="in"?"current-password":"new-password"}" placeholder="${m==="newpw"?"Yeni şifre (en az 6 karakter)":"Şifre"}">`:""}
+${m==="up"?`<label class="ckl" style="margin:2px 0 8px"><input type="checkbox" id="lgt"><span>Sykle'nin bir prop firm olmadığını, gerçek para, fon ya da ödeme olmadığını anladım ve kullanım koşullarını kabul ediyorum.</span></label><details><summary>Kullanım koşullarını oku</summary>${TOS_TX}</details>`:""}
 <div id="lgm"></div><button class="p" id="lgb">${t[m]}</button>
 ${GOOGLE_ON&&(m==="in"||m==="up")?`<button class="p" id="lgg" style="background:#fff;color:#222;margin-top:10px">Google ile devam et</button>`:""}
 <div style="margin-top:10px;display:flex;justify-content:space-between;flex-wrap:wrap">
@@ -767,10 +865,11 @@ ${m==="in"?`<button class="lk" data-m="up">Hesap oluştur</button><button class=
 ${m==="in"||m==="up"?`<p class="mu" style="text-align:center;font-size:13px;margin:14px 6px 0">Daha önce hangi yöntemle girdiysen aynısıyla gir (e-posta ve şifre ya da Google). Farklı yöntem, boş bir hesap açar.</p>`:""}</div>`;
 L.querySelectorAll("[data-m]").forEach(b=>b.onclick=()=>{lgMode=b.dataset.m;showLogin()});
 $("lgb").onclick=lgGo;L.querySelectorAll("input").forEach(i=>i.onkeydown=e=>{if(e.key==="Enter")lgGo()});
-if($("lgg"))$("lgg").onclick=async()=>{try{const r=await sb.auth.signInWithOAuth({provider:"google",options:{redirectTo:location.origin+location.pathname}});if(r.error)throw r.error}catch(e){lgMsg("Google girişi başlatılamadı.")}}}
+if($("lgg"))$("lgg").onclick=async()=>{if(lgMode==="up"&&$("lgt")&&!$("lgt").checked){lgMsg("Devam etmek için kullanım koşullarını kabul et.");return}try{const r=await sb.auth.signInWithOAuth({provider:"google",options:{redirectTo:location.origin+location.pathname}});if(r.error)throw r.error}catch(e){lgMsg("Google girişi başlatılamadı.")}}}
 function hideLogin(){$("lg").classList.add("hid");$("lg").innerHTML=""}
 function trErr(e){const x=(e&&e.message||"").toLowerCase();
 if(x==="name")return"Adını yaz.";
+if(x==="tos")return"Devam etmek için kullanım koşullarını kabul et.";
 if(x.includes("invalid login"))return"E-posta ya da şifre hatalı.";
 if(x.includes("already registered")||x.includes("already been registered"))return"Bu e-posta zaten kayıtlı. Giriş yapmayı dene.";
 if(x.includes("at least")||x.includes("weak"))return"Şifre en az 6 karakter olmalı.";
@@ -782,7 +881,7 @@ return"Bir hata oldu: "+(e&&e.message||"bilinmiyor")}
 async function lgGo(){if(!sb){lgMsg("Bağlantı kurulamadı. Sayfayı yenile.");return}
 const em=($("lge")?$("lge").value:"").trim(),pw=$("lgp")?$("lgp").value:"";lgMsg("");$("lgb").disabled=true;
 try{if(lgMode==="in"){if(!em||!pw)throw{message:"valid email"};const r=await sb.auth.signInWithPassword({email:em,password:pw});if(r.error)throw r.error;enter(r.data.session)}
-else if(lgMode==="up"){const nm=($("lgn")?$("lgn").value:"").trim();if(!nm)throw{message:"name"};if(!em)throw{message:"valid email"};if(pw.length<6)throw{message:"at least 6"};const r=await sb.auth.signUp({email:em,password:pw,options:{data:{name:nm},emailRedirectTo:location.origin+location.pathname}});if(r.error)throw r.error;
+else if(lgMode==="up"){const nm=($("lgn")?$("lgn").value:"").trim();if(!nm)throw{message:"name"};if(!em)throw{message:"valid email"};if(pw.length<6)throw{message:"at least 6"};if(!$("lgt")||!$("lgt").checked)throw{message:"tos"};const r=await sb.auth.signUp({email:em,password:pw,options:{data:{name:nm,tos:true},emailRedirectTo:location.origin+location.pathname}});if(r.error)throw r.error;
 if(r.data.session)enter(r.data.session);else lgMsg("Kayıt alındı. E-postana gelen onay bağlantısına tıkla, sonra giriş yap.",1)}
 else if(lgMode==="reset"){if(!em)throw{message:"valid email"};const r=await sb.auth.resetPasswordForEmail(em,{redirectTo:location.origin+location.pathname});if(r.error)throw r.error;lgMsg("Sıfırlama bağlantısı e-postana gönderildi.",1)}
 else{if(pw.length<6)throw{message:"at least 6"};const r=await sb.auth.updateUser({password:pw});if(r.error)throw r.error;RECOV=false;history.replaceState(null,"",location.pathname);const g=await sb.auth.getSession();enter(g.data.session)}}
@@ -797,7 +896,9 @@ document.body.appendChild(d);
 $("ans").onclick=()=>{const v=$("ani").value.trim();if(!v){$("ani").focus();return}S.pn=v;save();d.remove();render()};
 $("anx").onclick=()=>{S.pq=1;save();d.remove()}}
 function enter(ses){if(!ses)return;const nu=!user;user=ses.user;hideLogin();render();
-if(nu){showSp();const to=setTimeout(hideSp,5000);pull(true).finally(()=>{clearTimeout(to);hideSp();render();if(!fn()&&!S.pq)askName();loginTick()})}else hideSp()}
+if(nu){showSp();const to=setTimeout(hideSp,5000);pull(true).finally(async()=>{clearTimeout(to);hideSp();render();if(await chkRole())return;
+if(!S.tos&&user&&user.user_metadata&&user.user_metadata.tos){S.tos=Date.now();save()}
+const nx=()=>{if(!fn()&&!S.pq)askName()};if(!S.tos)tosAsk(nx);else nx();loginTick()})}else hideSp()}
 async function boot(){render();
 if(!sb){lgMode="in";showLogin();hideSp();lgMsg("Bağlantı kurulamadı. İnternetini kontrol edip sayfayı yenile.");return}
 sb.auth.onAuthStateChange((ev,ses)=>{if(ev==="PASSWORD_RECOVERY"){RECOV=true;lgMode="newpw";showLogin();return}

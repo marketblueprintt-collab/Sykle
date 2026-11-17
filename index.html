@@ -223,7 +223,7 @@ details.kg{background:var(--card);border:1px solid var(--bd);border-radius:14px;
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
 <script>
 // Her yayında bu sürüm değişir; açık uygulamalar yeni sürümü görünce kendini yeniler.
-const APP_V="2026.11.17-8";
+const APP_V="2026.11.17-9";
 const KEY="tradeJournalV2";
 const SES=["NY Açılış","London","Asya","Seans dışı"];
 const TAGS=["FOMO","Erken çıkış","SL oynattım","Plansız","İntikam","Plana uydum"];
@@ -864,7 +864,7 @@ function showLogin(){const L=$("lg"),m=lgMode,t={in:"Giriş yap",up:"Kayıt ol",
 L.classList.remove("hid");
 L.innerHTML=`<div class="bx"><h1>Sykle</h1><p class="sb">Trade günlüğün, her cihazda.</p><div class="card">
 ${m==="code"?`<p style="margin:0 0 12px">${esc(otpEm)} adresine <b>tek kullanımlık bir kod</b> gönderdik. Kodu aşağıya yaz.<br><span class="mu">Gelen kutunda yoksa Spam / Gereksiz klasörüne bak.</span></p><input id="lgc" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="10" placeholder="Kod" style="letter-spacing:.3em;font-size:20px;text-align:center">`:""}
-${m==="setpw"?`<p style="margin:0 0 12px"><b>E-postan doğrulandı ✓</b><br>Devam etmek için kullanıcı adını ve şifreni oluştur.</p><input id="lgn" type="text" autocomplete="nickname" placeholder="Kullanıcı adı" maxlength="30">`:""}
+${m==="setpw"?`<p style="margin:0 0 12px"><b>E-postan doğrulandı ✓</b><br>Devam etmek için kullanıcı adını ve şifreni oluştur.</p><input id="lgn" type="text" autocomplete="nickname" placeholder="Kullanıcı adı" maxlength="30" value="${esc(((pendSes&&pendSes.user&&pendSes.user.user_metadata)||{}).full_name||"").split(/\s+/)[0]}">`:""}
 ${m==="in"||m==="up"||m==="reset"?`<input id="lge" type="email" inputmode="email" autocomplete="email" placeholder="E-posta" autocapitalize="none">`:""}
 ${m==="in"||m==="newpw"||m==="setpw"?`<input id="lgp" type="password" autocomplete="${m==="in"?"current-password":"new-password"}" placeholder="${m==="in"?"Şifre":"Şifre oluştur (en az 6 karakter)"}">`:""}
 ${m==="newpw"||m==="setpw"?`<input id="lgp2" type="password" autocomplete="new-password" placeholder="Şifre tekrar">`:""}
@@ -902,7 +902,7 @@ try{if(lgMode==="in"){if(!em||!pw)throw{message:"valid email"};const r=await sb.
 else if(lgMode==="up"){if(!em)throw{message:"valid email"};if(!$("lgt")||!$("lgt").checked)throw{message:"tos"};await sendCode(em);otpEm=em;lgMode="code";showLogin();return}
 else if(lgMode==="code"){const c=($("lgc").value||"").replace(/\D/g,"");if(c.length<6)throw{message:"code"};let r=await sb.auth.verifyOtp({email:otpEm,token:c,type:"email"});if(r.error){const r2=await sb.auth.verifyOtp({email:otpEm,token:c,type:"signup"});if(!r2.error)r=r2}if(r.error)throw r.error;try{const mv=await sb.rpc("mark_verified");verOk=!!(mv&&mv.data===true)}catch(e){}pendSes=null;enter(r.data.session);return}
 else if(lgMode==="setpw"){const nm=($("lgn").value||"").trim(),p2=$("lgp2").value;if(nm.length<2)throw{message:"name"};if(pw.length<6)throw{message:"at least 6"};if(pw!==p2)throw{message:"mismatch"};
-const r=await sb.auth.updateUser({password:pw,data:{name:nm,needpw:false,tos:true}});if(r.error)throw r.error;const s2=pendSes;pendSes=null;history.replaceState(null,"",location.pathname);const g=await sb.auth.getSession();enter((g.data&&g.data.session)||s2);return}
+const r=await sb.auth.updateUser({password:pw,data:{name:nm,needpw:false,tos:true,setup:true}});if(r.error)throw r.error;const s2=pendSes;pendSes=null;history.replaceState(null,"",location.pathname);const g=await sb.auth.getSession();enter((g.data&&g.data.session)||s2);return}
 else if(lgMode==="reset"){if(!em)throw{message:"valid email"};const r=await sb.auth.resetPasswordForEmail(em,{redirectTo:location.origin+location.pathname});if(r.error)throw r.error;lgMsg("Sıfırlama bağlantısı e-postana gönderildi.",1)}
 else{if(pw.length<6)throw{message:"at least 6"};if($("lgp2")&&pw!==$("lgp2").value)throw{message:"mismatch"};const r=await sb.auth.updateUser({password:pw});if(r.error)throw r.error;RECOV=false;history.replaceState(null,"",location.pathname);const g=await sb.auth.getSession();enter(g.data.session)}}
 catch(e){lgMsg(trErr(e));if(String(e&&e.message||"").toLowerCase().includes("not confirmed")&&em)lgResend(em)}
@@ -928,6 +928,7 @@ $("anx").onclick=()=>{S.pq=1;save();d.remove()}}
 function enter(ses){if(!ses)return;const md=(ses.user&&ses.user.user_metadata)||{},pv=(ses.user&&ses.user.app_metadata&&ses.user.app_metadata.provider)||"";
 if(pv==="google"&&!verOk){pendSes=ses;if(verBusy)return;verBusy=true;
 sb.rpc(LINKOK?"mark_verified":"am_verified").then(r=>{LINKOK=false;verBusy=false;if(r&&r.data===true){verOk=true;pendSes=null;enter(ses)}else gate(ses)}).catch(()=>{verBusy=false;gate(ses)});return}
+if(pv==="google"&&!md.setup){pendSes=ses;hideSp();if(lgMode!=="setpw"||$("lg").classList.contains("hid")){lgMode="setpw";showLogin()}return}
 if(md.needpw){pendSes=ses;hideSp();if(lgMode!=="setpw"||$("lg").classList.contains("hid")){lgMode="setpw";showLogin()}return}
 const nu=!user;user=ses.user;hideLogin();render();
 if(nu){showSp();const to=setTimeout(hideSp,5000);pull(true).finally(async()=>{clearTimeout(to);hideSp();render();if(await chkRole())return;

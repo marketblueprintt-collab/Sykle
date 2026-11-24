@@ -31,6 +31,11 @@ const D={
 "Dil":["Language","Sprache","Idioma"],
 "Yönetim":["Admin","Verwaltung","Administración"],
 "Yönetici paneli":["Admin panel","Admin-Bereich","Panel de administración"],
+"Depolama":["Storage", "Speicher", "Almacenamiento"],
+"Fotoğraflar":["Photos", "Fotos", "Fotos"],
+"Veritabanı":["Database", "Datenbank", "Base de datos"],
+"{} dosya":["{} files", "{} Dateien", "{} archivos"],
+"%80 ve %95'e gelince telefonuna ve e-postana uyarı gelir.":["You'll get a phone and email alert at 80% and 95%.", "Bei 80 % und 95 % bekommst du eine Warnung per Handy und E-Mail.", "Recibirás un aviso en el móvil y por correo al llegar al 80 % y al 95 %."],
 "Hesabım":["My account","Mein Konto","Mi cuenta"],
 "Çıkış yap":["Log out","Abmelden","Cerrar sesión"],
 "Bildirimler":["Notifications","Benachrichtigungen","Notificaciones"],
@@ -1190,7 +1195,9 @@ async function rawUp(f){return await new Promise(res=>{const fr=new FileReader()
 async function toImg(file){let f=file;
 try{const bm=await createImageBitmap(file),sc=Math.min(1,1100/Math.max(bm.width,bm.height)),c=document.createElement("canvas");
 c.width=Math.round(bm.width*sc);c.height=Math.round(bm.height*sc);c.getContext("2d").drawImage(bm,0,0,c.width,c.height);
-const b=await new Promise(r=>c.toBlob(r,"image/jpeg",.78));if(b)f=new File([b],"foto.jpg",{type:"image/jpeg"})}catch(e){}
+const tb=(t,q)=>new Promise(r=>c.toBlob(r,t,q));let b=await tb("image/webp",.72);
+if(!b||b.type!=="image/webp")b=await tb("image/jpeg",.68);
+if(b&&b.size<file.size)f=new File([b],b.type==="image/webp"?"foto.webp":"foto.jpg",{type:b.type})}catch(e){}
 return rawUp(f)}
 async function clip(cb){try{const it=await navigator.clipboard.read();for(const i of it){const ty=i.types.find(t=>t.startsWith("image"));if(ty){cb(new File([await i.getType(ty)],"yapistirilan.png",{type:ty}));return}}alert("Panoda görsel yok.")}catch(e){alert("Yapıştırma izni verilmedi. Kutuya uzun basıp Yapıştır'ı dene.")}}
 async function addTrImg(f){if(!f)return;tIm.push(await toImg(f));xr()}
@@ -1741,7 +1748,7 @@ d.innerHTML=`<div class="card"><h2 style="color:var(--r)">Hesap askıya alındı
 $("banx").onclick=async()=>{try{await sb.auth.signOut()}catch(e){}d.remove();user=null;isAdm=false;S={accounts:[],trades:[],notes:{},payouts:[],nt:[]};norm();try{localStorage.removeItem(KEY);localStorage.removeItem("sykleUid")}catch(e){}lgMode="in";showLogin()}}
 async function adLoad(){adBusy=true;
 try{const[st,fb,us]=await Promise.all([sb.rpc("admin_stats"),sb.from("feedback").select("*").order("created_at",{ascending:false}).limit(200),sb.rpc("admin_users")]);
-const e=st.error||fb.error||us.error;if(e)throw e;adD={st:st.data||{},fb:fb.data||[],us:us.data||[],err:""}}
+const e=st.error||fb.error||us.error;if(e)throw e;adD={st:st.data||{},fb:fb.data||[],us:us.data||[],err:""};try{const u=await sb.rpc("admin_usage");if(!u.error)adD.u=u.data}catch(e){}}
 catch(e){adD={st:{},fb:[],us:[],err:String((e&&e.message)||e)}}
 adBusy=false;if(view==="ad")adView()}
 const dtm=x=>x?new Date(x).toLocaleString(SY_LOC,{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"}):"–";
@@ -1751,6 +1758,9 @@ if(!adD){V.innerHTML=`<div class="card mu">Yükleniyor…</div>`;if(!adBusy)adLo
 if(adD.err){V.innerHTML=`<div class="card" style="border-color:var(--r)">Veriler alınamadı: ${esc(adD.err)}<div style="margin-top:8px"><button class="s" id="adr">Tekrar dene</button></div></div>`;$("adr").onclick=()=>{adD=null;adView()};return}
 const st=adD.st,n0=v=>v==null?0:v,vv=(l,v,c)=>`<div><small>${l}</small><b class="${c||""}">${v}</b></div>`,me=user&&user.id,ban=new Set(adD.us.filter(u=>u.banned).map(u=>u.id));
 let h=`<div class="card"><div style="display:flex;justify-content:space-between;align-items:center"><h2 style="margin:0">Genel durum</h2><button class="s" id="adr">Yenile</button></div><div class="vl" style="margin-top:10px">${vv("Toplam kullanıcı",n0(st.total))}${vv("Bugün aktif",n0(st.today),"g")}${vv("Bu hafta kaydolan",n0(st.week))}${vv("Okunmamış görüş",n0(st.unread),st.unread?"r":"")}${vv("Banlı kullanıcı",n0(st.banned),st.banned?"r":"")}</div></div>`;
+if(adD.u){const U=adD.u,mb=b=>b>=1073741824?(b/1073741824).toFixed(2)+" GB":(b/1048576).toFixed(1)+" MB",
+bar=(l,v,m,x)=>{const pc=Math.min(100,v/m*100),c=pc>=95?"var(--r)":pc>=80?"#f59e0b":"var(--ac)";return `<div style="margin-top:12px"><div style="display:flex;justify-content:space-between;font-size:13px"><span>${l}</span><span class="mu">${mb(v)} / ${mb(m)} · ${(q=>SY_L==="tr"?"%"+q:q+"%")(pc<1?pc.toFixed(1):Math.round(pc))}</span></div><div style="height:8px;border-radius:4px;background:var(--bd);margin-top:6px;overflow:hidden"><div style="height:100%;width:${Math.max(pc,1)}%;background:${c};border-radius:4px"></div></div>${x?`<div class="mu" style="font-size:12px;margin-top:4px">${x}</div>`:""}</div>`};
+h+=`<div class="card"><h2 style="margin:0">Depolama</h2>${bar("Fotoğraflar",+U.st,+U.st_max,(+U.files)+" dosya")}${bar("Veritabanı",+U.db,+U.db_max)}<div class="mu" style="font-size:12px;margin-top:10px">%80 ve %95'e gelince telefonuna ve e-postana uyarı gelir.</div></div>`}
 h+=`<div class="pb" style="flex-wrap:wrap;gap:0">${chip("Görüşler ("+adD.fb.length+")",adTab==="fb",'data-at="fb"')}${chip("Kullanıcılar ("+adD.us.length+")",adTab==="us",'data-at="us"')}</div>`;
 const TC={"Öneri":["#0d1a33","var(--ac)"],"Hata":["var(--rb)","var(--r)"],"Diğer":["var(--bd)","var(--tx)"]};
 if(adTab==="fb")h+=adD.fb.length?adD.fb.map(f=>{const c=TC[f.topic]||TC["Diğer"];
@@ -1777,7 +1787,7 @@ const isData=u=>typeof u==="string"&&u.startsWith("data:");
 async function upImgs(){if(!sb||!user)return;const all=new Set();
 S.trades.forEach(t=>(t.im||[]).forEach(u=>isData(u)&&all.add(u)));S.nt.forEach(n=>(n.im||[]).forEach(u=>isData(u)&&all.add(u)));S.payouts.forEach(p=>isData(p.url)&&all.add(p.url));
 if(!all.size)return;const map={};
-for(const u of all){try{const b=await (await fetch(u)).blob(),ty=b.type||"image/jpeg",ext=ty.includes("pdf")?"pdf":ty.includes("png")?"png":"jpg",path=user.id+"/"+uid()+"."+ext;
+for(const u of all){try{const b=await (await fetch(u)).blob(),ty=b.type||"image/jpeg",ext=ty.includes("pdf")?"pdf":ty.includes("png")?"png":ty.includes("webp")?"webp":"jpg",path=user.id+"/"+uid()+"."+ext;
 const r=await sb.storage.from("photos").upload(path,b,{contentType:ty,upsert:false});if(r.error)throw r.error;map[u]=sb.storage.from("photos").getPublicUrl(path).data.publicUrl}catch(e){}}
 if(!Object.keys(map).length)return;const f=u=>map[u]||u;
 S.trades.forEach(t=>{if(t.im)t.im=t.im.map(f)});S.nt.forEach(n=>{if(n.im)n.im=n.im.map(f)});S.payouts.forEach(p=>{if(p.url)p.url=f(p.url)});

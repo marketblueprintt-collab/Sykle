@@ -31,6 +31,9 @@ const D={
 "Dil":["Language","Sprache","Idioma"],
 "Yönetim":["Admin","Verwaltung","Administración"],
 "Yönetici paneli":["Admin panel","Admin-Bereich","Panel de administración"],
+"Ametist":["Amethyst", "Amethyst", "Amatista"],
+"Platin":["Platinum", "Platin", "Platino"],
+"Özel temalar ve Pro rozeti":["Exclusive themes and Pro badge", "Exklusive Designs und Pro-Abzeichen", "Temas exclusivos e insignia Pro"],
 "Sykle Pro":["Sykle Pro", "Sykle Pro", "Sykle Pro"],
 "Tema":["Theme", "Design", "Tema"],
 "Altın":["Gold", "Gold", "Dorado"],
@@ -1304,9 +1307,9 @@ t.querySelectorAll("[data-tb]").forEach((b,i)=>b.classList.toggle("on",i===x))}
 let lgOpen=false;
 async function setLang(l){lgOpen=false;if(l===SY_L){menu();return}SY_SET(l);showSp();try{if(user){await within(push(),4000,false);await within(sb.auth.updateUser({data:{lang:l}}),3000,null);const rg=navigator.serviceWorker&&await navigator.serviceWorker.getRegistration(),sb2=rg&&await rg.pushManager.getSubscription();if(sb2)await within(sb.from("push_subs").update({lang:l}).eq("endpoint",sb2.endpoint),3000,null)}}catch(e){}location.reload()}
 function menu(){const nb=(v,l,i)=>`<button data-go="${v}" class="it ${view===v?"on":""}">${ico(i)}${l}</button>`;
-$("dr").innerHTML=`<div class="lo">SYKLE</div><button data-go="pro" class="it pro ${view==="pro"?"on":""}">${ico("star")}<span style="flex:1">Sykle Pro</span>${isPro()?'<span class="prob" data-noi18n>PRO</span>':""}</button>`+nb("live","Live","pie")+nb("lk","Hesap bağla","link")+nb("cmp","Program karşılaştırma","scale")+`<h3>Günlük</h3>`+nb("sum","Özet","bars")+nb("notes","Notlar","note")+nb("an","Hesap notları","list")+`<h3>Rozetler</h3>`+nb("bd","Rozetlerim","medal")+nb("sc","İstatistik kartı","image")+`<h3>Diğer</h3>`+nb("bk","Yedek","down")+nb("fb","Görüşlerinizi bildirin","msg")+nb("kg","Kullanım kılavuzu","book")+(isPro()?`<button class="it" id="thb">${ico("star")}<span style="flex:1">Tema</span><span class="mu" style="font-size:13px">${S.th==="gold"?"Altın":"Mavi"}</span></button>`:"")+pushBtn()+nb("kv","Gizlilik ve KVKK","lock")+`<button class="it" id="lgb" aria-expanded="${lgOpen}">${ico("globe")}<span style="flex:1">Dil</span><span class="mu" data-noi18n style="font-size:13px">${(SY_LANGS.find(x=>x[0]===SY_L)||SY_LANGS[0])[1]} ${lgOpen?"▴":"▾"}</span></button>`+(lgOpen?`<div class="lgl" data-noi18n>${SY_LANGS.map(x=>`<button class="it ${x[0]===SY_L?"on":""}" data-lang="${x[0]}"><span style="flex:1">${x[1]}</span>${x[0]===SY_L?ico("check"):""}</button>`).join("")}</div>`:"")+(isAdm?`<h3>Yönetim</h3>`+nb("ad","Yönetici paneli","shield"):"")+(user?`<div class="us"><div style="min-width:0"><b>${esc(fn()||"Hesabım")}${isPro()?'<span class="prob" data-noi18n>PRO</span>':""}</b><span>${esc(user.email||"")}</span><div class="mu" id="sst" style="margin-top:2px">${syncSt}</div></div><button data-out="1" aria-label="Çıkış yap">${ico("out")}</button></div>`:"");
+$("dr").innerHTML=`<div class="lo">SYKLE</div><button data-go="pro" class="it pro ${view==="pro"?"on":""}">${ico("star")}<span style="flex:1">Sykle Pro</span>${isPro()?'<span class="prob" data-noi18n>PRO</span>':""}</button>`+nb("live","Live","pie")+nb("lk","Hesap bağla","link")+nb("cmp","Program karşılaştırma","scale")+`<h3>Günlük</h3>`+nb("sum","Özet","bars")+nb("notes","Notlar","note")+nb("an","Hesap notları","list")+`<h3>Rozetler</h3>`+nb("bd","Rozetlerim","medal")+nb("sc","İstatistik kartı","image")+`<h3>Diğer</h3>`+nb("bk","Yedek","down")+nb("fb","Görüşlerinizi bildirin","msg")+nb("kg","Kullanım kılavuzu","book")+(isPro()?`<button class="it" id="thb">${ico("star")}<span style="flex:1">Tema</span><span style="font-size:13px;color:${thCur()[2]}">● <span class="mu">${thCur()[1]}</span></span></button>`:"")+pushBtn()+nb("kv","Gizlilik ve KVKK","lock")+`<button class="it" id="lgb" aria-expanded="${lgOpen}">${ico("globe")}<span style="flex:1">Dil</span><span class="mu" data-noi18n style="font-size:13px">${(SY_LANGS.find(x=>x[0]===SY_L)||SY_LANGS[0])[1]} ${lgOpen?"▴":"▾"}</span></button>`+(lgOpen?`<div class="lgl" data-noi18n>${SY_LANGS.map(x=>`<button class="it ${x[0]===SY_L?"on":""}" data-lang="${x[0]}"><span style="flex:1">${x[1]}</span>${x[0]===SY_L?ico("check"):""}</button>`).join("")}</div>`:"")+(isAdm?`<h3>Yönetim</h3>`+nb("ad","Yönetici paneli","shield"):"")+(user?`<div class="us"><div style="min-width:0"><b>${esc(fn()||"Hesabım")}${isPro()?'<span class="prob" data-noi18n>PRO</span>':""}</b><span>${esc(user.email||"")}</span><div class="mu" id="sst" style="margin-top:2px">${syncSt}</div></div><button data-out="1" aria-label="Çıkış yap">${ico("out")}</button></div>`:"");
 $("dr").querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>go(b.dataset.go));$("lgb").onclick=()=>{lgOpen=!lgOpen;menu()};$("dr").querySelectorAll("[data-lang]").forEach(b=>b.onclick=()=>setLang(b.dataset.lang));
-const ob=$("dr").querySelector("[data-out]");if(ob)ob.onclick=logout;if($("thb"))$("thb").onclick=()=>{S.th=S.th==="gold"?"":"gold";save();thApply();menu()};thApply();tbSet();blSet()}
+const ob=$("dr").querySelector("[data-out]");if(ob)ob.onclick=logout;if($("thb"))$("thb").onclick=()=>{const i=THEMES.findIndex(t=>t[0]===(S.th||""));S.th=THEMES[(i+1)%THEMES.length][0];save();thApply();menu()};thApply();tbSet();blSet()}
 const SEC={home:"home",list:"list",live:"list",det:"det",pay:"pay",notes:"notes",sum:"sum",an:"an",lk:"lk",bk:"bk",bd:"bd",sc:"sc",kg:"kg",fb:"fb",ad:"ad",kv:"kv",cmp:"cmp",pro:"pro"};
 let hist=[],noHist=false;
 function goBack(){const h=hist.pop();noHist=true;if(h)go(h.v,h.c);else go("home");noHist=false}
@@ -1646,7 +1649,7 @@ const r=(l,f,p)=>`<tr><td>${l}</td><td>${f}</td><td>${p}</td></tr>`;
 V.innerHTML=`<div class="card prc"><h2 style="margin:0">Sykle Pro<span class="prob" data-noi18n>PRO</span></h2>
 ${pro?`<p style="margin:10px 0 0"><b style="color:#e2be6a">✓ Sykle Pro aktif.</b>${PLU?` <span class="mu">${SY_T("Bitiş")}: ${new Date(PLU).toLocaleDateString(SY_LOC)}</span>`:""}</p>`:`<p style="margin:10px 0 0">Sykle ücretsiz kalıyor. Pro, daha fazlasını isteyenler için.</p>`}</div>
 <div class="card"><table class="prt"><thead><tr><th></th><th>Ücretsiz</th><th style="color:#e2be6a">Pro</th></tr></thead><tbody>
-${r("Aktif prop hesap","3","Sınırsız")}${r("Fotoğraf","100","2.000")}${r("Gelişmiş analiz",N,Y)}${r("Dışa aktarma (CSV / PDF)",N,Y)}${r("Altın tema ve Pro rozeti",N,Y)}${r("Öncelikli destek",N,Y)}${r("AI koç",N,'<span class="mu" style="font-size:12px">Yakında</span>')}
+${r("Aktif prop hesap","3","Sınırsız")}${r("Fotoğraf","100","2.000")}${r("Gelişmiş analiz",N,Y)}${r("Dışa aktarma (CSV / PDF)",N,Y)}${r("Özel temalar ve Pro rozeti",N,Y)}${r("Öncelikli destek",N,Y)}${r("AI koç",N,'<span class="mu" style="font-size:12px">Yakında</span>')}
 ${r("Günlük, takvim, notlar, rozetler",Y,Y)}</tbody></table></div>
 ${pro?"":`<div class="card"><h2>Fiyat</h2><div style="display:flex;gap:8px"><div class="st" style="flex:1"><small>Aylık</small><b>$4,99</b></div><div class="st" style="flex:1"><small>Yıllık</small><b>$39,99</b><small style="color:var(--g)">2 aydan fazlası bedava</small></div></div>
 <p class="mu" style="margin:10px 0 0;font-size:13px">İlk 100 Pro kullanıcıya kurucu fiyatı: fiyatın ömür boyu sabit kalır.</p>
@@ -1855,7 +1858,9 @@ let PRO=false,PLW=false,PLU=null;
 const isPro=()=>PRO||isAdm;
 const FREE_ACC=3,FREE_PH=100,PRO_PH=2000;
 async function chkPlan(){if(!sb||!user){PRO=false;PLW=false;return}try{const r=await sb.rpc("my_plan");if(!r.error&&r.data){PRO=!!r.data.pro;PLW=!!r.data.wait;PLU=r.data.until||null}}catch(e){}thApply()}
-function thApply(){try{document.documentElement.style.setProperty("--ac",isPro()&&S.th==="gold"?"#d4a94e":"#4f9bf5")}catch(e){}}
+const THEMES=[["","Mavi","#4f9bf5"],["gold","Altın","#d4a94e"],["ame","Ametist","#a48bf6"],["pla","Platin","#c3c8d4"]];
+const thCur=()=>THEMES.find(t=>t[0]===(isPro()?S.th||"":""))||THEMES[0];
+function thApply(){try{document.documentElement.style.setProperty("--ac",thCur()[2])}catch(e){}}
 const phSet=()=>{const u=new Set();S.trades.forEach(t=>(t.im||[]).forEach(x=>u.add(x)));S.nt.forEach(x=>(x.im||[]).forEach(y=>u.add(y)));S.payouts.forEach(p=>{if(p.url)u.add(p.url)});return u};
 const phLim=()=>isPro()?PRO_PH:FREE_PH;
 const phRoom=n=>phSet().size+n<=phLim();

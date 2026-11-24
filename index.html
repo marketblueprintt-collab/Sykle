@@ -234,8 +234,8 @@ const D={
 "Fiyat":["Price", "Preis", "Precio"],
 "Yıllık":["Yearly", "Jährlich", "Anual"],
 "$6,99":["$6.99", "6,99 $", "6,99 $"],
-"$39,99":["$39.99", "39,99 $", "39,99 $"],
-"2 aydan fazlası bedava":["over 2 months free", "mehr als 2 Monate gratis", "más de 2 meses gratis"],
+"$59,99":["$59.99", "59,99 $", "59,99 $"],
+"3 aydan fazlası bedava":["over 3 months free", "mehr als 3 Monate gratis", "más de 3 meses gratis"],
 "İlk 100 Pro kullanıcıya kurucu fiyatı: fiyatın ömür boyu sabit kalır.":["Founder price for the first 100 Pro users: your price stays the same for life.", "Gründerpreis für die ersten 100 Pro-Nutzer: Dein Preis bleibt für immer gleich.", "Precio de fundador para los primeros 100 usuarios Pro: tu precio no cambiará nunca."],
 "Ödeme yakında açılıyor":["Payments open soon", "Zahlungen bald verfügbar", "Los pagos abren pronto"],
 "✓ Listedesin. Pro açılınca sana haber vereceğiz.":["✓ You're on the list. We'll let you know when Pro opens.", "✓ Du stehst auf der Liste. Wir melden uns, sobald Pro startet.", "✓ Estás en la lista. Te avisaremos cuando abra Pro."],
@@ -1228,7 +1228,7 @@ window.splashGo=function(){var t=window._spT;if(t)clearTimeout(t);requestAnimati
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
 <script>
 // Her yayında bu sürüm değişir; açık uygulamalar yeni sürümü görünce kendini yeniler.
-const APP_V="2026.11.24-6";
+const APP_V="2026.11.24-7";
 const KEY="tradeJournalV2";
 const SES=["NY Açılış","London","Asya","Seans dışı"];
 const TAGS=["FOMO","Erken çıkış","SL oynattım","Plansız","İntikam","Plana uydum"];
@@ -2007,7 +2007,7 @@ ${pro?`<p style="margin:10px 0 0"><b style="color:#e2be6a">✓ Sykle Pro aktif.<
 <div class="card"><table class="prt"><thead><tr><th></th><th>Ücretsiz</th><th style="color:#e2be6a">Pro</th></tr></thead><tbody>
 ${r("Aktif prop hesap","3","Sınırsız")}${r("Strateji kitabı (setup)","3","Sınırsız")}${r("Fotoğraf","100","2.000")}${r("Gelişmiş analiz",N,Y)}${r("Ya şöyle yapsaydım? simülatörü",N,Y)}${r("CSV içe / dışa aktarma ve PDF rapor",N,Y)}${r("Özel temalar ve Pro rozeti",N,Y)}${r("Öncelikli destek",N,Y)}${r("AI koç",N,'<span class="mu" style="font-size:12px">Yakında</span>')}
 ${r("Günlük, takvim, notlar, rozetler",Y,Y)}${r("Sykle Skoru, tiltmetre, kaçırılan işlemler",Y,Y)}</tbody></table></div>
-${pro?"":`<div class="card"><h2>Fiyat</h2><div style="display:flex;gap:8px"><div class="st" style="flex:1"><small>Aylık</small><b>$6,99</b></div><div class="st" style="flex:1"><small>Yıllık</small><b>$39,99</b><small style="color:var(--g)">2 aydan fazlası bedava</small></div></div>
+${pro?"":`<div class="card"><h2>Fiyat</h2><div style="display:flex;gap:8px"><div class="st" style="flex:1"><small>Aylık</small><b>$6,99</b></div><div class="st" style="flex:1"><small>Yıllık</small><b>$59,99</b><small style="color:var(--g)">3 aydan fazlası bedava</small></div></div>
 <p class="mu" style="margin:10px 0 0;font-size:13px">İlk 100 Pro kullanıcıya kurucu fiyatı: fiyatın ömür boyu sabit kalır.</p>
 <button class="p" disabled style="opacity:.5;margin-top:12px">Ödeme yakında açılıyor</button>
 ${PLW?`<div style="margin-top:10px;color:var(--g)">✓ Listedesin. Pro açılınca sana haber vereceğiz.</div>`:`<button class="s" id="pwt" style="width:100%;margin-top:8px">Açılınca haber ver</button>`}</div>

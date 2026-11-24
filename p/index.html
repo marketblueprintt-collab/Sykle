@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#000000">
+<meta name="robots" content="noindex">
+<title>Sykle</title>
+<link rel="icon" href="../icon.png">
+<style>
+:root{--bg:#000;--card:#0c0c0e;--tx:#f2f2f2;--mu:#8a8a8a;--bd:#232326;--g:#35c48c;--r:#ef5f6b;--ac:#4f9bf5}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Inter,Arial,sans-serif;-webkit-font-smoothing:antialiased;padding:max(20px,env(safe-area-inset-top)) 16px 40px}
+.w{max-width:440px;margin:0 auto}
+.top{display:flex;align-items:center;gap:10px;margin-bottom:18px}
+.top img{width:36px;height:36px;border-radius:9px}
+.top b{letter-spacing:.2em;font-size:15px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:18px;padding:18px;margin-bottom:12px}
+.mu{color:var(--mu)}
+h1{font-size:26px;margin:0 0 4px}
+.tag{display:inline-block;font-size:12px;padding:3px 9px;border-radius:99px;border:1px solid var(--bd);color:#c9c9cf;margin:6px 6px 0 0}
+.big{font-size:34px;font-weight:700;margin-top:10px}
+.g{color:var(--g)}.r{color:var(--r)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.grid div{background:#000;border:1px solid var(--bd);border-radius:12px;padding:10px 12px}
+.grid small{display:block;color:var(--mu);font-size:12px}
+.grid b{font-size:18px}
+.row{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-top:1px solid var(--bd);font-size:14px;gap:10px}
+.bar{height:6px;border-radius:3px}
+.cta{display:block;text-align:center;background:var(--ac);color:#fff;text-decoration:none;font-weight:600;padding:14px;border-radius:14px;margin-top:16px}
+.foot{text-align:center;font-size:12px;color:#5a5a62;margin-top:18px;line-height:1.5}
+.note{white-space:pre-wrap;font-size:14.5px;line-height:1.5;margin-top:12px;padding-top:12px;border-top:1px solid var(--bd)}
+</style>
+</head>
+<body>
+<div class="w">
+<div class="top"><img src="../icon.png" alt=""><b>SYKLE</b></div>
+<div id="c"><div class="card mu" id="ld">…</div></div>
+<a class="cta" href="../tanitim/" id="cta"></a>
+<div class="foot" id="ft"></div>
+</div>
+<script>
+(function(){
+var SB="https://yenselnewdytltddwpvm.supabase.co",KEY="sb_publishable_fgyTeoNz8eV0Vst0cnnuZA__aoVUsKf";
+var LG=["tr","en","de","es"],nl=(navigator.language||"en").slice(0,2).toLowerCase(),L=LG.indexOf(nl)>=0?nl:"en";
+var LOC={tr:"tr-TR",en:"en-US",de:"de-DE",es:"es-ES"}[L];
+var T={
+ tr:{load:"Yükleniyor…",nf:"Bu paylaşım bulunamadı ya da kaldırılmış.",err:"Paylaşım yüklenemedi. Biraz sonra tekrar dene.",trade:"İşlem",period:"Dönem",win:"Kazanç",loss:"Kayıp",be:"Başa baş",by:"{} paylaştı",anon:"Bir Sykle kullanıcısı paylaştı",setup:"Setup",rules:"Kurallara uyum",n:"İşlem",wr:"Winrate",pf:"Profit faktör",net:"Net K/Z",days:"Günlük sonuçlar",ses:"Seanslar",week:"Haftalık",month:"Aylık",cta:"Kendi günlüğünü tut, ücretsiz →",foot:"Sykle prop firm trader'ları için bir trade günlüğüdür. Sykle bir prop firm değildir. Bu paylaşım kullanıcının kendi girdiği kayıtlardan oluşturulmuştur, doğrulanmamıştır.",trd:"işlem"},
+ en:{load:"Loading…",nf:"This share wasn't found or has been removed.",err:"Couldn't load this share. Try again in a moment.",trade:"Trade",period:"Period",win:"Win",loss:"Loss",be:"Break-even",by:"Shared by {}",anon:"Shared by a Sykle user",setup:"Setup",rules:"Rules followed",n:"Trades",wr:"Win rate",pf:"Profit factor",net:"Net P/L",days:"Daily results",ses:"Sessions",week:"Weekly",month:"Monthly",cta:"Keep your own journal, free →",foot:"Sykle is a trading journal for prop firm traders. Sykle is not a prop firm. This share is built from records the user entered themselves and is not verified.",trd:"trades"},
+ de:{load:"Wird geladen…",nf:"Diese Freigabe wurde nicht gefunden oder entfernt.",err:"Freigabe konnte nicht geladen werden. Versuch es gleich noch einmal.",trade:"Trade",period:"Zeitraum",win:"Gewinn",loss:"Verlust",be:"Break-even",by:"Geteilt von {}",anon:"Geteilt von einem Sykle-Nutzer",setup:"Setup",rules:"Regeln befolgt",n:"Trades",wr:"Trefferquote",pf:"Profitfaktor",net:"Netto G/V",days:"Tagesergebnisse",ses:"Sessions",week:"Wöchentlich",month:"Monatlich",cta:"Führe dein eigenes Journal, kostenlos →",foot:"Sykle ist ein Trading-Journal für Prop-Firm-Trader. Sykle ist keine Prop-Firm. Diese Freigabe beruht auf selbst eingetragenen, nicht überprüften Daten.",trd:"Trades"},
+ es:{load:"Cargando…",nf:"Este enlace no existe o se ha eliminado.",err:"No se pudo cargar. Inténtalo de nuevo en un momento.",trade:"Operación",period:"Periodo",win:"Ganancia",loss:"Pérdida",be:"Empate",by:"Compartido por {}",anon:"Compartido por un usuario de Sykle",setup:"Setup",rules:"Reglas cumplidas",n:"Operaciones",wr:"Tasa de acierto",pf:"Factor de beneficio",net:"G/P neto",days:"Resultados diarios",ses:"Sesiones",week:"Semanal",month:"Mensual",cta:"Lleva tu propio diario, gratis →",foot:"Sykle es un diario de trading para traders de prop firms. Sykle no es una prop firm. Este enlace se basa en datos introducidos por el usuario y no verificados.",trd:"operaciones"}
+}[L];
+var SES={en:{"NY Açılış":"NY Open","Asya":"Asia","Seans dışı":"Off-session","Belirtilmemiş":"Unspecified"},de:{"NY Açılış":"NY-Eröffnung","Asya":"Asien","Seans dışı":"Außerhalb der Session","Belirtilmemiş":"Nicht angegeben"},es:{"NY Açılış":"Apertura NY","London":"Londres","Asya":"Asia","Seans dışı":"Fuera de sesión","Belirtilmemiş":"Sin especificar"}};
+var ss=function(x){return (SES[L]&&SES[L][x])||x};
+document.documentElement.lang=L;
+var $=function(i){return document.getElementById(i)},esc=function(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})};
+var fm=function(n){return (n>0?"+":n<0?"−":"")+"$"+Math.abs(n).toLocaleString(LOC,{maximumFractionDigits:2})},cl=function(n){return n>0?"g":n<0?"r":""};
+var dt=function(d,o){return new Date(d+"T12:00:00Z").toLocaleDateString(LOC,Object.assign({timeZone:"UTC"},o||{day:"numeric",month:"long",year:"numeric"}))};
+var pc=function(n){return L==="tr"?"%"+n:n+(L==="en"?"%":" %")};
+$("ld").textContent=T.load;$("cta").textContent=T.cta;$("ft").textContent=T.foot;
+var id=(new URLSearchParams(location.search).get("id")||"").replace(/[^A-Za-z0-9]/g,"");
+if(!id){$("c").innerHTML='<div class="card mu">'+esc(T.nf)+'</div>';return}
+fetch(SB+"/rest/v1/rpc/get_share",{method:"POST",headers:{"Content-Type":"application/json",apikey:KEY},body:JSON.stringify({sid:id})}).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(x){
+ if(!x||!x.payload){$("c").innerHTML='<div class="card mu">'+esc(T.nf)+'</div>';return}
+ var p=x.payload,who=p.nm?T.by.replace("{}",p.nm):T.anon,h="";
+ if(x.kind==="trade"){
+  var res=p.res==="w"?T.win:p.res==="l"?T.loss:T.be,rc=p.res==="w"?"g":p.res==="l"?"r":"";
+  h='<div class="card"><div class="mu" style="font-size:13px">'+esc(T.trade)+' · '+esc(dt(p.d))+'</div><h1>'+esc(p.sym)+'</h1><div><span class="tag">'+esc(p.dir)+'</span><span class="tag">'+esc(ss(p.ss))+'</span>'+(p.ph?'<span class="tag">'+esc(p.ph)+'</span>':"")+'</div>'+
+   '<div class="big '+rc+'">'+(p.pnl==null?esc(res):fm(p.pnl))+'</div>'+(p.pnl!=null?'<div class="mu" style="font-size:13px">'+esc(res)+'</div>':"")+
+   (p.pb||p.rk?'<div class="grid">'+(p.pb?'<div><small>'+esc(T.setup)+'</small><b style="font-size:15px">'+esc(p.pb)+'</b></div>':"")+(p.rk?'<div><small>'+esc(T.rules)+'</small><b>'+esc(p.rk)+'</b></div>':"")+'</div>':"")+
+   (p.note?'<div class="note">'+esc(p.note)+'</div>':"")+'<div class="mu" style="font-size:12.5px;margin-top:14px">'+esc(who)+'</div></div>';
+ }else{
+  var lab=(p.per==="w"?T.week:T.month)+' · '+dt(p.a,{day:"numeric",month:"short"})+' – '+dt(p.b,{day:"numeric",month:"short",year:"numeric"});
+  h='<div class="card"><div class="mu" style="font-size:13px">'+esc(lab)+'</div><h1>'+esc(T.period)+(p.ph?' <span class="tag" style="vertical-align:middle">'+esc(p.ph)+'</span>':"")+'</h1>'+
+   (p.net!=null?'<div class="big '+cl(p.net)+'">'+fm(p.net)+'</div>':"")+
+   '<div class="grid"><div><small>'+esc(T.n)+'</small><b>'+p.n+'</b></div><div><small>'+esc(T.wr)+'</small><b class="'+(p.wr>50?"g":p.wr<50?"r":"")+'">'+pc(p.wr)+'</b></div><div><small>'+esc(T.pf)+'</small><b>'+esc(p.pf)+'</b></div></div></div>';
+  var D=p.days||[],mx=Math.max.apply(null,[1].concat(D.map(function(d){return Math.abs(d[1])})));
+  if(D.length)h+='<div class="card"><div class="mu" style="font-size:13px;margin-bottom:4px">'+esc(T.days)+'</div>'+D.map(function(d){var v=d[1],w=p.net==null?100:Math.max(4,Math.round(Math.abs(v)/mx*100));return '<div class="row"><span style="width:70px;flex:none">'+esc(dt(d[0],{day:"numeric",month:"short"}))+'</span><span style="flex:1"><div class="bar" style="width:'+w+'%;background:var(--'+(v>=0?"g":"r")+')"></div></span>'+(p.net==null?'':'<b class="'+cl(v)+'" style="white-space:nowrap">'+fm(v)+'</b>')+'</div>'}).join("")+'</div>';
+  var S=p.ses||[];if(S.length)h+='<div class="card"><div class="mu" style="font-size:13px;margin-bottom:4px">'+esc(T.ses)+'</div>'+S.map(function(s){return '<div class="row"><span>'+esc(ss(s[0]))+' <span class="mu">'+s[1]+' '+esc(T.trd)+' · '+pc(s[2])+'</span></span>'+(s[3]==null?'':'<b class="'+cl(s[3])+'">'+fm(s[3])+'</b>')+'</div>'}).join("")+'</div>';
+  h+='<div class="mu" style="font-size:12.5px;margin:-2px 4px 0">'+esc(who)+'</div>';
+ }
+ $("c").innerHTML=h;
+}).catch(function(){$("c").innerHTML='<div class="card mu">'+esc(T.err)+'</div>'});
+})();
+</script>
+</body>
+</html>

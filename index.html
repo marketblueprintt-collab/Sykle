@@ -31,6 +31,9 @@ const D={
 "Dil":["Language","Sprache","Idioma"],
 "Yönetim":["Admin","Verwaltung","Administración"],
 "Yönetici paneli":["Admin panel","Admin-Bereich","Panel de administración"],
+"Haftalık e-posta özeti: her pazartesi sabahı geçen haftanın işlem sayısı, net K/Z, kazanma oranı, giriş günleri ve haftanın bulguları e-postana gelir.":["Weekly email summary: every Monday morning you get last week's trade count, net P/L, win rate, login days and the week's findings by email.", "Wöchentliche E-Mail-Zusammenfassung: Jeden Montagmorgen bekommst du Anzahl der Trades, Netto G/V, Trefferquote, Login-Tage und die Erkenntnisse der Vorwoche per E-Mail.", "Resumen semanal por correo: cada lunes por la mañana recibes el número de operaciones, el G/P neto, la tasa de acierto, los días con acceso y los hallazgos de la semana anterior."],
+"Bildirimleri aç":["Turn on notifications", "Benachrichtigungen aktivieren", "Activar notificaciones"],
+"Yüksek etkili haberlerden önce ve giriş serin bozulmak üzereyken sana haber verelim.":["We'll alert you before high-impact news and when your login streak is about to break.", "Wir benachrichtigen dich vor wichtigen News und wenn deine Login-Serie zu reißen droht.", "Te avisaremos antes de noticias importantes y cuando tu racha esté a punto de romperse."],
 "İşlemi paylaş":["Share trade", "Trade teilen", "Compartir operación"],
 "Dönemi paylaş":["Share period", "Zeitraum teilen", "Compartir periodo"],
 "Link hazır. Linki bilen herkes sadece bu paylaşımı görebilir, günlüğünün geri kalanını göremez.":["Your link is ready. Anyone with the link sees only this share, never the rest of your journal.", "Dein Link ist fertig. Wer den Link hat, sieht nur diese Freigabe, nie den Rest deines Journals.", "Tu enlace está listo. Quien tenga el enlace solo verá esto, nunca el resto de tu diario."],
@@ -1215,7 +1218,7 @@ window.splashGo=function(){var t=window._spT;if(t)clearTimeout(t);requestAnimati
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
 <script>
 // Her yayında bu sürüm değişir; açık uygulamalar yeni sürümü görünce kendini yeniler.
-const APP_V="2026.11.24-3";
+const APP_V="2026.11.24-4";
 const KEY="tradeJournalV2";
 const SES=["NY Açılış","London","Asya","Seans dışı"];
 const TAGS=["FOMO","Erken çıkış","SL oynattım","Plansız","İntikam","Plana uydum"];
@@ -1276,7 +1279,7 @@ return a.cb==="t"?best<=a.tg*L/100+1e-9:(net>0?best/net<=L/100+1e-9:true)}
 const tdays=T=>new Set(T.map(t=>t.d)).size;
 function migTpl(){if(S.mig1)return;const F=FIRMS.find(x=>x.id==="ftm"),P=F.p.find(x=>x.id==="nitro");
 S.accounts.forEach(a=>{if(a.tp||a.ph==="Live")return;Object.assign(a,tplRules(F,P,50000,a.ph==="Funded"?0:1));if(a.ph==="Challenge"&&a.passed)a.passed=true});S.mig1=1}
-function norm(){S.accounts=S.accounts||[];S.trades=S.trades||[];S.notes=S.notes||{};S.payouts=S.payouts||[];S.nt=S.nt||[];S.links=S.links||[];S.lg=S.lg||[];S.bd=S.bd||{};S.nf=S.nf||[];S.pb=S.pb||[];S.ms=S.ms||[];
+function norm(){S.accounts=S.accounts||[];S.trades=S.trades||[];S.notes=S.notes||{};S.payouts=S.payouts||[];S.nt=S.nt||[];S.links=S.links||[];S.lg=S.lg||[];S.bd=S.bd||{};S.nf=S.nf||[];S.pb=S.pb||[];S.ms=S.ms||[];S.wm=true;
 S.trades.forEach(t=>{if(!t.ss){if(t.t){const h=new Date(t.d+"T"+t.t).getUTCHours();t.ss=h<7?"Asya":h<13?"London":h<21?"NY Açılış":"Seans dışı"}else t.ss="Belirtilmemiş"}t.tag=t.tag||[];t.im=t.im||[]});
 S.nt.forEach(n=>{n.k=n.k||"n";n.im=n.im||[]});
 S.accounts.forEach(a=>{a.ph=a.ph||"Challenge"});migTpl();S.accounts.forEach(a=>{const R=tplOf(a);if(R)a.firm=R.F.n+" · "+R.P.n})}
@@ -1350,23 +1353,29 @@ return `<div class="card" style="border-color:#e9bd55"><div>📰 <b>${esc(e.c)}<
 const pushOn=()=>{try{return localStorage.getItem("syklePush")==="1"}catch(e){return false}};
 const swi=on=>`<span class="swi${on?" on":""}" aria-hidden="true"><i></i></span>`;
 const hasG=()=>!!(user&&(user.identities||[]).some(x=>x.provider==="google"));
-const pushBtn=()=>`<button class="it" id="pnb" role="switch" aria-checked="${pushOn()}">${ico("bell")}<span style="flex:1">Telefon bildirimleri</span>${swi(pushOn())}</button>`+(user?`<button class="it" id="wmb" role="switch" aria-checked="${S.wm===true}">${ico("mail")}<span style="flex:1">Haftalık e-posta özeti</span>${swi(S.wm===true)}</button>`:"")+(GOOGLE_ON&&user?(hasG()?`<div class="it" style="cursor:default">${ico("ulink")}<span style="flex:1">Google hesabı bağlı</span><span style="color:var(--g)">${ico("check")}</span></div>`:`<button class="it" id="glb">${ico("ulink")}<span style="flex:1">Google hesabını bağla</span></button>`):"");
+const pushBtn=()=>(GOOGLE_ON&&user?(hasG()?`<div class="it" style="cursor:default">${ico("ulink")}<span style="flex:1">Google hesabı bağlı</span><span style="color:var(--g)">${ico("check")}</span></div>`:`<button class="it" id="glb">${ico("ulink")}<span style="flex:1">Google hesabını bağla</span></button>`):"");
 const b64u=s=>{const p="=".repeat((4-s.length%4)%4),b=atob((s+p).replace(/-/g,"+").replace(/_/g,"/"));return Uint8Array.from(b,c=>c.charCodeAt(0))};
-async function pushToggle(){
+async function pushToggle(quiet){
 if(!("serviceWorker" in navigator)||!("PushManager" in window)||!("Notification" in window)){alert("Bu cihazda bildirim açmak için Sykle'yi ana ekrana ekleyip oradan aç. iPhone'da: Paylaş > Ana Ekrana Ekle.");return}
 if(!user||!sb){alert("Bildirimleri açmak için giriş yap.");return}
 try{const reg=await navigator.serviceWorker.register("sw.js");await navigator.serviceWorker.ready;let sub=await reg.pushManager.getSubscription();
-if(pushOn()){if(sub){try{await sb.from("push_subs").delete().eq("endpoint",sub.endpoint)}catch(e){}await sub.unsubscribe()}try{localStorage.removeItem("syklePush")}catch(e){}menu();alert("Telefon bildirimleri kapatıldı.");return}
-const pm=await Notification.requestPermission();if(pm!=="granted"){alert("Bildirim izni verilmedi. Telefonunun ayarlarından Sykle'ye bildirim izni verebilirsin.");return}
+const pm=Notification.permission==="granted"?"granted":await Notification.requestPermission();if(pm!=="granted"){if(!quiet)alert("Bildirim izni verilmedi. Telefonunun ayarlarından Sykle'ye bildirim izni verebilirsin.");return}
 await newsLoad(true);if(!NW.vk)throw new Error("vapid");
 if(!sub)sub=await reg.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:b64u(NW.vk)});
 const j=sub.toJSON(),r=await sb.from("push_subs").upsert({endpoint:j.endpoint,keys:j.keys,user_id:user.id,lang:SY_L,tz:(Intl.DateTimeFormat().resolvedOptions().timeZone)||"Europe/Istanbul"});if(r.error)throw r.error;
-try{localStorage.setItem("syklePush","1")}catch(e){}menu();alert("Telefon bildirimleri açıldı. Yüksek etkili haberlerden yaklaşık 15 dakika önce ve giriş serin bozulmak üzereyken akşam 21:00'de bildirim gelir.")}
-catch(e){alert("Bildirim açılamadı: "+((e&&e.message)||e))}}
+try{localStorage.setItem("syklePush","1")}catch(e){}menu();if(!quiet)alert("Telefon bildirimleri açıldı. Yüksek etkili haberlerden yaklaşık 15 dakika önce ve giriş serin bozulmak üzereyken akşam 21:00'de bildirim gelir.")}
+catch(e){if(!quiet)alert("Bildirim açılamadı: "+((e&&e.message)||e))}}
+// bildirimler herkes için açık: izin verilmişse sessizce abone olur, verilmemişse bir kez sorar (iPhone'da sadece ana ekrandan açılınca)
+let pushAsked=false;
+function pushMaybe(){if(pushAsked||!user||!sb||pushOn())return;if(!("serviceWorker" in navigator)||!("PushManager" in window)||!("Notification" in window))return;
+const P=Notification.permission;if(P==="denied")return;if(P==="granted"){pushAsked=true;pushToggle(true);return}
+if($("pam")||document.querySelector(".mdl"))return;pushAsked=true;const d=document.createElement("div");d.id="pam";d.className="mdl";d.style.zIndex=96;document.body.appendChild(d);
+d.innerHTML=`<div class="card" style="text-align:center"><div style="font-size:40px;margin:6px 0 4px">🔔</div><h2 style="margin:6px 0 8px;text-transform:none;letter-spacing:0;font-size:19px;color:var(--tx)">Bildirimleri aç</h2><p style="margin:0 0 16px;font-size:14.5px;line-height:1.55">Yüksek etkili haberlerden önce ve giriş serin bozulmak üzereyken sana haber verelim.</p><button class="p" id="pay1">Bildirimleri aç</button><button class="s" id="pay0" style="width:100%;margin-top:8px">Şimdi değil</button></div>`;
+$("pay1").onclick=()=>{d.remove();pushToggle(true)};$("pay0").onclick=()=>d.remove()}
 document.addEventListener("click",e=>{const t=e.target.closest&&e.target.closest("#pnb");if(t)pushToggle()});
 // haftalık e-posta özeti: her pazartesi sabahı geçen haftanın özeti (sunucu gönderir)
 function wmToggle(){if(!user)return;const on=S.wm!==true;S.wm=on;save();menu();alert(on?"Haftalık e-posta özeti açıldı. Her pazartesi sabahı geçen haftanın özeti e-postana gelir.":"Haftalık e-posta özeti kapatıldı.")}
-document.addEventListener("click",e=>{const t=e.target.closest&&e.target.closest("#wmb");if(t)wmToggle()});
+
 // Google hesabını mevcut hesaba bağla (Google'daki e-posta farklı olsa bile aynı hesaba girilir)
 async function gLink(){if(!sb||!user)return;if(hasG()){alert("Google hesabın zaten bağlı.");return}
 if(!confirm("Google hesabını bu Sykle hesabına bağlayalım mı? Sonra ister e-posta ve şifreyle ister Google ile girebilirsin, verilerin aynı kalır."))return;
@@ -1512,7 +1521,7 @@ $("v-home").innerHTML=`<div style="font-size:22px;font-weight:600;margin:2px 0 1
 `<div class="card"><h2>Tarz</h2>${radar(V)}<div class="vl">${vv("Net K/Z",fm(s.net),cls(s.net))}${vv("İşlem sayısı",s.n)}${vv("Risk / kazanç","1 : "+rr.toFixed(1).replace(".",","))}${vv("Ortalama kazanç",fm(s.aw),"g")}${vv("Kazanma oranı","%"+s.wr,wc(s))}${vv("Profit factor",s.pf)}${vv("Tutarlılık","%"+Math.round(cons*100))}${vv("Disiplin","%"+Math.round(disc*100))}${vv("Toplam çekim",usd(s.pay),"g")}</div></div>`+
 symBlock()+`<div class="card"><h2>Seanslar</h2>${sesBlock()}<div style="border-top:1px solid var(--bd);margin:6px 0 12px"></div><h2>Piyasa saatleri</h2><div id="mk">${mkHTML()}</div></div>`}
 function obMaybe(){if(user&&!S.ob&&!S.accounts.length&&!S.trades.length&&!$("tos")&&!$("an")&&!$("pwl"))obShow()}
-setInterval(()=>{if(view==="home")obMaybe()},1500);
+setInterval(()=>{if(view==="home"){obMaybe();if(S.ob||S.accounts.length)pushMaybe()}},1500);
 setInterval(()=>{if(view==="home"&&$("mk"))$("mk").innerHTML=mkHTML()},30000);
 function listV(){const live=view==="live";$("ttl").textContent=live?"Live":"Hesaplar";
 const A=S.accounts.filter(a=>live?a.ph==="Live":a.ph!=="Live");
@@ -2125,7 +2134,7 @@ D("Minimum işlem günü",`<ul><li>Minimum gün kuralı seçtiğin programa gör
 D("Hesaplamalar",`<ul><li><b>Winrate:</b> kazanan işlemlerin tüm işlemlere oranı. Başabaş (0) işlemler de hesaba katılır, çünkü kayıp da olabilirlerdi.</li><li><b>Maksimum kayıp:</b> programa göre sabit, gün sonu bakiyesiyle yükselen (FTMO 1-Step) ya da bakiyeyle yükselip kâr limite ulaşınca başlangıç bakiyesinde kilitlenen (FTM 1 Step Nitro) olabilir. Çekimden sonra sayım yeniden başlar.</li></ul>`)+
 D("Hesap bağla",`<ul><li>Copy trade yapıyorsan aynı boyuttaki hesapları bağlayabilirsin.</li><li>Önce ana hesabı, sonra bağlanacak hesabı seçersin. Hesaplar sen onaylamadan bağlanmaz.</li><li>Ana hesaba girilen işlem, not ve fotoğraflar bağlı hesaba aynen geçer. Düzenleme ve silme de geçer.</li><li>Bağlamadan önceki işlemler aktarılmaz.</li></ul>`)+
 D("Giriş serisi ve rozetler",`<ul><li>Her gün uygulamaya girdiğinde o gün sayılır, işlem açman gerekmez.</li><li><b>İlk giriş:</b> üye olduğunda.</li><li><b>Haftalık bronz:</b> pazartesiden pazara 7 gün gir.</li><li><b>30 gün gümüş, 100 gün altın, 365 gün elmas:</b> toplam giriş günü.</li><li><b>Küçük rozetler:</b> ilk işlem, 10 işlem notu, ilk çekim, ilk Funded hesap, 100 işlem.</li><li>Günler Türkiye saatine ve sunucu saatine göre sayılır.</li></ul>`)+
-D("Bildirimler ve e-posta",`<ul><li>Telefon bildirimleri: yüksek etkili haberlerden yaklaşık 15 dakika önce ve giriş serin bozulmak üzereyken akşam 21:00'de bildirim gelir.</li><li>iPhone'da bildirim için Sykle'yi ana ekrana ekleyip oradan açman gerekir.</li><li>Haftalık e-posta özeti: açarsan her pazartesi sabahı geçen haftanın işlem sayısı, net K/Z, kazanma oranı ve giriş günleri e-postana gelir.</li><li>İkisini de menüden istediğin zaman açıp kapatabilirsin.</li></ul>`)+D("Giriş ve hesap",`<ul><li>E-posta ve şifreyle ya da Google ile girebilirsin. Google'daki e-postan Sykle'deki e-postanla aynıysa ikisi de aynı hesaba girer.</li><li>Google'daki e-postan farklıysa önce e-posta ve şifreyle gir, sonra menüden “Google hesabını bağla”ya dokun. Bundan sonra Google ile de aynı hesaba girersin.</li><li>Verilerin hesabına otomatik kaydedilir, tüm cihazlarında aynıdır.</li><li>Yedek sayfasından verilerini dosya olarak indirebilirsin.</li></ul>`)+
+D("Bildirimler ve e-posta",`<ul><li>Telefon bildirimleri: yüksek etkili haberlerden yaklaşık 15 dakika önce ve giriş serin bozulmak üzereyken akşam 21:00'de bildirim gelir.</li><li>iPhone'da bildirim için Sykle'yi ana ekrana ekleyip oradan açman gerekir.</li><li>Haftalık e-posta özeti: her pazartesi sabahı geçen haftanın işlem sayısı, net K/Z, kazanma oranı, giriş günleri ve haftanın bulguları e-postana gelir.</li></ul>`)+D("Giriş ve hesap",`<ul><li>E-posta ve şifreyle ya da Google ile girebilirsin. Google'daki e-postan Sykle'deki e-postanla aynıysa ikisi de aynı hesaba girer.</li><li>Google'daki e-postan farklıysa önce e-posta ve şifreyle gir, sonra menüden “Google hesabını bağla”ya dokun. Bundan sonra Google ile de aynı hesaba girersin.</li><li>Verilerin hesabına otomatik kaydedilir, tüm cihazlarında aynıdır.</li><li>Yedek sayfasından verilerini dosya olarak indirebilirsin.</li></ul>`)+
 D("Kullanım koşulları",TOS_TX)+D("Gizlilik ve KVKK",`<p>KVKK Aydınlatma Metni ve Gizlilik Politikası için menüdeki <b>Gizlilik ve KVKK</b> sayfasına bak.</p>`)}
 
 // ---- kullanım koşulları (demo onayı)

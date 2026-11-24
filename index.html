@@ -31,6 +31,79 @@ const D={
 "Dil":["Language","Sprache","Idioma"],
 "Yönetim":["Admin","Verwaltung","Administración"],
 "Yönetici paneli":["Admin panel","Admin-Bereich","Panel de administración"],
+"{} işlem":[(n)=>n+(one(n)?" trade":" trades"),(n)=>n+(one(n)?" Trade":" Trades"),(n)=>n+(one(n)?" operación":" operaciones")],
+"Strateji kitabı":["Playbook", "Playbook", "Libro de estrategias"],
+"Kaçırılan işlemler":["Missed trades", "Verpasste Trades", "Operaciones perdidas"],
+"+ Strateji kitabına setup ekle":["+ Add a setup to your playbook", "+ Setup zum Playbook hinzufügen", "+ Añadir un setup al libro"],
+"Setup seç (isteğe bağlı)":["Choose a setup (optional)", "Setup wählen (optional)", "Elige un setup (opcional)"],
+"Uyduğun kuralları işaretle":["Tick the rules you followed", "Hake die befolgten Regeln ab", "Marca las reglas que seguiste"],
+"Setup'ı düzenle":["Edit setup", "Setup bearbeiten", "Editar setup"],
+"Yeni setup":["New setup", "Neues Setup", "Nuevo setup"],
+"+ Yeni setup":["+ New setup", "+ Neues Setup", "+ Nuevo setup"],
+"Setup adı (ör. FVG + likidite süpürmesi)":["Setup name (e.g. FVG + liquidity sweep)", "Setup-Name (z. B. FVG + Liquidity Sweep)", "Nombre del setup (p. ej. FVG + barrido de liquidez)"],
+"Kurallar, her satıra bir kural\nör. HTF'de likidite süpürüldü\n15m'de MSS oluştu\nFVG'ye geri dönüşte giriş":["Rules, one per line\ne.g. HTF liquidity swept\nMSS on 15m\nEntry on FVG retest", "Regeln, eine pro Zeile\nz. B. HTF-Liquidität geholt\nMSS auf 15m\nEinstieg beim FVG-Retest", "Reglas, una por línea\np. ej. liquidez HTF barrida\nMSS en 15m\nEntrada en el retest del FVG"],
+"Açıklama (isteğe bağlı): ne zaman kullanırsın, nelere dikkat edersin":["Description (optional): when you use it, what to watch for", "Beschreibung (optional): wann du es nutzt, worauf du achtest", "Descripción (opcional): cuándo lo usas, qué vigilas"],
+"Her setup'ın kurallarını yaz. İşlem eklerken setup'ı seç ve uyduğun kuralları işaretle. Hangi setup'ın kazandırdığını ve kurallara uyunca ne değiştiğini burada görürsün.":["Write the rules for each setup. When you add a trade, choose the setup and tick the rules you followed. Here you'll see which setups make money and what changes when you follow the rules.", "Schreib die Regeln für jedes Setup auf. Beim Erfassen eines Trades wählst du das Setup und hakst die befolgten Regeln ab. Hier siehst du, welche Setups Geld bringen und was sich ändert, wenn du die Regeln befolgst.", "Escribe las reglas de cada setup. Al añadir una operación, elige el setup y marca las reglas que seguiste. Aquí verás qué setups ganan dinero y qué cambia cuando sigues las reglas."],
+"Ücretsiz planda {} / {} setup":["Free plan: {} / {} setups", "Kostenloser Plan: {} / {} Setups", "Plan gratuito: {} / {} setups"],
+"İşlem":["Trades", "Trades", "Operaciones"],
+"Ortalama kural uyumu":["Average rule adherence", "Ø Regeltreue", "Cumplimiento medio de reglas"],
+"Tüm kurallara uyunca":["Following all rules", "Alle Regeln befolgt", "Siguiendo todas las reglas"],
+"Kural atlayınca":["Skipping a rule", "Regel ausgelassen", "Saltándote una regla"],
+"Bu setup'la henüz işlem yok.":["No trades with this setup yet.", "Noch keine Trades mit diesem Setup.", "Aún no hay operaciones con este setup."],
+"Henüz setup yok. İlk setup'ını ekle.":["No setups yet. Add your first one.", "Noch keine Setups. Füge dein erstes hinzu.", "Aún no hay setups. Añade el primero."],
+"Setup seçilmemiş işlemler: {}":["Trades without a setup: {}", "Trades ohne Setup: {}", "Operaciones sin setup: {}"],
+"Ücretsiz planda en fazla 3 setup ekleyebilirsin.":["On the free plan you can add up to 3 setups.", "Im kostenlosen Plan kannst du bis zu 3 Setups anlegen.", "En el plan gratuito puedes añadir hasta 3 setups."],
+"Sykle Skoru":["Sykle Score", "Sykle-Score", "Puntuación Sykle"],
+"Skorun için son 90 günde en az 5 işlem gerekiyor.":["Your score needs at least 5 trades in the last 90 days.", "Für deinen Score brauchst du mindestens 5 Trades in den letzten 90 Tagen.", "Tu puntuación necesita al menos 5 operaciones en los últimos 90 días."],
+"Güçlü":["Strong", "Stark", "Fuerte"],
+"Gelişiyor":["Improving", "Im Aufbau", "Mejorando"],
+"Zayıf":["Weak", "Schwach", "Débil"],
+"Son 90 gün. Sadece kârı değil disiplini ve tutarlılığı da ölçer.":["Last 90 days. Measures discipline and consistency, not just profit.", "Letzte 90 Tage. Misst Disziplin und Konstanz, nicht nur Gewinn.", "Últimos 90 días. Mide la disciplina y la constancia, no solo el beneficio."],
+"Kazanç / kayıp":["Win / loss", "Gewinn / Verlust", "Ganancia / pérdida"],
+"Toparlanma":["Recovery", "Erholung", "Recuperación"],
+"Aylara göre":["By month", "Nach Monat", "Por mes"],
+"Tiltmetre":["Tilt meter", "Tilt-Meter", "Medidor de tilt"],
+"Son işlem günü":["Last trading day", "Letzter Handelstag", "Último día operado"],
+"Tilt":["Tilt", "Tilt", "Tilt"],
+"Dikkat":["Caution", "Vorsicht", "Atención"],
+"Sakin":["Calm", "Ruhig", "Tranquilo"],
+"Duygusal işlem riski yüksek. Bugünlük dur, yarın taze kafayla devam et.":["High risk of emotional trading. Stop for today and come back fresh tomorrow.", "Hohes Risiko für emotionales Trading. Hör für heute auf und mach morgen mit klarem Kopf weiter.", "Riesgo alto de operar con emociones. Para por hoy y vuelve mañana con la cabeza fresca."],
+"Hata etiketleri birikiyor. Bir sonraki işlemden önce ara ver.":["Mistake tags are piling up. Take a break before the next trade.", "Fehler-Tags häufen sich. Mach vor dem nächsten Trade eine Pause.", "Se acumulan etiquetas de error. Haz una pausa antes de la próxima operación."],
+"Disiplinli bir gün. Böyle devam.":["A disciplined day. Keep it up.", "Ein disziplinierter Tag. Weiter so.", "Un día disciplinado. Sigue así."],
+"Ya şöyle yapsaydım?":["What if?", "Was wäre wenn?", "¿Y si…?"],
+"Senaryo seç, bu dönemin sonucu yeniden hesaplansın.":["Pick a scenario and this period's result is recalculated.", "Wähle ein Szenario, das Ergebnis dieses Zeitraums wird neu berechnet.", "Elige un escenario y se recalcula el resultado de este periodo."],
+"Şu etiketli işlemleri almasaydım":["If I hadn't taken trades tagged", "Ohne Trades mit diesen Tags", "Si no hubiera tomado operaciones con"],
+"Günde en fazla":["At most per day", "Höchstens pro Tag", "Como máximo al día"],
+"Sadece şu seansta":["Only in this session", "Nur in dieser Session", "Solo en esta sesión"],
+"Tüm seanslar":["All sessions", "Alle Sessions", "Todas las sesiones"],
+"Günün ilk kaybından sonra dursaydım":["If I had stopped after the day's first loss", "Wenn ich nach dem ersten Verlust des Tages aufgehört hätte", "Si hubiera parado tras la primera pérdida del día"],
+"Gerçek":["Actual", "Tatsächlich", "Real"],
+"Senaryo":["Scenario", "Szenario", "Escenario"],
+"Fark: {}":["Difference: {}", "Unterschied: {}", "Diferencia: {}"],
+"Fark:":["Difference:", "Unterschied:", "Diferencia:"],
+"FOMO işlemlerini almasaydım":["Without FOMO trades", "Ohne FOMO-Trades", "Sin operaciones FOMO"],
+"Günde en fazla 2 işlem":["At most 2 trades a day", "Höchstens 2 Trades pro Tag", "Como máximo 2 operaciones al día"],
+"Kaçırılan işlem ekle":["Add a missed trade", "Verpassten Trade hinzufügen", "Añadir operación perdida"],
+"Gördüğün ama girmediğin setup'ları kaydet. Neden girmediğini bilmek, alınan işlemler kadar değerli.":["Log setups you saw but didn't take. Knowing why you stayed out is as valuable as the trades you took.", "Erfasse Setups, die du gesehen, aber nicht gehandelt hast. Zu wissen, warum du draußen geblieben bist, ist so wertvoll wie die genommenen Trades.", "Registra los setups que viste pero no tomaste. Saber por qué no entraste vale tanto como las operaciones que tomaste."],
+"Olası sonuç ($)":["Possible result ($)", "Mögliches Ergebnis ($)", "Resultado posible ($)"],
+"Neden girmedin?":["Why didn't you enter?", "Warum bist du nicht eingestiegen?", "¿Por qué no entraste?"],
+"Korktum":["I was scared", "Ich hatte Angst", "Tuve miedo"],
+"Emin değildim":["I wasn't sure", "Ich war unsicher", "No estaba seguro"],
+"Ekranda değildim":["I wasn't at the screen", "Ich war nicht am Bildschirm", "No estaba frente a la pantalla"],
+"Kurala uymuyordu":["It broke my rules", "Passte nicht zu meinen Regeln", "No cumplía mis reglas"],
+"Geç kaldım":["I was too late", "Ich war zu spät", "Llegué tarde"],
+"Not (isteğe bağlı)":["Note (optional)", "Notiz (optional)", "Nota (opcional)"],
+"Kaçırılan işlem":["Missed trades", "Verpasste Trades", "Operaciones perdidas"],
+"Olası toplam sonuç":["Possible total result", "Mögliches Gesamtergebnis", "Resultado total posible"],
+"Nedenlere göre":["By reason", "Nach Grund", "Por motivo"],
+"\"Kurala uymuyordu\" satırı eksideyse girmemekle doğru karar vermişsin.":["If the \"It broke my rules\" line is negative, staying out was the right call.", "Ist die Zeile \"Passte nicht zu meinen Regeln\" negativ, war es richtig, draußen zu bleiben.", "Si la línea \"No cumplía mis reglas\" es negativa, no entrar fue la decisión correcta."],
+"Kayıtlar":["Entries", "Einträge", "Registros"],
+"Henüz kaçırılan işlem yok.":["No missed trades yet.", "Noch keine verpassten Trades.", "Aún no hay operaciones perdidas."],
+"Setup'a göre":["By setup", "Nach Setup", "Por setup"],
+"Strateji kitabı (setup)":["Playbook (setups)", "Playbook (Setups)", "Libro de estrategias (setups)"],
+"Ya şöyle yapsaydım? simülatörü":["What-if simulator", "Was-wäre-wenn-Simulator", "Simulador ¿Y si…?"],
+"Sykle Skoru, tiltmetre, kaçırılan işlemler":["Sykle Score, tilt meter, missed trades", "Sykle-Score, Tilt-Meter, verpasste Trades", "Puntuación Sykle, medidor de tilt, operaciones perdidas"],
+"Strateji kitabı, skor ve tiltmetre":["Playbook, score and tilt meter", "Playbook, Score und Tilt-Meter", "Libro de estrategias, puntuación y tilt"],
 "Bakiye eğrisi":["Equity curve", "Kapitalkurve", "Curva de capital"],
 "En büyük düşüş":["Max drawdown", "Maximaler Drawdown", "Drawdown máximo"],
 "Dönem sonu":["End of period", "Periodenende", "Fin del periodo"],
@@ -1060,6 +1133,7 @@ window.splashGo=function(){var t=window._spT;if(t)clearTimeout(t);requestAnimati
 <div id="xq"></div><button class="s" id="sallb" style="margin:4px 0 8px">Tüm pariteler ▾</button><div id="sall" class="hid"></div>
 <div class="row"><input id="sym" placeholder="Parite (US100, XAUUSD…)"><select id="dir"><option>Long</option><option>Short</option></select></div>
 <select id="ses" style="width:100%;margin-bottom:8px"><option>NY Açılış</option><option>London</option><option>Asya</option><option>Seans dışı</option></select>
+<div id="pbx"></div>
 <div class="row" id="sgrow"><div id="sg" style="display:flex;gap:6px;flex:none"></div><input id="pnl" type="text" inputmode="decimal" placeholder="Tutar ($)"></div>
 <div id="tg"></div>
 <input id="tn" placeholder="İşlem notu (opsiyonel)" style="width:100%;margin:6px 0 8px">
@@ -1079,7 +1153,7 @@ window.splashGo=function(){var t=window._spT;if(t)clearTimeout(t);requestAnimati
 <div class="card" id="ana"></div>
 </section>
 
-<section id="v-sum" class="hid"></section>  <section id="v-pro" class="hid"></section>
+<section id="v-sum" class="hid"></section>  <section id="v-pro" class="hid"></section>  <section id="v-pb" class="hid"></section>  <section id="v-ms" class="hid"></section>
 
 <section id="v-pay" class="hid"><div id="pg"></div><div class="card"><h2>Geçmiş ödüller</h2><div class="mu" style="margin-bottom:8px">Çekim eklemek için ilgili hesabın sayfasını aç.</div><div id="p-l"></div></div></section>
 
@@ -1108,7 +1182,7 @@ window.splashGo=function(){var t=window._spT;if(t)clearTimeout(t);requestAnimati
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
 <script>
 // Her yayında bu sürüm değişir; açık uygulamalar yeni sürümü görünce kendini yeniler.
-const APP_V="2026.11.24-1";
+const APP_V="2026.11.24-2";
 const KEY="tradeJournalV2";
 const SES=["NY Açılış","London","Asya","Seans dışı"];
 const TAGS=["FOMO","Erken çıkış","SL oynattım","Plansız","İntikam","Plana uydum"];
@@ -1169,7 +1243,7 @@ return a.cb==="t"?best<=a.tg*L/100+1e-9:(net>0?best/net<=L/100+1e-9:true)}
 const tdays=T=>new Set(T.map(t=>t.d)).size;
 function migTpl(){if(S.mig1)return;const F=FIRMS.find(x=>x.id==="ftm"),P=F.p.find(x=>x.id==="nitro");
 S.accounts.forEach(a=>{if(a.tp||a.ph==="Live")return;Object.assign(a,tplRules(F,P,50000,a.ph==="Funded"?0:1));if(a.ph==="Challenge"&&a.passed)a.passed=true});S.mig1=1}
-function norm(){S.accounts=S.accounts||[];S.trades=S.trades||[];S.notes=S.notes||{};S.payouts=S.payouts||[];S.nt=S.nt||[];S.links=S.links||[];S.lg=S.lg||[];S.bd=S.bd||{};S.nf=S.nf||[];
+function norm(){S.accounts=S.accounts||[];S.trades=S.trades||[];S.notes=S.notes||{};S.payouts=S.payouts||[];S.nt=S.nt||[];S.links=S.links||[];S.lg=S.lg||[];S.bd=S.bd||{};S.nf=S.nf||[];S.pb=S.pb||[];S.ms=S.ms||[];
 S.trades.forEach(t=>{if(!t.ss){if(t.t){const h=new Date(t.d+"T"+t.t).getUTCHours();t.ss=h<7?"Asya":h<13?"London":h<21?"NY Açılış":"Seans dışı"}else t.ss="Belirtilmemiş"}t.tag=t.tag||[];t.im=t.im||[]});
 S.nt.forEach(n=>{n.k=n.k||"n";n.im=n.im||[]});
 S.accounts.forEach(a=>{a.ph=a.ph||"Challenge"});migTpl();S.accounts.forEach(a=>{const R=tplOf(a);if(R)a.firm=R.F.n+" · "+R.P.n})}
@@ -1323,7 +1397,7 @@ $("pf").onchange=e=>setPd(e.target.files[0]||null);
 $("pclip").onclick=()=>clip(setPd);
 
 // ---- menü / gezinme
-const IC={star:'<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>',mail:'<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/>',ulink:'<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.6 3.4-5.5 6.5-5.5s5.7 1.9 6.5 5.5M18 8v6M15 11h6"/>',globe:'<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9M12 3c-2.5 2.6-3.8 5.6-3.8 9s1.3 6.4 3.8 9"/>',check:'<polyline points="20 6 9 17 4 12"/>',scale:'<path d="M12 3v18M7 21h10M5 7h14"/><path d="M5 7l-3 6a3 3 0 0 0 6 0zM19 7l-3 6a3 3 0 0 0 6 0z"/>',x:'<line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>',grid:'<rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/>',layers:'<polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/>',award:'<circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/>',pie:'<path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/>',bars:'<path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/>',note:'<path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>',out:'<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/>',menu:'<line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/>',link:'<path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>',list:'<line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/>',down:'<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>',lock:'<rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/>',medal:'<circle cx="12" cy="15" r="6"/><path d="M8 2h8l-2.5 6.2"/><path d="M8 2l2.5 6.2"/>',image:'<rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>',book:'<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>',bell:'<path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/>',msg:'<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>',shield:'<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>'};
+const IC={target:'<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/>',eye:'<path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>',star:'<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>',mail:'<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/>',ulink:'<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.6 3.4-5.5 6.5-5.5s5.7 1.9 6.5 5.5M18 8v6M15 11h6"/>',globe:'<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9M12 3c-2.5 2.6-3.8 5.6-3.8 9s1.3 6.4 3.8 9"/>',check:'<polyline points="20 6 9 17 4 12"/>',scale:'<path d="M12 3v18M7 21h10M5 7h14"/><path d="M5 7l-3 6a3 3 0 0 0 6 0zM19 7l-3 6a3 3 0 0 0 6 0z"/>',x:'<line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>',grid:'<rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/>',layers:'<polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/>',award:'<circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/>',pie:'<path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/>',bars:'<path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/>',note:'<path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>',out:'<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/>',menu:'<line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/>',link:'<path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>',list:'<line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/>',down:'<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>',lock:'<rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/>',medal:'<circle cx="12" cy="15" r="6"/><path d="M8 2h8l-2.5 6.2"/><path d="M8 2l2.5 6.2"/>',image:'<rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>',book:'<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>',bell:'<path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/>',msg:'<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>',shield:'<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>'};
 const ico=n=>`<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${IC[n]}</svg>`;
 const fn=()=>{const m=(user&&user.user_metadata)||{};return String(m.name||m.full_name||S.pn||"").trim()};
 const fst=()=>fn().split(/\s+/)[0];
@@ -1335,15 +1409,15 @@ t.querySelectorAll("[data-tb]").forEach((b,i)=>b.classList.toggle("on",i===x))}
 let lgOpen=false;
 async function setLang(l){lgOpen=false;if(l===SY_L){menu();return}SY_SET(l);showSp();try{if(user){await within(push(),4000,false);await within(sb.auth.updateUser({data:{lang:l}}),3000,null);const rg=navigator.serviceWorker&&await navigator.serviceWorker.getRegistration(),sb2=rg&&await rg.pushManager.getSubscription();if(sb2)await within(sb.from("push_subs").update({lang:l}).eq("endpoint",sb2.endpoint),3000,null)}}catch(e){}location.reload()}
 function menu(){const nb=(v,l,i)=>`<button data-go="${v}" class="it ${view===v?"on":""}">${ico(i)}${l}</button>`;
-$("dr").innerHTML=`<div class="lo">SYKLE</div><button data-go="pro" class="it pro ${view==="pro"?"on":""}">${ico("star")}<span style="flex:1">Sykle Pro</span>${isPro()?'<span class="prob" data-noi18n>PRO</span>':""}</button>`+nb("live","Live","pie")+nb("lk","Hesap bağla","link")+nb("cmp","Program karşılaştırma","scale")+`<h3>Günlük</h3>`+nb("sum","Özet","bars")+nb("notes","Notlar","note")+nb("an","Hesap notları","list")+`<h3>Rozetler</h3>`+nb("bd","Rozetlerim","medal")+nb("sc","İstatistik kartı","image")+`<h3>Diğer</h3>`+nb("bk","Yedek","down")+nb("fb","Görüşlerinizi bildirin","msg")+nb("kg","Kullanım kılavuzu","book")+(isPro()?`<button class="it" id="thb" aria-expanded="${thOpen}">${ico("star")}<span style="flex:1">Tema</span><span style="font-size:13px;color:${thCur()[2]}">● <span class="mu">${thCur()[1]} ${thOpen?"▴":"▾"}</span></span></button>`+(thOpen?`<div class="lgl">${THEMES.map(t=>`<button class="it ${t[0]===thCur()[0]?"on":""}" data-th="${t[0]}"><span style="color:${t[2]};margin-right:10px">●</span><span style="flex:1">${t[1]}</span>${t[0]===thCur()[0]?ico("check"):""}</button>`).join("")}</div>`:""):"")+pushBtn()+nb("kv","Gizlilik ve KVKK","lock")+`<button class="it" id="lgb" aria-expanded="${lgOpen}">${ico("globe")}<span style="flex:1">Dil</span><span class="mu" data-noi18n style="font-size:13px">${(SY_LANGS.find(x=>x[0]===SY_L)||SY_LANGS[0])[1]} ${lgOpen?"▴":"▾"}</span></button>`+(lgOpen?`<div class="lgl" data-noi18n>${SY_LANGS.map(x=>`<button class="it ${x[0]===SY_L?"on":""}" data-lang="${x[0]}"><span style="flex:1">${x[1]}</span>${x[0]===SY_L?ico("check"):""}</button>`).join("")}</div>`:"")+(isAdm?`<h3>Yönetim</h3>`+nb("ad","Yönetici paneli","shield"):"")+(user?`<div class="us"><div style="min-width:0"><b>${esc(fn()||"Hesabım")}${isPro()?'<span class="prob" data-noi18n>PRO</span>':""}</b><span>${esc(user.email||"")}</span><div class="mu" id="sst" style="margin-top:2px">${syncSt}</div></div><button data-out="1" aria-label="Çıkış yap">${ico("out")}</button></div>`:"");
+$("dr").innerHTML=`<div class="lo">SYKLE</div><button data-go="pro" class="it pro ${view==="pro"?"on":""}">${ico("star")}<span style="flex:1">Sykle Pro</span>${isPro()?'<span class="prob" data-noi18n>PRO</span>':""}</button>`+nb("live","Live","pie")+nb("lk","Hesap bağla","link")+nb("cmp","Program karşılaştırma","scale")+`<h3>Günlük</h3>`+nb("sum","Özet","bars")+nb("pb","Strateji kitabı","target")+nb("notes","Notlar","note")+nb("ms","Kaçırılan işlemler","eye")+nb("an","Hesap notları","list")+`<h3>Rozetler</h3>`+nb("bd","Rozetlerim","medal")+nb("sc","İstatistik kartı","image")+`<h3>Diğer</h3>`+nb("bk","Yedek","down")+nb("fb","Görüşlerinizi bildirin","msg")+nb("kg","Kullanım kılavuzu","book")+(isPro()?`<button class="it" id="thb" aria-expanded="${thOpen}">${ico("star")}<span style="flex:1">Tema</span><span style="font-size:13px;color:${thCur()[2]}">● <span class="mu">${thCur()[1]} ${thOpen?"▴":"▾"}</span></span></button>`+(thOpen?`<div class="lgl">${THEMES.map(t=>`<button class="it ${t[0]===thCur()[0]?"on":""}" data-th="${t[0]}"><span style="color:${t[2]};margin-right:10px">●</span><span style="flex:1">${t[1]}</span>${t[0]===thCur()[0]?ico("check"):""}</button>`).join("")}</div>`:""):"")+pushBtn()+nb("kv","Gizlilik ve KVKK","lock")+`<button class="it" id="lgb" aria-expanded="${lgOpen}">${ico("globe")}<span style="flex:1">Dil</span><span class="mu" data-noi18n style="font-size:13px">${(SY_LANGS.find(x=>x[0]===SY_L)||SY_LANGS[0])[1]} ${lgOpen?"▴":"▾"}</span></button>`+(lgOpen?`<div class="lgl" data-noi18n>${SY_LANGS.map(x=>`<button class="it ${x[0]===SY_L?"on":""}" data-lang="${x[0]}"><span style="flex:1">${x[1]}</span>${x[0]===SY_L?ico("check"):""}</button>`).join("")}</div>`:"")+(isAdm?`<h3>Yönetim</h3>`+nb("ad","Yönetici paneli","shield"):"")+(user?`<div class="us"><div style="min-width:0"><b>${esc(fn()||"Hesabım")}${isPro()?'<span class="prob" data-noi18n>PRO</span>':""}</b><span>${esc(user.email||"")}</span><div class="mu" id="sst" style="margin-top:2px">${syncSt}</div></div><button data-out="1" aria-label="Çıkış yap">${ico("out")}</button></div>`:"");
 $("dr").querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>go(b.dataset.go));$("lgb").onclick=()=>{lgOpen=!lgOpen;menu()};$("dr").querySelectorAll("[data-lang]").forEach(b=>b.onclick=()=>setLang(b.dataset.lang));
 const ob=$("dr").querySelector("[data-out]");if(ob)ob.onclick=logout;if($("thb"))$("thb").onclick=()=>{thOpen=!thOpen;menu()};$("dr").querySelectorAll("[data-th]").forEach(b=>b.onclick=()=>{S.th=b.dataset.th;thOpen=false;save();thApply();menu()});thApply();tbSet();blSet()}
-const SEC={home:"home",list:"list",live:"list",det:"det",pay:"pay",notes:"notes",sum:"sum",an:"an",lk:"lk",bk:"bk",bd:"bd",sc:"sc",kg:"kg",fb:"fb",ad:"ad",kv:"kv",cmp:"cmp",pro:"pro"};
+const SEC={home:"home",list:"list",live:"list",det:"det",pay:"pay",notes:"notes",sum:"sum",an:"an",lk:"lk",bk:"bk",bd:"bd",sc:"sc",kg:"kg",fb:"fb",ad:"ad",kv:"kv",cmp:"cmp",pro:"pro",pb:"pb",ms:"ms"};
 let hist=[],noHist=false;
 function goBack(){const h=hist.pop();noHist=true;if(h)go(h.v,h.c);else go("home");noHist=false}
 function go(v,id){if(!noHist&&v!==view){hist.push({v:view,c:cur});if(hist.length>30)hist.shift()}if(v==="home"&&!noHist)hist=[];view=v;if(id)cur=id;if(v==="list")lt="prop";if(v==="live")lt="live";
 $("dr").classList.remove("o");$("ov").style.display="none";
-["home","list","det","pay","notes","sum","an","lk","bk","bd","sc","kg","fb","ad","kv","cmp","pro"].forEach(x=>$("v-"+x).classList.toggle("hid",x!==SEC[v]));
+["home","list","det","pay","notes","sum","an","lk","bk","bd","sc","kg","fb","ad","kv","cmp","pro","pb","ms"].forEach(x=>$("v-"+x).classList.toggle("hid",x!==SEC[v]));
 $("form").classList.add("hid");
 if(v==="notes"){nIm=[];nMood="";$("n-new").value=""}
 et=null;if(v==="det"){const a=acc(cur);if(a){cy=today.getFullYear();cm=today.getMonth();sel=key(today)}}
@@ -1352,7 +1426,7 @@ function kbFix(){const a=document.activeElement;if(!(a&&/INPUT|TEXTAREA/.test(a.
 function render(){menu();
 $("nt").innerHTML=notice?`<div class="card" style="border-color:var(--g)">${notice}</div>`:"";notice="";
 if(view!=="lk")lk={m:null,pick:{},st:0};
-if(view==="home")home();else if(view==="list"||view==="live")listV();else if(view==="det")det();else if(view==="pay")payView();else if(view==="sum")sumView();else if(view==="an")anView();else if(view==="lk")lkView();else if(view==="bk")$("ttl").textContent="Yedek";else if(view==="bd")bdView();else if(view==="sc")scView();else if(view==="kg")kgView();else if(view==="fb")fbView();else if(view==="kv")kvView();else if(view==="cmp")cmpView();else if(view==="ad")adView();else if(view==="pro")proView();else notesView()}
+if(view==="home")home();else if(view==="list"||view==="live")listV();else if(view==="det")det();else if(view==="pay")payView();else if(view==="sum")sumView();else if(view==="an")anView();else if(view==="lk")lkView();else if(view==="bk")$("ttl").textContent="Yedek";else if(view==="bd")bdView();else if(view==="sc")scView();else if(view==="kg")kgView();else if(view==="fb")fbView();else if(view==="kv")kvView();else if(view==="cmp")cmpView();else if(view==="ad")adView();else if(view==="pro")proView();else if(view==="pb")pbView();else if(view==="ms")msView();else notesView()}
 $("mb").onclick=()=>{$("dr").classList.add("o");$("ov").style.display="block"};
 $("ov").onclick=()=>{$("dr").classList.remove("o");$("ov").style.display="none"};
 
@@ -1401,7 +1475,7 @@ const T=S.trades,s=calc(T,S.payouts),byD={};T.forEach(t=>byD[t.d]=(byD[t.d]||0)+
 const cons=dl.length?dl.filter(v=>v>0).length/dl.length:0,disc=T.length?T.filter(t=>(t.tag||[]).includes("Plana uydum")).length/T.length:0,rr=s.al?s.aw/s.al:(s.aw?3:0),pf=parseFloat(s.pf)||(s.pf==="∞"?3:0);
 const V=[{l:"Risk/Kazanç",v:rr/3},{l:"Ort. kazanç",v:s.aw/1000},{l:"Çekim",v:s.pay/10000},{l:"Winrate",v:s.wr/100},{l:"Profit F.",v:pf/3},{l:"Tutarlılık",v:cons},{l:"Disiplin",v:disc}];
 const vv=(l,v,c)=>`<div><small>${l}</small><b class="${c||""}">${v}</b></div>`;
-$("v-home").innerHTML=`<div style="font-size:22px;font-weight:600;margin:2px 0 14px">Hoş geldin${fst()?", "+esc(fst()):""}${isPro()?'<span class="prob" data-noi18n>PRO</span>':""}</div>`+promoBar()+newsCard()+
+$("v-home").innerHTML=`<div style="font-size:22px;font-weight:600;margin:2px 0 14px">Hoş geldin${fst()?", "+esc(fst()):""}${isPro()?'<span class="prob" data-noi18n>PRO</span>':""}</div>`+promoBar()+newsCard()+scoreCard()+tiltCard()+
 `<div class="card"><h2>Tarz</h2>${radar(V)}<div class="vl">${vv("Net K/Z",fm(s.net),cls(s.net))}${vv("İşlem sayısı",s.n)}${vv("Risk / kazanç","1 : "+rr.toFixed(1).replace(".",","))}${vv("Ortalama kazanç",fm(s.aw),"g")}${vv("Kazanma oranı","%"+s.wr,wc(s))}${vv("Profit factor",s.pf)}${vv("Tutarlılık","%"+Math.round(cons*100))}${vv("Disiplin","%"+Math.round(disc*100))}${vv("Toplam çekim",usd(s.pay),"g")}</div></div>`+
 symBlock()+`<div class="card"><h2>Seanslar</h2>${sesBlock()}<div style="border-top:1px solid var(--bd);margin:6px 0 12px"></div><h2>Piyasa saatleri</h2><div id="mk">${mkHTML()}</div></div>`}
 setInterval(()=>{if(view==="home"&&$("mk"))$("mk").innerHTML=mkHTML()},30000);
@@ -1494,7 +1568,7 @@ const L=T.filter(t=>t.d===sel),dp=L.reduce((x,t)=>x+t.pnl,0);
 $("list").innerHTML=(L.length?`<div class="mu" style="margin-bottom:4px">Günün toplamı: <b class="${cls(dp)}">${fm(dp)}</b></div>`:`<div class="mu">${new Date(sel+"T00:00:00").toLocaleDateString(SY_LOC,{day:"numeric",month:"long"})} için işlem yok.</div>`)+
 L.map(t=>`<div class="tr" style="align-items:flex-start"><div style="flex:1;min-width:0"><b>${esc(t.sym)}</b><span class="tag">${t.dir}</span><span class="tag">${esc(t.ss||"")}</span>${t.src?`<span class="tag" style="background:#12322a;color:var(--g)">Bağlı</span>`:""}${(t.tag||[]).map(x=>`<span class="tag">${esc(x)}</span>`).join("")}${t.note?`<small>${esc(t.note)}</small>`:""}${thumbs(t.im)}</div><div style="text-align:right"><b class="${cls(t.pnl)}">${fm(t.pnl)}</b>${br?"":`<br><button class="s" data-ed="${t.id}">✏️ Düzenle</button> <button class="s" data-del="${t.id}">🗑 Sil</button>`}</div></div>`).join("");
 $("list").querySelectorAll("[data-del]").forEach(b=>b.onclick=()=>conf(b,()=>{tomb([b.dataset.del]);S.trades=S.trades.filter(t=>t.id!==b.dataset.del);mirrorDel(b.dataset.del);save();render()}));
-$("list").querySelectorAll("[data-ed]").forEach(b=>b.onclick=()=>{const t=S.trades.find(x=>x.id===b.dataset.ed);if(!t)return;et=t.id;sg=t.pnl<0?-1:1;tg=new Set(t.tag||[]);tIm=[...(t.im||[])];
+$("list").querySelectorAll("[data-ed]").forEach(b=>b.onclick=()=>{const t=S.trades.find(x=>x.id===b.dataset.ed);if(!t)return;et=t.id;sg=t.pnl<0?-1:1;tg=new Set(t.tag||[]);tIm=[...(t.im||[])];pbSel=pbOf(t.pb)?t.pb:"";pbRk=new Set(t.rk||[]);
 $("sym").value=t.sym==="?"?"":t.sym;$("dir").value=t.dir;if(SES.includes(t.ss))$("ses").value=t.ss;$("pnl").value=String(Math.abs(t.pnl)).replace(".",",");$("tn").value=t.note||"";
 xr();$("entry").scrollIntoView({behavior:"smooth"})});
 $("dn").value=S.notes[a.id+"|"+sel]||"";$("dn").readOnly=br;
@@ -1519,12 +1593,12 @@ $("xq").querySelectorAll("[data-sy]").forEach(b=>b.onclick=()=>{$("sym").value=b
 sallR();
 $("sg").querySelectorAll("[data-sg]").forEach(b=>b.onclick=()=>{sg=+b.dataset.sg;xr()});
 $("tg").querySelectorAll("[data-tg]").forEach(b=>b.onclick=()=>{const k=b.dataset.tg;tg.has(k)?tg.delete(k):tg.add(k);xr()});
-$("pth").querySelectorAll("[data-rm]").forEach(b=>b.onclick=()=>{tIm.splice(+b.dataset.rm,1);xr()})}
+$("pth").querySelectorAll("[data-rm]").forEach(b=>b.onclick=()=>{tIm.splice(+b.dataset.rm,1);xr()});pbForm()}
 $("add").onclick=()=>{const a=acc(cur);if(!a||closed(a))return;const p=parseFloat(($("pnl").value||"").replace(",","."));if(isNaN(p)){$("pnl").focus();return}
-const pv=p<0?p:(sg<0?-p:p),o={ss:$("ses").value,sym:$("sym").value.trim().toUpperCase()||"?",dir:$("dir").value,pnl:pv,note:$("tn").value.trim(),tag:[...tg],im:[...tIm]},ex=et&&S.trades.find(x=>x.id===et);
+const pv=p<0?p:(sg<0?-p:p),o={ss:$("ses").value,sym:$("sym").value.trim().toUpperCase()||"?",dir:$("dir").value,pnl:pv,note:$("tn").value.trim(),tag:[...tg],im:[...tIm],...pbPart()},ex=et&&S.trades.find(x=>x.id===et);
 let tr=ex;if(ex){Object.assign(ex,o);mirrorUpd(ex)}else{tr={id:uid(),a:cur,d:sel,...o};S.trades.push(tr);mirror(tr)}
-et=null;$("pnl").value="";$("tn").value="";$("sym").value="";tg=new Set();tIm=[];save();render()};
-$("tcan").onclick=()=>{et=null;$("pnl").value="";$("tn").value="";$("sym").value="";tg=new Set();tIm=[];xr()};
+et=null;$("pnl").value="";$("tn").value="";$("sym").value="";tg=new Set();tIm=[];pbReset();save();render()};
+$("tcan").onclick=()=>{et=null;$("pnl").value="";$("tn").value="";$("sym").value="";tg=new Set();tIm=[];pbReset();xr()};
 $("dn").oninput=()=>{S.notes[cur+"|"+sel]=$("dn").value;save()};
 $("edit").onclick=()=>{const a=acc(cur);lt=a.ph==="Live"?"live":"prop";go(a.ph==="Live"?"live":"list");openForm(a)};
 $("brbtn").onclick=function(){conf(this,()=>{const a=acc(cur);a.br=true;a.nobr=false;a.brw="Elle kapatıldı";save();render()})};
@@ -1558,7 +1632,7 @@ return `<div class="card" style="margin-bottom:10px"><div style="display:flex;ju
 let lk={m:null,pick:{},st:0};
 const lkOf=id=>S.links.find(l=>l.m===id),lkCh=id=>S.links.find(l=>l.c.includes(id));
 function mirror(t){if(t.src)return;const l=lkOf(t.a);if(!l)return;l.c.forEach(cid=>{const c=acc(cid);if(!c||closed(c))return;if(S.trades.some(x=>x.a===cid&&x.src===t.id))return;S.trades.push({...t,id:uid(),a:cid,src:t.id,tag:[...(t.tag||[])],im:[...(t.im||[])]})})}
-function mirrorUpd(t){S.trades.filter(x=>x.src===t.id).forEach(x=>{const c=acc(x.a);if(c&&closed(c))return;Object.assign(x,{d:t.d,ss:t.ss,sym:t.sym,dir:t.dir,pnl:t.pnl,note:t.note,tag:[...(t.tag||[])],im:[...(t.im||[])]})})}
+function mirrorUpd(t){S.trades.filter(x=>x.src===t.id).forEach(x=>{const c=acc(x.a);if(c&&closed(c))return;Object.assign(x,{d:t.d,ss:t.ss,sym:t.sym,dir:t.dir,pnl:t.pnl,note:t.note,pb:t.pb,rk:[...(t.rk||[])],rn:t.rn,tag:[...(t.tag||[])],im:[...(t.im||[])]})})}
 function mirrorDel(id){tomb(S.trades.filter(x=>x.src===id).map(x=>x.id));S.trades=S.trades.filter(x=>x.src!==id)}
 function unlink(l,cid){const ids=new Set(S.trades.filter(t=>t.a===l.m).map(t=>t.id));
 S.trades.forEach(t=>{if(t.src&&ids.has(t.src)&&(!cid||t.a===cid)&&l.c.includes(t.a))delete t.src});
@@ -1640,12 +1714,122 @@ $("v-sum").innerHTML=`<div class="pb">${chip("Haftalık",sper==="w",'data-sp="w"
 <div class="card"><h2>Karşılaştırma</h2><div>Net K/Z <b class="${cls(s.net)}">${fm(s.net)}</b></div>${pv.T.length?`<div class="mu" style="margin-top:4px">${pl} göre <b class="${cls(diff)}">${fm(diff)}</b> · Winrate ${ps.wr}% → <b class="${wc(s)}">${s.wr}%</b></div>`:`<div class="mu" style="margin-top:4px">${sper==="w"?"Önceki haftada":"Önceki ayda"} işlem yok.</div>`}</div>
 <div class="card"><h2>En iyi / en kötü gün</h2><div class="tr" style="border:0"><span>En iyi: ${dl(best[0])}</span><b class="${cls(best[1])}">${fm(best[1])}</b></div><div class="tr"><span>En kötü: ${dl(worst[0])}</span><b class="${cls(worst[1])}">${fm(worst[1])}</b></div></div>
 <div class="card"><h2>Günlük sonuçlar</h2>${days.map(([d,v])=>`<div class="tr"><span style="width:64px">${dl(d)}</span><span style="flex:1"><div class="bar" style="width:${Math.max(3,Math.round(Math.abs(v)/mx*100))}%;background:var(--${v>=0?"g":"r"})"></div></span><b class="${cls(v)}">${fm(v)}</b></div>`).join("")}</div>
-<div class="card"><h2>Seanslar</h2>${rows(cu.T,t=>[t.ss],1)}${hd("Pariteler")}${rows(cu.T,t=>[t.sym],1)}${hd("Etiketler")}${rows(cu.T,t=>t.tag,1)}</div>${advCard(cu.T)}${expCard()}`:`<div class="card mu">Bu dönemde işlem yok.</div>`);
-if($("xcsv"))$("xcsv").onclick=()=>expCsv(cu);if($("xpdf"))$("xpdf").onclick=()=>expPdf(cu,s);
+<div class="card"><h2>Seanslar</h2>${rows(cu.T,t=>[t.ss],1)}${hd("Pariteler")}${rows(cu.T,t=>[t.sym],1)}${hd("Etiketler")}${rows(cu.T,t=>t.tag,1)}</div>${advCard(cu.T)}${simCard(cu.T)}${expCard()}`:`<div class="card mu">Bu dönemde işlem yok.</div>`);
+simBind(cu.T);if($("xcsv"))$("xcsv").onclick=()=>expCsv(cu);if($("xpdf"))$("xpdf").onclick=()=>expPdf(cu,s);
 $("v-sum").querySelectorAll("[data-pro]").forEach(b=>b.onclick=()=>go("pro"));
 $("v-sum").querySelectorAll("[data-sp]").forEach(b=>b.onclick=()=>{sper=b.dataset.sp;soff=0;sumView()});
 $("sacc").onchange=e=>{sacc=e.target.value;sumView()};
 $("sprev").onclick=()=>{soff--;sumView()};$("snext").onclick=()=>{if(soff<0){soff++;sumView()}}}
+
+// ---- ortak yardımcılar (skor, tilt, simülatör, strateji kitabı)
+const MISW={"İntikam":30,"SL oynattım":25,"FOMO":20,"Plansız":15,"Erken çıkış":10},MIS=Object.keys(MISW);
+const hasMis=t=>(t.tag||[]).some(x=>MISW[x]);
+const ordT=T=>T.map((t,i)=>[t,i]).sort((x,y)=>x[0].d<y[0].d?-1:x[0].d>y[0].d?1:x[1]-y[1]).map(x=>x[0]);
+const realT=()=>S.trades.filter(t=>!t.src);
+const daysAgo=n=>{const d=new Date();d.setHours(0,0,0,0);d.setDate(d.getDate()-n);return key(d)};
+const pc2=n=>SY_L==="tr"?"%"+n:n+"%";
+
+// ---- Strateji kitabı (playbook)
+const FREE_PB=3;
+const pbOf=id=>id?(S.pb||[]).find(p=>p.id===id):null;
+let pbSel="",pbRk=new Set(),pbEd=null,pbNew=false;
+function pbForm(){const X=$("pbx");if(!X)return;const L=S.pb||[];
+if(!L.length){X.innerHTML=`<button class="s" id="pbgo" style="width:100%;margin-bottom:8px">+ Strateji kitabına setup ekle</button>`;$("pbgo").onclick=()=>go("pb");return}
+const P=pbOf(pbSel);
+X.innerHTML=`<select id="pbs" style="width:100%;margin-bottom:8px"><option value="">Setup seç (isteğe bağlı)</option>${L.map(p=>`<option value="${p.id}" ${p.id===pbSel?"selected":""}>${esc(p.n)}</option>`).join("")}</select>`+(P&&P.r.length?`<div style="margin:-2px 0 8px"><div class="mu" style="font-size:12.5px;margin-bottom:4px">Uyduğun kuralları işaretle</div>${P.r.map((r,i)=>`<label class="ckl"><input type="checkbox" data-rk="${i}" ${pbRk.has(i)?"checked":""}><span>${esc(r)}</span></label>`).join("")}</div>`:"");
+$("pbs").onchange=e=>{pbSel=e.target.value;pbRk=new Set();pbForm()};
+X.querySelectorAll("[data-rk]").forEach(c=>c.onchange=()=>{const i=+c.dataset.rk;c.checked?pbRk.add(i):pbRk.delete(i)})}
+const pbPart=()=>{const P=pbOf(pbSel);return P?{pb:P.id,rk:[...pbRk].filter(i=>i<P.r.length).sort((a,b)=>a-b),rn:P.r.length}:{pb:"",rk:[],rn:0}};
+const pbReset=()=>{pbSel="";pbRk=new Set()};
+const ruleFull=t=>t.rn>0&&(t.rk||[]).length>=t.rn;
+function pbStats(T){const n=T.length,w=T.filter(t=>t.pnl>0).length,net=T.reduce((a,t)=>a+t.pnl,0),R=T.filter(t=>t.rn>0);
+const adh=R.length?Math.round(R.reduce((a,t)=>a+(t.rk||[]).length/t.rn,0)/R.length*100):null;
+const sub=f=>{const X=T.filter(f),ww=X.filter(t=>t.pnl>0).length;return{n:X.length,net:X.reduce((a,t)=>a+t.pnl,0),wr:X.length?Math.round(ww/X.length*100):0}};
+return{n,net,wr:n?Math.round(w/n*100):0,adh,full:sub(t=>t.rn>0&&ruleFull(t)),part:sub(t=>t.rn>0&&!ruleFull(t))}}
+function pbView(){$("ttl").textContent="Strateji kitabı";const V=$("v-pb"),L=S.pb||[],T=realT();
+const ed=pbEd?pbOf(pbEd):null,showF=pbNew||!!ed;
+const form=`<div class="card" id="pbf"><h2>${ed?"Setup'ı düzenle":"Yeni setup"}</h2><input id="pbn" placeholder="Setup adı (ör. FVG + likidite süpürmesi)" style="width:100%;margin-bottom:8px" value="${ed?esc(ed.n):""}"><textarea id="pbrl" placeholder="Kurallar, her satıra bir kural&#10;ör. HTF'de likidite süpürüldü&#10;15m'de MSS oluştu&#10;FVG'ye geri dönüşte giriş" style="min-height:110px">${ed?esc(ed.r.join("\n")):""}</textarea><textarea id="pbd" placeholder="Açıklama (isteğe bağlı): ne zaman kullanırsın, nelere dikkat edersin" style="min-height:60px;margin-top:8px">${ed?esc(ed.d||""):""}</textarea><div class="row" style="margin-top:8px"><button class="p" id="pbsv" style="flex:1">Kaydet</button><button class="s" id="pbcx">Vazgeç</button></div></div>`;
+let h=`<div class="card"><h2>Strateji kitabı</h2><p class="mu" style="margin:0;font-size:13.5px">Her setup'ın kurallarını yaz. İşlem eklerken setup'ı seç ve uyduğun kuralları işaretle. Hangi setup'ın kazandırdığını ve kurallara uyunca ne değiştiğini burada görürsün.</p>${isPro()?"":`<div class="mu" style="font-size:12.5px;margin-top:8px">Ücretsiz planda ${L.length} / ${FREE_PB} setup</div>`}</div>`;
+if(showF)h+=form;else h+=`<button class="p" id="pbadd" style="margin-bottom:14px">+ Yeni setup</button>`;
+h+=L.length?L.map(p=>{const X=T.filter(t=>t.pb===p.id),st=pbStats(X),vv=(l,v,c)=>`<div><small>${l}</small><b class="${c||""}">${v}</b></div>`;
+return `<div class="card"><div style="display:flex;justify-content:space-between;gap:8px;align-items:flex-start"><h2 style="margin:0;text-transform:none;letter-spacing:0;font-size:17px;color:var(--tx)">${esc(p.n)}</h2><div style="display:flex;gap:6px;flex:none"><button class="s" data-pbe="${p.id}">Düzenle</button><button class="s" data-pbd="${p.id}">Sil</button></div></div>${p.d?`<div class="mu" style="font-size:13px;margin-top:6px;white-space:pre-wrap">${esc(p.d)}</div>`:""}
+${p.r.length?`<ol style="margin:10px 0 0;padding-left:20px;font-size:14px;line-height:1.55">${p.r.map(r=>`<li>${esc(r)}</li>`).join("")}</ol>`:""}
+<div class="vl" style="margin-top:12px">${vv("İşlem",st.n)}${vv("Winrate",st.n?pc2(st.wr):"–",st.n?(st.wr>50?"g":st.wr<50?"r":""):"")}${vv("Net K/Z",st.n?fm(st.net):"–",cls(st.net))}${vv("Ortalama kural uyumu",st.adh==null?"–":pc2(st.adh),st.adh==null?"":st.adh>=80?"g":st.adh<50?"r":"")}</div>
+${st.full.n||st.part.n?`<div class="tr" style="margin-top:8px"><span>Tüm kurallara uyunca <span class="mu">${st.full.n} işlem · %${st.full.wr}</span></span><b class="${cls(st.full.net)}">${st.full.n?fm(st.full.net):"–"}</b></div><div class="tr"><span>Kural atlayınca <span class="mu">${st.part.n} işlem · %${st.part.wr}</span></span><b class="${cls(st.part.net)}">${st.part.n?fm(st.part.net):"–"}</b></div>`:`<div class="mu" style="font-size:12.5px;margin-top:8px">Bu setup'la henüz işlem yok.</div>`}</div>`}).join(""):(showF?"":`<div class="card mu">Henüz setup yok. İlk setup'ını ekle.</div>`);
+const none=T.filter(t=>!pbOf(t.pb));if(L.length&&T.length)h+=`<div class="mu" style="font-size:12.5px;margin:-4px 2px 14px">Setup seçilmemiş işlemler: ${none.length}</div>`;
+V.innerHTML=h;
+if($("pbadd"))$("pbadd").onclick=()=>{if(!isPro()&&L.length>=FREE_PB){proWall("pb");return}pbNew=true;pbEd=null;pbView();$("pbn").focus()};
+if($("pbcx"))$("pbcx").onclick=()=>{pbNew=false;pbEd=null;pbView()};
+if($("pbsv"))$("pbsv").onclick=()=>{const n=$("pbn").value.trim();if(!n){$("pbn").focus();return}const r=$("pbrl").value.split("\n").map(x=>x.trim()).filter(Boolean).slice(0,15),d=$("pbd").value.trim();
+S.pb=S.pb||[];if(ed)Object.assign(ed,{n,r,d});else{if(!isPro()&&S.pb.length>=FREE_PB){proWall("pb");return}S.pb.push({id:uid(),n,r,d})}pbNew=false;pbEd=null;save();pbView()};
+V.querySelectorAll("[data-pbe]").forEach(b=>b.onclick=()=>{pbEd=b.dataset.pbe;pbNew=false;pbView();window.scrollTo(0,0)});
+V.querySelectorAll("[data-pbd]").forEach(b=>b.onclick=()=>conf(b,()=>{const id=b.dataset.pbd;tomb([id]);S.pb=(S.pb||[]).filter(p=>p.id!==id);save();pbView()}))}
+
+// ---- Sykle Skoru
+function sykScore(T0){const T=ordT(T0);if(T.length<5)return null;const s=calc(T,[]),byD={};T.forEach(t=>byD[t.d]=(byD[t.d]||0)+t.pnl);const D=Object.values(byD);
+const cl=(v,a,b)=>Math.max(0,Math.min(100,(v-a)/(b-a)*100)),pf=s.pf==="∞"?3:(parseFloat(s.pf)||0),pay=s.al?s.aw/s.al:(s.aw?3:0);
+let eq=0,pk=0,dd=0;T.forEach(t=>{eq+=t.pnl;pk=Math.max(pk,eq);dd=Math.min(dd,eq-pk)});const rf=dd?eq/-dd:(eq>0?5:0);
+const tg2=T.filter(t=>(t.tag||[]).length),disc=tg2.length?tg2.filter(t=>t.tag.includes("Plana uydum")&&!hasMis(t)).length/tg2.length*100:50;
+const C=[["Winrate",cl(s.wr,30,70),1],["Profit faktör",cl(pf,.5,3),1.2],["Kazanç / kayıp",cl(pay,.5,3),1],["Toparlanma",cl(rf,0,5),.8],["Tutarlılık",cl(D.filter(v=>v>0).length/D.length*100,30,80),1],["Disiplin",disc,1.2]];
+return{tot:Math.round(C.reduce((a,c)=>a+c[1]*c[2],0)/C.reduce((a,c)=>a+c[2],0)),C}}
+const scCol=v=>v>=70?"var(--g)":v>=40?"#e0a43a":"var(--r)";
+function scoreCard(){const T=realT(),sc=sykScore(T.filter(t=>t.d>=daysAgo(90)));
+if(!sc)return `<div class="card"><h2>Sykle Skoru</h2><div class="mu" style="font-size:13.5px">Skorun için son 90 günde en az 5 işlem gerekiyor.</div></div>`;
+const lb=sc.tot>=70?"Güçlü":sc.tot>=40?"Gelişiyor":"Zayıf",now=new Date(),M=[];
+for(let i=5;i>=0;i--){const d=new Date(now.getFullYear(),now.getMonth()-i,1),k=d.getFullYear()+"-"+pad(d.getMonth()+1),r=sykScore(T.filter(t=>t.d.slice(0,7)===k));M.push([SY_MN[d.getMonth()].slice(0,3),r?r.tot:null])}
+return `<div class="card"><h2>Sykle Skoru</h2><div style="display:flex;align-items:center;gap:16px"><div style="flex:none;width:86px;height:86px;border-radius:50%;background:conic-gradient(${scCol(sc.tot)} ${sc.tot*3.6}deg,var(--bd) 0);display:flex;align-items:center;justify-content:center"><div style="width:70px;height:70px;border-radius:50%;background:var(--card);display:flex;flex-direction:column;align-items:center;justify-content:center"><b style="font-size:26px;line-height:1">${sc.tot}</b><span class="mu" style="font-size:11px">/ 100</span></div></div><div style="flex:1;min-width:0"><b style="color:${scCol(sc.tot)}">${lb}</b><div class="mu" style="font-size:12.5px;margin-top:2px">Son 90 gün. Sadece kârı değil disiplini ve tutarlılığı da ölçer.</div></div></div>
+<div style="margin-top:12px">${sc.C.map(c=>`<div style="display:flex;align-items:center;gap:8px;margin-top:7px;font-size:13px"><span style="width:104px;flex:none">${c[0]}</span><span style="flex:1;height:6px;border-radius:3px;background:var(--bd);overflow:hidden"><span style="display:block;height:100%;width:${Math.max(2,Math.round(c[1]))}%;background:${scCol(c[1])}"></span></span><b style="width:28px;text-align:right;font-size:12.5px">${Math.round(c[1])}</b></div>`).join("")}</div>
+<div class="mu" style="font-size:12px;margin:14px 0 6px">Aylara göre</div><div style="display:flex;gap:6px;align-items:flex-end;height:64px">${M.map(m=>`<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;height:100%;justify-content:flex-end"><span style="font-size:11px">${m[1]==null?"–":m[1]}</span><span style="width:100%;max-width:26px;height:${m[1]==null?2:Math.max(4,m[1]*.4)}px;border-radius:4px;background:${m[1]==null?"var(--bd)":scCol(m[1])}"></span><span class="mu" style="font-size:10.5px">${m[0]}</span></div>`).join("")}</div></div>`}
+
+// ---- Tiltmetre
+function tiltOf(d){const T=S.trades.map((t,i)=>[t,i]).filter(x=>x[0].d===d&&!x[0].src).sort((a,b)=>a[1]-b[1]).map(x=>x[0]);if(!T.length)return null;let p=0;
+T.forEach((t,i)=>{(t.tag||[]).forEach(x=>{p+=MISW[x]||0});if((t.tag||[]).includes("Plana uydum"))p-=10;if(i>0&&T[i-1].pnl<0)p+=10;if(i>=3)p+=10});return{v:Math.max(0,Math.min(100,p)),n:T.length}}
+const tiltLb=v=>v>=60?["Tilt","var(--r)","Duygusal işlem riski yüksek. Bugünlük dur, yarın taze kafayla devam et."]:v>=25?["Dikkat","#e0a43a","Hata etiketleri birikiyor. Bir sonraki işlemden önce ara ver."]:["Sakin","var(--g)","Disiplinli bir gün. Böyle devam."];
+function tiltCard(){const td=key(new Date()),t0=tiltOf(td),D=[...new Set(S.trades.filter(t=>!t.src).map(t=>t.d))].sort().slice(-7),last=t0||(D.length?tiltOf(D[D.length-1]):null);
+if(!last)return "";const L=tiltLb(last.v),dl=d=>{const p=d.split("-");return SY_DMS(+p[2],+p[1]-1)};
+return `<div class="card"><h2>Tiltmetre</h2><div style="display:flex;justify-content:space-between;align-items:baseline"><span class="mu" style="font-size:13px">${t0?"Bugün":"Son işlem günü"}</span><b style="color:${L[1]}">${L[0]} · ${last.v}</b></div>
+<div style="position:relative;height:10px;border-radius:5px;margin:8px 0 6px;background:linear-gradient(90deg,var(--g),#e0a43a 45%,var(--r))"><span style="position:absolute;top:-4px;left:calc(${last.v}% - 3px);width:6px;height:18px;border-radius:3px;background:#fff;box-shadow:0 0 0 2px #000"></span></div>
+<div class="mu" style="font-size:12.5px">${L[2]}</div>
+${D.length>1?`<div style="display:flex;gap:6px;align-items:flex-end;height:58px;margin-top:12px">${D.map(d=>{const x=tiltOf(d);return `<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;height:100%;justify-content:flex-end"><span style="width:100%;max-width:22px;height:${Math.max(3,x.v*.36)}px;border-radius:4px;background:${tiltLb(x.v)[1]}"></span><span class="mu" style="font-size:10px;white-space:nowrap">${dl(d)}</span></div>`}).join("")}</div>`:""}</div>`}
+
+// ---- "Ya şöyle yapsaydım?" simülatörü (Pro)
+let simX={tg:new Set(),max:0,stop:false,ss:""};
+function simRun(T0){const T=ordT(T0),cnt={},stopD={};return T.filter(t=>{if([...simX.tg].some(x=>(t.tag||[]).includes(x)))return false;if(simX.ss&&t.ss!==simX.ss)return false;if(simX.stop&&stopD[t.d])return false;cnt[t.d]=(cnt[t.d]||0)+1;if(simX.max&&cnt[t.d]>simX.max)return false;if(t.pnl<0)stopD[t.d]=1;return true})}
+function simCard(T){if(!isPro())return lockWrap("Ya şöyle yapsaydım?",`<div class="tr"><span>FOMO işlemlerini almasaydım</span><b>+$320</b></div><div class="tr"><span>Günde en fazla 2 işlem</span><b>+$180</b></div>`);
+const A=T.filter(t=>!t.src),B=simRun(A),a=calc(A,[]),b=calc(B,[]),df=b.net-a.net,used=MIS.filter(x=>A.some(t=>(t.tag||[]).includes(x))),sess=[...new Set(A.map(t=>t.ss))];
+const box=(l,s)=>`<div class="st" style="flex:1"><small>${l}</small><b class="${cls(s.net)}">${fm(s.net)}</b><small>${s.n} işlem · %${s.wr}</small></div>`;
+return `<div class="card" id="simc"><h2>Ya şöyle yapsaydım?<span class="prob" data-noi18n>PRO</span></h2><div class="mu" style="font-size:13px;margin-bottom:10px">Senaryo seç, bu dönemin sonucu yeniden hesaplansın.</div>
+${used.length?`<div class="mu" style="font-size:12.5px;margin-bottom:4px">Şu etiketli işlemleri almasaydım</div><div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px">${used.map(x=>chip(x,simX.tg.has(x),`data-smt="${x}"`)).join("")}</div>`:""}
+<div class="row" style="margin-bottom:8px;align-items:center"><span style="flex:1;font-size:14px">Günde en fazla</span><select id="smx" style="width:auto"><option value="0">Sınırsız</option>${[1,2,3].map(n=>`<option value="${n}" ${simX.max===n?"selected":""}>${n} işlem</option>`).join("")}</select></div>
+${sess.length>1?`<div class="row" style="margin-bottom:8px;align-items:center"><span style="flex:1;font-size:14px">Sadece şu seansta</span><select id="smss" style="width:auto"><option value="">Tüm seanslar</option>${sess.map(x=>`<option ${simX.ss===x?"selected":""}>${esc(x)}</option>`).join("")}</select></div>`:""}
+<label class="ckl"><input type="checkbox" id="smst" ${simX.stop?"checked":""}><span>Günün ilk kaybından sonra dursaydım</span></label>
+<div style="display:flex;gap:8px;margin-top:10px">${box("Gerçek",a)}${box("Senaryo",b)}</div>
+<div style="text-align:center;margin-top:10px;font-size:15px">Fark: <b class="${cls(df)}">${fm(df)}</b></div></div>`}
+function simBind(T){const C=$("simc");if(!C)return;const re=()=>{C.outerHTML=simCard(T);simBind(T)};
+C.querySelectorAll("[data-smt]").forEach(b=>b.onclick=()=>{const k=b.dataset.smt;simX.tg.has(k)?simX.tg.delete(k):simX.tg.add(k);re()});
+if($("smx"))$("smx").onchange=e=>{simX.max=+e.target.value;re()};if($("smss"))$("smss").onchange=e=>{simX.ss=e.target.value;re()};if($("smst"))$("smst").onchange=e=>{simX.stop=e.target.checked;re()}}
+
+// ---- Kaçırılan işlemler
+const MSW=["Korktum","Emin değildim","Ekranda değildim","Kurala uymuyordu","Geç kaldım","Diğer"];
+let msWhy="",msSg=1;
+function msView(){$("ttl").textContent="Kaçırılan işlemler";const V=$("v-ms"),L=(S.ms||[]).slice().sort((a,b)=>a.d<b.d?1:a.d>b.d?-1:0),pb=S.pb||[];
+const tot=L.reduce((a,m)=>a+(+m.v||0),0),by={};L.forEach(m=>{const k=m.why||"Diğer",o=by[k]||(by[k]={n:0,v:0});o.n++;o.v+=+m.v||0});
+const dl=d=>{const p=d.split("-");return SY_DMS(+p[2],+p[1]-1)};
+V.innerHTML=`<div class="card"><h2>Kaçırılan işlem ekle</h2><p class="mu" style="margin:0 0 10px;font-size:13px">Gördüğün ama girmediğin setup'ları kaydet. Neden girmediğini bilmek, alınan işlemler kadar değerli.</p>
+<input id="msd" type="date" value="${key(new Date())}" style="width:100%;margin-bottom:8px">
+<div class="row"><input id="mssym" placeholder="Parite (US100, XAUUSD…)"><select id="msdir"><option>Long</option><option>Short</option></select></div>
+<select id="msss" style="width:100%;margin-bottom:8px">${SES.map(x=>`<option>${x}</option>`).join("")}</select>
+${pb.length?`<select id="mspb" style="width:100%;margin-bottom:8px"><option value="">Setup seç (isteğe bağlı)</option>${pb.map(p=>`<option value="${p.id}">${esc(p.n)}</option>`).join("")}</select>`:""}
+<div class="row"><div style="display:flex;gap:6px;flex:none"><button class="sgb ${msSg>0?"gon":""}" data-msg="1">Kâr +</button><button class="sgb ${msSg<0?"ron":""}" data-msg="-1">Zarar −</button></div><input id="msv" type="text" inputmode="decimal" placeholder="Olası sonuç ($)"></div>
+<div class="mu" style="font-size:12.5px;margin:2px 0 4px">Neden girmedin?</div><div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px">${MSW.map(x=>chip(x,msWhy===x,`data-msw="${x}"`)).join("")}</div>
+<input id="msn" placeholder="Not (isteğe bağlı)" style="width:100%;margin-bottom:8px"><button class="p" id="msadd">Kaydet</button></div>
+${L.length?`<div class="card"><h2>Özet</h2><div class="vl"><div><small>Kaçırılan işlem</small><b>${L.length}</b></div><div><small>Olası toplam sonuç</small><b class="${cls(tot)}">${fm(tot)}</b></div></div>${hd("Nedenlere göre")}${Object.entries(by).sort((a,b)=>b[1].v-a[1].v).map(([k,o])=>`<div class="tr"><span>${esc(k)} <span class="mu">${o.n} işlem</span></span><b class="${cls(o.v)}">${fm(o.v)}</b></div>`).join("")}<div class="mu" style="font-size:12.5px;margin-top:8px">"Kurala uymuyordu" satırı eksideyse girmemekle doğru karar vermişsin.</div></div>
+<div class="card"><h2>Kayıtlar</h2>${L.map(m=>{const P=pbOf(m.pb);return `<div class="tr" style="align-items:flex-start"><div style="min-width:0"><b>${esc(m.sym||"?")}</b> <span class="mu">${esc(m.dir||"")} · ${esc(m.ss||"")} · ${dl(m.d)}</span>${P?`<span class="tag">${esc(P.n)}</span>`:""}${m.why?`<span class="tag">${esc(m.why)}</span>`:""}${m.note?`<small style="display:block;margin-top:4px">${esc(m.note)}</small>`:""}</div><div style="text-align:right;flex:none"><b class="${cls(+m.v||0)}">${fm(+m.v||0)}</b><br><button class="s" data-msdel="${m.id}" style="margin-top:4px">Sil</button></div></div>`}).join("")}</div>`:`<div class="card mu">Henüz kaçırılan işlem yok.</div>`}`;
+V.querySelectorAll("[data-msg]").forEach(b=>b.onclick=()=>{msSg=+b.dataset.msg;V.querySelectorAll("[data-msg]").forEach(x=>{x.classList.toggle("gon",x.dataset.msg==="1"&&msSg>0);x.classList.toggle("ron",x.dataset.msg==="-1"&&msSg<0)})});
+V.querySelectorAll("[data-msw]").forEach(b=>b.onclick=()=>{msWhy=msWhy===b.dataset.msw?"":b.dataset.msw;V.querySelectorAll("[data-msw]").forEach(x=>x.classList.toggle("on",x.dataset.msw===msWhy))});
+$("msadd").onclick=()=>{const v=parseFloat(($("msv").value||"").replace(",","."));if(isNaN(v)){$("msv").focus();return}const d=$("msd").value||key(new Date());
+S.ms=S.ms||[];S.ms.push({id:uid(),d,sym:$("mssym").value.trim().toUpperCase()||"?",dir:$("msdir").value,ss:$("msss").value,pb:$("mspb")?$("mspb").value:"",v:v<0?v:(msSg<0?-v:v),why:msWhy,note:$("msn").value.trim()});msWhy="";msSg=1;save();msView()};
+V.querySelectorAll("[data-msdel]").forEach(b=>b.onclick=()=>conf(b,()=>{tomb([b.dataset.msdel]);S.ms=(S.ms||[]).filter(m=>m.id!==b.dataset.msdel);save();msView()}))}
 
 // ---- Pro: gelişmiş analiz ve dışa aktarma
 const lockWrap=(title,inner)=>`<div class="card lockc"><h2>${title}<span class="prob" data-noi18n>PRO</span></h2><div class="lkb">${inner}</div><div class="lko"><b>Sykle Pro'ya özel</b><button class="p" data-pro="1" style="width:auto;padding:10px 18px">Sykle Pro'yu incele</button></div></div>`;
@@ -1682,7 +1866,7 @@ ${hd("Disiplin")}${line("Plana uyduğun işlemler",pl)}${line("Hata etiketli iş
 ${hd("Kayıptan sonraki işlem")}${line("Aynı gün kayıptan hemen sonra",afs)}<div class="mu" style="font-size:12.5px;margin-top:4px">Bu satır eksideyse kayıptan sonra ara vermek sana para kazandırır.</div>
 ${hd("Günün kaçıncı işlemi")}${line("1. işlem",o1)}${line("2. işlem",o2)}${line("3. ve sonrası",o3)}
 ${hd("Günde kaç işlem (gün başına ortalama)")}${dline("1 işlem yapılan günler",dg(1))}${dline("2 işlem yapılan günler",dg(2))}${dline("3+ işlem yapılan günler",dg(3))}
-${hd("Seans + parite")}${combo}
+${(S.pb||[]).length?hd("Setup'a göre")+rows(O,t=>{const P=pbOf(t.pb);return P?[P.n]:[]},1):""}${hd("Seans + parite")}${combo}
 ${hd("Haftanın günleri")}${rows(O,t=>[wdn(t.d)],1)}${hd("Yöne göre")}${rows(O,t=>[t.dir||"?"],1)}</div>`}
 function expCard(){const b=`<div style="display:flex;gap:8px"><button class="s" id="xcsv" style="flex:1">CSV indir</button><button class="s" id="xpdf" style="flex:1">PDF raporu</button></div><div class="mu" style="margin-top:8px;font-size:12.5px">Seçili dönem ve hesap dışa aktarılır.</div>`;
 return isPro()?`<div class="card"><h2>Dışa aktar<span class="prob" data-noi18n>PRO</span></h2>${b}</div>`:lockWrap("Dışa aktar",b.replace(/id="x(csv|pdf)"/g,""))}
@@ -1706,8 +1890,8 @@ const r=(l,f,p)=>`<tr><td>${l}</td><td>${f}</td><td>${p}</td></tr>`;
 V.innerHTML=`<div class="card prc"><h2 style="margin:0">Sykle Pro<span class="prob" data-noi18n>PRO</span></h2>
 ${pro?`<p style="margin:10px 0 0"><b style="color:#e2be6a">✓ Sykle Pro aktif.</b>${PLU?` <span class="mu">${SY_T("Bitiş")}: ${new Date(PLU).toLocaleDateString(SY_LOC)}</span>`:""}</p>`:`<p style="margin:10px 0 0">Sykle ücretsiz kalıyor. Pro, daha fazlasını isteyenler için.</p>`}</div>
 <div class="card"><table class="prt"><thead><tr><th></th><th>Ücretsiz</th><th style="color:#e2be6a">Pro</th></tr></thead><tbody>
-${r("Aktif prop hesap","3","Sınırsız")}${r("Fotoğraf","100","2.000")}${r("Gelişmiş analiz",N,Y)}${r("CSV içe / dışa aktarma ve PDF rapor",N,Y)}${r("Özel temalar ve Pro rozeti",N,Y)}${r("Öncelikli destek",N,Y)}${r("AI koç",N,'<span class="mu" style="font-size:12px">Yakında</span>')}
-${r("Günlük, takvim, notlar, rozetler",Y,Y)}</tbody></table></div>
+${r("Aktif prop hesap","3","Sınırsız")}${r("Strateji kitabı (setup)","3","Sınırsız")}${r("Fotoğraf","100","2.000")}${r("Gelişmiş analiz",N,Y)}${r("Ya şöyle yapsaydım? simülatörü",N,Y)}${r("CSV içe / dışa aktarma ve PDF rapor",N,Y)}${r("Özel temalar ve Pro rozeti",N,Y)}${r("Öncelikli destek",N,Y)}${r("AI koç",N,'<span class="mu" style="font-size:12px">Yakında</span>')}
+${r("Günlük, takvim, notlar, rozetler",Y,Y)}${r("Sykle Skoru, tiltmetre, kaçırılan işlemler",Y,Y)}</tbody></table></div>
 ${pro?"":`<div class="card"><h2>Fiyat</h2><div style="display:flex;gap:8px"><div class="st" style="flex:1"><small>Aylık</small><b>$4,99</b></div><div class="st" style="flex:1"><small>Yıllık</small><b>$39,99</b><small style="color:var(--g)">2 aydan fazlası bedava</small></div></div>
 <p class="mu" style="margin:10px 0 0;font-size:13px">İlk 100 Pro kullanıcıya kurucu fiyatı: fiyatın ömür boyu sabit kalır.</p>
 <button class="p" disabled style="opacity:.5;margin-top:12px">Ödeme yakında açılıyor</button>
@@ -1852,7 +2036,7 @@ function dl(f){const u=URL.createObjectURL(f),a=document.createElement("a");a.hr
 function kgView(){$("ttl").textContent="Kullanım kılavuzu";const D=(t,b)=>`<details class="kg"><summary>${t}</summary>${b}</details>`;
 $("v-kg").innerHTML=D("Başlangıç",`<ul><li>Hesaplar sayfasında "+ Hesap ekle" ile firmanı, programını ve hesap boyutunu seç. Hedef, limitler, consistency ve minimum gün kuralları otomatik gelir.</li><li>Live hesaplarda firma kuralı yoktur. Adı, broker'ı ve bakiyeyi kendin yazarsın.</li><li>Hesabın sayfasında bir gün seç, paritenin, yönün, seansın ve tutarın ile işlemi ekle. İstersen not ve fotoğraf da ekle.</li><li>Çekim yaptığında hesabın sayfasından tutarı ve dekontu kaydet.</li></ul>`)+
 D("Sayfalar",`<ul><li><b>Panel:</b> tarzını gösteren radar, en çok işlem gören semboller ve seanslar.</li><li><b>Hesaplar:</b> tüm hesapların, limitleri ve hedefe kalan tutar.</li><li><b>Ödüller:</b> çekimlerin ve 100 bin dolarlık hedef çubuğu.</li><li><b>Live:</b> gerçek hesapların ve toplam kasa.</li><li><b>Özet:</b> haftalık ve aylık sonuçlar.</li><li><b>Notlar:</b> öğrendiklerini fotoğrafla birlikte yaz.</li><li><b>İstatistik kartı:</b> Funded ya da Live bir hesabının kârlı kapanan ayını altın kart olarak paylaş. Her hesabın kartı ayrıdır, kart ay bitince oluşur. Zararlı ayda kart oluşmaz, bakiye görünmez.</li><li><b>Hesap notları:</b> tüm hesaplarının durumu, kaç hesap aldığın.</li><li><b>Görüşlerinizi bildirin:</b> öneri, hata ya da başka bir konuda bize yaz. İstersen ekran görüntüsü de ekle.</li></ul>`)+
-D("Hesap durumları",`<ul><li><b>Geçildi:</b> Challenge hesabı kâr hedefine ulaşınca üstünde "Geçildi" yazar ve aynı ayarlarla yeni bir Funded hesap otomatik açılır. Geçilen Challenge sadece görüntülenir.</li><li><b>İhlal:</b> günlük kayıp limitini ya da maksimum kayıp limitini aşan hesap (Challenge ya da Funded) otomatik "İhlal" olur ve kapanır. Challenge hedefe ulaşamadan limit aşılırsa da "İhlal" yazar. Hesap sayfasındaki "İhlal yap" ile elle de kapatabilirsin.</li><li><b>Tamamlandı:</b> Funded hesapta tüm bakiyeyi çektiysen çekimi eklerken "Tüm bakiyeyi çektim" kutusunu işaretle. Hesap kapanır ve "Tamamlandı" yazar.</li><li><b>Buffer:</b> çekim yapıp hesapta bir miktar kâr (buffer) bıraktıysan kutuyu işaretleme. Hesap kapanmaz, aynen devam eder.</li><li>2 aşamalı programlarda 1. aşama geçilince "Phase 2" hesabı, o da geçilince Funded hesap otomatik açılır.</li><li>İhlal ve Tamamlandı hesapları hesap sayfasındaki "Yeniden aç" ile geri açabilirsin.</li><li>Kartların köşesindeki "Demo Challenge" ve "Demo Funded" etiketleri, bu hesapların deneme amaçlı olduğunu gösterir.</li></ul>`)+
+D("Strateji kitabı, skor ve tiltmetre",`<ul><li><b>Strateji kitabı:</b> her setup'ının kurallarını yaz. İşlem eklerken setup'ı seç ve uyduğun kuralları işaretle. Setup'ların kazanma oranını ve kurallara uyunca ne değiştiğini görürsün. Ücretsiz planda 3 setup, Pro'da sınırsız.</li><li><b>Sykle Skoru:</b> son 90 günü 100 üzerinden puanlar. Winrate, profit faktör, kazanç/kayıp oranı, toparlanma, tutarlılık ve disiplini birlikte ölçer. En az 5 işlem gerekir.</li><li><b>Tiltmetre:</b> günün işlemlerindeki hata etiketlerinden (İntikam, FOMO, SL oynattım…), kayıptan hemen sonra açılan işlemlerden ve günde 3'ten fazla işlemden duygusal işlem riskini hesaplar. 60 ve üstü "Tilt" demektir, o gün durmak en iyisidir.</li><li><b>Kaçırılan işlemler:</b> gördüğün ama girmediğin setup'ları nedeniyle birlikte kaydet. Hangi nedenin sana kaç para kaçırttığını görürsün.</li><li><b>Ya şöyle yapsaydım? (Pro):</b> Özet sayfasında senaryo seç (ör. FOMO işlemlerini almasaydım, günde en fazla 2 işlem), sonucun yeniden hesaplanır.</li></ul>`)+D("Hesap durumları",`<ul><li><b>Geçildi:</b> Challenge hesabı kâr hedefine ulaşınca üstünde "Geçildi" yazar ve aynı ayarlarla yeni bir Funded hesap otomatik açılır. Geçilen Challenge sadece görüntülenir.</li><li><b>İhlal:</b> günlük kayıp limitini ya da maksimum kayıp limitini aşan hesap (Challenge ya da Funded) otomatik "İhlal" olur ve kapanır. Challenge hedefe ulaşamadan limit aşılırsa da "İhlal" yazar. Hesap sayfasındaki "İhlal yap" ile elle de kapatabilirsin.</li><li><b>Tamamlandı:</b> Funded hesapta tüm bakiyeyi çektiysen çekimi eklerken "Tüm bakiyeyi çektim" kutusunu işaretle. Hesap kapanır ve "Tamamlandı" yazar.</li><li><b>Buffer:</b> çekim yapıp hesapta bir miktar kâr (buffer) bıraktıysan kutuyu işaretleme. Hesap kapanmaz, aynen devam eder.</li><li>2 aşamalı programlarda 1. aşama geçilince "Phase 2" hesabı, o da geçilince Funded hesap otomatik açılır.</li><li>İhlal ve Tamamlandı hesapları hesap sayfasındaki "Yeniden aç" ile geri açabilirsin.</li><li>Kartların köşesindeki "Demo Challenge" ve "Demo Funded" etiketleri, bu hesapların deneme amaçlı olduğunu gösterir.</li></ul>`)+
 D("Consistency (cons)",`<ul><li>Consistency, en kârlı gününün toplam kârına oranıdır. Örnek: toplam kâr $2.000, en iyi gün $800 ise oran %40.</li><li>Limit, seçtiğin programa göre otomatik gelir. Programda consistency kuralı yoksa kutu görünmez.</li><li>FTM 1 Step Nitro Challenge'da en iyi gün, kâr hedefinin %50'sini geçemez. Funded'da ve FTMO 1-Step'te en iyi gün toplam kârla karşılaştırılır.</li><li>Consistency şartı sağlanmadan hedefe ulaşsan da Challenge geçilmiş sayılmaz, işlem yapmaya devam etmen gerekir.</li><li>Hesap sayfasındaki Consistency kutusunda şu anki oranın yazar. Limitin altındaysa yeşil, üstündeyse kırmızıdır.</li><li><b>"+$X kaldı":</b> bugün en fazla bu kadar daha kazanırsan oran limiti aşmaz.</li><li><b>"+$X kâr gerekli":</b> oran limitin üstündeyse, limitin altına inmek için en iyi gününü geçmeyen günlerle bu kadar daha kâr etmen gerekir.</li></ul>`)+
 D("Minimum işlem günü",`<ul><li>Minimum gün kuralı seçtiğin programa göre otomatik gelir. Challenge'da işlem açtığın her gün sayılır ve gün şartı tamamlanmadan Challenge geçilmez.</li><li>Funded'da çekim için kârlı gün şartı varsa, bir günün sayılması için o günün kârı bir önceki günün kapanış bakiyesinin en az bu yüzdesi kadar olmalı. Örnek: 50.000$ bakiyede %0,5 = en az 250$ kâr.</li><li>Funded hesapta buffer bırakarak çekim yaparsan sayım sıfırlanır, bir sonraki çekim için günler yeniden sayılır.</li><li>Tamamlanınca kutu yeşil olur ve "Tamamlandı ✓" yazar.</li></ul>`)+
 D("Hesaplamalar",`<ul><li><b>Winrate:</b> kazanan işlemlerin tüm işlemlere oranı. Başabaş (0) işlemler de hesaba katılır, çünkü kayıp da olabilirlerdi.</li><li><b>Maksimum kayıp:</b> programa göre sabit, gün sonu bakiyesiyle yükselen (FTMO 1-Step) ya da bakiyeyle yükselip kâr limite ulaşınca başlangıç bakiyesinde kilitlenen (FTM 1 Step Nitro) olabilir. Çekimden sonra sayım yeniden başlar.</li></ul>`)+
@@ -1925,7 +2109,7 @@ const phRoom=n=>phSet().size+n<=phLim();
 const actProp=()=>S.accounts.filter(a=>a.ph!=="Live"&&!closed(a)).length;
 const accRoom=()=>isPro()||actProp()<FREE_ACC;
 function proWall(k){if($("pwl"))return;const d=document.createElement("div");d.id="pwl";d.className="mdl";d.style.zIndex=98;
-const t=k==="acc"?"Ücretsiz planda aynı anda en fazla 3 aktif prop hesabın olabilir. Kapanan hesaplar (Geçildi, Tamamlandı, İhlal) bu sayıya dahil değil.":k==="ph"?(isPro()?"Pro planda en fazla 2.000 fotoğraf ekleyebilirsin. Yer açmak için eski fotoğrafları silebilirsin.":"Ücretsiz planda en fazla 100 fotoğraf ekleyebilirsin. Yer açmak için eski fotoğrafları silebilirsin."):k==="csv"?"CSV ile işlem içe aktarma Sykle Pro'ya özel.":"Bu özellik Sykle Pro'ya özel.";
+const t=k==="acc"?"Ücretsiz planda aynı anda en fazla 3 aktif prop hesabın olabilir. Kapanan hesaplar (Geçildi, Tamamlandı, İhlal) bu sayıya dahil değil.":k==="ph"?(isPro()?"Pro planda en fazla 2.000 fotoğraf ekleyebilirsin. Yer açmak için eski fotoğrafları silebilirsin.":"Ücretsiz planda en fazla 100 fotoğraf ekleyebilirsin. Yer açmak için eski fotoğrafları silebilirsin."):k==="csv"?"CSV ile işlem içe aktarma Sykle Pro'ya özel.":k==="pb"?"Ücretsiz planda en fazla 3 setup ekleyebilirsin.":"Bu özellik Sykle Pro'ya özel.";
 d.innerHTML=`<div class="card prc"><h2 style="margin-top:0">Sykle Pro<span class="prob" data-noi18n>PRO</span></h2><p style="margin:0 0 14px">${t}</p>${isPro()?"":`<button class="p" id="pwg">Sykle Pro'yu incele</button>`}<button class="s" id="pwx" style="width:100%;margin-top:8px">Kapat</button></div>`;
 document.body.appendChild(d);$("pwx").onclick=()=>d.remove();if($("pwg"))$("pwg").onclick=()=>{d.remove();go("pro")}}
 // silinen işlemlerden kalan, artık hiçbir yerde kullanılmayan fotoğrafları temizler (günde en fazla bir kez, 14 günden eski olanlar)
@@ -1989,10 +2173,10 @@ S.dt=1;try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
 // İki cihaz: bulutta başka cihazdan gelen değişiklik varsa yerel değişikliklerle birleştirilir (silinenler geri gelmez)
 function merge(L,C){const del=Object.assign({},C.del||{},L.del||{}),R=Object.assign({},C);
 const arr=k=>{const m=new Map();(C[k]||[]).forEach(x=>{if(x&&x.id)m.set(x.id,x)});(L[k]||[]).forEach(x=>{if(x&&x.id)m.set(x.id,x)});return[...m.values()].filter(x=>!del[x.id])};
-["accounts","trades","payouts","nt","links"].forEach(k=>{R[k]=arr(k)});
+["accounts","trades","payouts","nt","links","pb","ms"].forEach(k=>{R[k]=arr(k)});
 R.notes=Object.assign({},C.notes||{},L.notes||{});R.bd=Object.assign({},C.bd||{},L.bd||{});
 R.lg=[...new Set([...(C.lg||[]),...(L.lg||[])])].sort();R.nf=L.nf||C.nf||[];
-["pn","pq","tos"].forEach(k=>{if(L[k]!=null)R[k]=L[k]});
+["pn","pq","tos","th"].forEach(k=>{if(L[k]!=null)R[k]=L[k]});
 const cut=Date.now()-60*864e5;Object.keys(del).forEach(i=>{if(del[i]<cut)delete del[i]});R.del=del;R.ts=Math.max(L.ts||0,C.ts||0);R.dt=1;return R}
 const clean=o=>{const x=Object.assign({},o);delete x.dt;delete x.rs;delete x.sv;return x};
 const sameT=(a,b)=>!!a&&!!b&&Date.parse(a)===Date.parse(b);

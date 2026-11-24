@@ -31,6 +31,34 @@ const D={
 "Dil":["Language","Sprache","Idioma"],
 "Yönetim":["Admin","Verwaltung","Administración"],
 "Yönetici paneli":["Admin panel","Admin-Bereich","Panel de administración"],
+"Bakiye eğrisi":["Equity curve", "Kapitalkurve", "Curva de capital"],
+"En büyük düşüş":["Max drawdown", "Maximaler Drawdown", "Drawdown máximo"],
+"Dönem sonu":["End of period", "Periodenende", "Fin del periodo"],
+"Kazanç / kayıp oranı":["Win / loss ratio", "Gewinn-/Verlustverhältnis", "Ratio ganancia / pérdida"],
+"Ortalama kazanç ÷ ortalama kayıp":["Avg win ÷ avg loss", "Ø Gewinn ÷ Ø Verlust", "Ganancia media ÷ pérdida media"],
+"Başa baş için gereken winrate":["Break-even win rate", "Break-even-Trefferquote", "Tasa de acierto de equilibrio"],
+"Senin winrate'in":["Your win rate", "Deine Trefferquote", "Tu tasa de acierto"],
+"Winrate'in başa baş seviyesinin üstünde, sistemin kârda.":["Your win rate is above break-even, so your system is profitable.", "Deine Trefferquote liegt über dem Break-even, dein System ist profitabel.", "Tu tasa de acierto está por encima del equilibrio: tu sistema es rentable."],
+"Winrate'in başa baş seviyesinin altında. Kazançlarını büyütmen ya da kayıplarını küçültmen gerekiyor.":["Your win rate is below break-even. You need bigger wins or smaller losses.", "Deine Trefferquote liegt unter dem Break-even. Du brauchst größere Gewinne oder kleinere Verluste.", "Tu tasa de acierto está por debajo del equilibrio. Necesitas ganancias mayores o pérdidas menores."],
+"Hesaplamak için en az bir kazanç ve bir kayıp gerekiyor.":["Needs at least one win and one loss to calculate.", "Zur Berechnung sind mindestens ein Gewinn und ein Verlust nötig.", "Se necesita al menos una ganancia y una pérdida para calcularlo."],
+"Plana uyduğun işlemler":["Trades where you followed the plan", "Trades mit befolgtem Plan", "Operaciones siguiendo el plan"],
+"Hata etiketli işlemler":["Trades tagged with a mistake", "Trades mit Fehler-Tag", "Operaciones con etiqueta de error"],
+"Hataların sana maliyeti":["What your mistakes cost you", "Was dich deine Fehler kosten", "Lo que te cuestan tus errores"],
+"Kayıptan sonraki işlem":["Trade after a loss", "Trade nach einem Verlust", "Operación tras una pérdida"],
+"Aynı gün kayıptan hemen sonra":["Right after a loss, same day", "Direkt nach einem Verlust, gleicher Tag", "Justo después de una pérdida, mismo día"],
+"Bu satır eksideyse kayıptan sonra ara vermek sana para kazandırır.":["If this line is negative, taking a break after a loss would make you money.", "Ist diese Zeile negativ, bringt dir eine Pause nach einem Verlust Geld.", "Si esta línea es negativa, hacer una pausa tras una pérdida te haría ganar dinero."],
+"Günün kaçıncı işlemi":["Trade number of the day", "Wievielter Trade des Tages", "Número de operación del día"],
+"1. işlem":["1st trade", "1. Trade", "1.ª operación"],
+"2. işlem":["2nd trade", "2. Trade", "2.ª operación"],
+"3. ve sonrası":["3rd and later", "3. und später", "3.ª y siguientes"],
+"Günde kaç işlem (gün başına ortalama)":["Trades per day (average per day)", "Trades pro Tag (Ø pro Tag)", "Operaciones por día (media por día)"],
+"1 işlem yapılan günler":["Days with 1 trade", "Tage mit 1 Trade", "Días con 1 operación"],
+"2 işlem yapılan günler":["Days with 2 trades", "Tage mit 2 Trades", "Días con 2 operaciones"],
+"3+ işlem yapılan günler":["Days with 3+ trades", "Tage mit 3+ Trades", "Días con 3+ operaciones"],
+"Seans + parite":["Session + symbol", "Session + Symbol", "Sesión + símbolo"],
+"En az 2 işlemlik kombinasyon yok.":["No combination with at least 2 trades yet.", "Noch keine Kombination mit mindestens 2 Trades.", "Aún no hay combinaciones con al menos 2 operaciones."],
+"CSV ile işlem içe aktarma Sykle Pro'ya özel.":["Importing trades from CSV is part of Sykle Pro.", "Trades per CSV importieren gehört zu Sykle Pro.", "Importar operaciones desde CSV es exclusivo de Sykle Pro."],
+"CSV içe / dışa aktarma ve PDF rapor":["CSV import / export and PDF report", "CSV-Import / -Export und PDF-Bericht", "Importar / exportar CSV e informe PDF"],
 "Ametist":["Amethyst", "Amethyst", "Amatista"],
 "Platin":["Platinum", "Platin", "Platino"],
 "Özel temalar ve Pro rozeti":["Exclusive themes and Pro badge", "Exklusive Designs und Pro-Abzeichen", "Temas exclusivos e insignia Pro"],
@@ -882,7 +910,7 @@ button.s{padding:6px 10px;font-size:13px}
 .ah{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}.ah>span{min-width:0}
 .dlb{flex:none;font-size:10px;letter-spacing:.04em;padding:2px 8px;border-radius:99px;border:1px solid #2c3550;color:#8fa6d6;background:#0d1220;white-space:nowrap}.dlb.live{border-color:#1f4a3a;color:var(--g);background:#0b1a14}
 .ckl{display:flex;gap:10px;align-items:flex-start;font-size:14px;margin:4px 0 6px;cursor:pointer}.ckl input{flex:none;width:18px;height:18px;margin:1px 0 0;padding:0;accent-color:var(--ac)}
- .prob{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.08em;padding:2px 7px;border-radius:99px;background:linear-gradient(135deg,#f3d58a,#b8862f);color:#1a1205;vertical-align:middle;margin-left:6px;line-height:1.4}
+ .tr b{white-space:nowrap} .prob{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.08em;padding:2px 7px;border-radius:99px;background:linear-gradient(135deg,#f3d58a,#b8862f);color:#1a1205;vertical-align:middle;margin-left:6px;line-height:1.4}
 #dr .it.pro{color:#e2be6a}#dr .it.pro.on{color:#f3d58a}
 .prc{border-color:#5a4520;background:linear-gradient(160deg,#17120a,#0c0c0e 60%)}
 .prt{width:100%;border-collapse:collapse;font-size:14px}.prt td{padding:9px 4px;border-top:1px solid var(--bd)}.prt td:nth-child(2),.prt td:nth-child(3){text-align:center;width:24%}.prt th{font-size:12px;color:var(--mu);font-weight:500;padding:0 4px 6px;text-align:center}.prt th:first-child{text-align:left}
@@ -1022,7 +1050,7 @@ window.splashGo=function(){var t=window._spT;if(t)clearTimeout(t);requestAnimati
 </section>
 
 <section id="v-det" class="hid">
-<div class="row" style="flex-wrap:wrap"><button class="s" id="edit">Düzenle</button><button class="s" id="imp">CSV içe aktar</button><input type="file" id="impf" accept=".csv,text/csv,text/plain" class="hid"><button class="s" id="brbtn">İhlal yap</button><button class="s" id="del">Hesabı sil</button></div>
+<div class="row" style="flex-wrap:wrap"><button class="s" id="edit">Düzenle</button><button class="s" id="imp">CSV içe aktar<span class="prob" data-noi18n>PRO</span></button><input type="file" id="impf" accept=".csv,text/csv,text/plain" class="hid"><button class="s" id="brbtn">İhlal yap</button><button class="s" id="del">Hesabı sil</button></div>
 <div id="brk"></div>
 <div id="warn"></div>
 <div class="stats" id="dstats"></div>
@@ -1575,8 +1603,8 @@ $("n-add").onclick=()=>{const v=$("n-new").value.trim();if(!v&&!nIm.length)retur
 S.nt.push({id:uid(),ts:Date.now(),k:"n",tx:v,im:[...nIm],mo:nMood});$("n-new").value="";nIm=[];nMood="";save();notesView()};
 
 // ---- CSV içe aktarma (sütun adlarından tahmin eder)
-$("imp").onclick=()=>$("impf").click();
-$("impf").onchange=async e=>{const f=e.target.files[0];if(!f)return;const ln=(await f.text()).split(/\r?\n/).filter(Boolean);if(ln.length<2)return;
+$("imp").onclick=()=>{if(!isPro()){proWall("csv");return}$("impf").click()};
+$("impf").onchange=async e=>{const f=e.target.files[0];if(!f||!isPro())return;const ln=(await f.text()).split(/\r?\n/).filter(Boolean);if(ln.length<2)return;
 const sp=ln[0].split(";").length>ln[0].split(",").length?";":",";
 const sl=s=>s.split(new RegExp(sp+'(?=(?:[^"]*"[^"]*")*[^"]*$)')).map(x=>x.replace(/^"|"$/g,"").trim());
 const h=sl(ln[0]).map(x=>x.toLowerCase()),ix=r=>h.findIndex(x=>r.test(x));
@@ -1623,10 +1651,39 @@ $("sprev").onclick=()=>{soff--;sumView()};$("snext").onclick=()=>{if(soff<0){sof
 const lockWrap=(title,inner)=>`<div class="card lockc"><h2>${title}<span class="prob" data-noi18n>PRO</span></h2><div class="lkb">${inner}</div><div class="lko"><b>Sykle Pro'ya özel</b><button class="p" data-pro="1" style="width:auto;padding:10px 18px">Sykle Pro'yu incele</button></div></div>`;
 function streaks(T){let bw=0,bl=0,cw=0,cl=0;T.slice().sort((x,y)=>x.d<y.d?-1:x.d>y.d?1:0).forEach(t=>{if(t.pnl>0){cw++;cl=0}else if(t.pnl<0){cl++;cw=0}else{cw=0;cl=0}bw=Math.max(bw,cw);bl=Math.max(bl,cl)});return[bw,bl]}
 function advCard(T){if(!isPro())return lockWrap("Gelişmiş analiz",`<div class="vl"><div><small>Beklenen değer</small><b>+$42</b></div><div><small>Profit faktör</small><b>1,8</b></div><div><small>En uzun kazanç serisi</small><b>4</b></div></div><div class="tr"><span>Pazartesi</span><b>+$120</b></div><div class="tr"><span>Long</span><b>+$80</b></div>`);
-const s=calc(T,[]),[bw,bl]=streaks(T),mxw=T.reduce((m,t)=>Math.max(m,t.pnl),0),mxl=T.reduce((m,t)=>Math.min(m,t.pnl),0);
+const O=T.map((t,i)=>[t,i]).sort((x,y)=>x[0].d<y[0].d?-1:x[0].d>y[0].d?1:x[1]-y[1]).map(x=>x[0]);
+const s=calc(O,[]),[bw,bl]=streaks(O),mxw=O.reduce((m,t)=>Math.max(m,t.pnl),0),mxl=O.reduce((m,t)=>Math.min(m,t.pnl),0);
 const wd=new Intl.DateTimeFormat(SY_LOC,{weekday:"long",timeZone:"UTC"}),wdn=d=>{const x=wd.format(new Date(d+"T12:00:00Z"));return x.charAt(0).toUpperCase()+x.slice(1)};
-const vv=(l,v,c)=>`<div><small>${l}</small><b class="${c||""}">${v}</b></div>`,ex=s.n?s.net/s.n:0;
-return `<div class="card"><h2>Gelişmiş analiz<span class="prob" data-noi18n>PRO</span></h2><div class="vl">${vv("Beklenen değer / işlem",fm(ex),cls(ex))}${vv("Profit faktör",String(s.pf).replace(".",SY_L==="en"?".":","))}${vv("Ortalama kazanç",fm(s.aw),"g")}${vv("Ortalama kayıp",fm(-s.al),s.al?"r":"")}${vv("En büyük kazanç",fm(mxw),mxw?"g":"")}${vv("En büyük kayıp",fm(mxl),mxl?"r":"")}${vv("En uzun kazanç serisi",bw,bw?"g":"")}${vv("En uzun kayıp serisi",bl,bl?"r":"")}</div>${hd("Haftanın günleri")}${rows(T,t=>[wdn(t.d)],1)}${hd("Yöne göre")}${rows(T,t=>[t.dir||"?"],1)}</div>`}
+const vv=(l,v,c)=>`<div><small>${l}</small><b class="${c||""}">${v}</b></div>`,ex=s.n?s.net/s.n:0,pc=n=>SY_L==="tr"?"%"+n:n+"%",dec=n=>(Math.round(n*100)/100).toLocaleString(SY_LOC);
+const sub=f=>{const X=O.filter(f),w=X.filter(t=>t.pnl>0).length;return{n:X.length,net:X.reduce((a,t)=>a+t.pnl,0),wr:X.length?Math.round(w/X.length*100):0}};
+const line=(l,o)=>`<div class="tr"><span>${l} <span class="mu">${o.n} işlem · %${o.wr}</span></span><b class="${cls(o.net)}">${o.n?fm(o.net):"–"}</b></div>`;
+let eq=0,pk=0,dd=0;const pts=[0];O.forEach(t=>{eq+=t.pnl;pts.push(eq);pk=Math.max(pk,eq);dd=Math.min(dd,eq-pk)});
+const mn=Math.min(...pts),mxx=Math.max(...pts),rg=(mxx-mn)||1,W=300,Hh=70,px=i=>pts.length>1?i/(pts.length-1)*W:0,py=v=>Hh-(v-mn)/rg*Hh;
+const path=pts.map((v,i)=>(i?"L":"M")+px(i).toFixed(1)+" "+py(v).toFixed(1)).join(" "),z=py(0).toFixed(1),lc=eq>=0?"var(--g)":"var(--r)";
+const curve=`<svg viewBox="0 -4 ${W} ${Hh+8}" style="width:100%;height:84px;display:block;margin-top:8px" preserveAspectRatio="none"><line x1="0" x2="${W}" y1="${z}" y2="${z}" stroke="var(--bd)" stroke-dasharray="3 3" vector-effect="non-scaling-stroke"/><path d="${path}" fill="none" stroke="${lc}" stroke-width="2" vector-effect="non-scaling-stroke" stroke-linejoin="round"/></svg>`;
+const pay=s.al?s.aw/s.al:0,be=pay?Math.round(100/(1+pay)):0;
+const MIS=["FOMO","Erken çıkış","SL oynattım","Plansız","İntikam"],hasM=t=>(t.tag||[]).some(x=>MIS.includes(x));
+const pl=sub(t=>(t.tag||[]).includes("Plana uydum")),mi=sub(hasM),mcost=O.filter(t=>hasM(t)&&t.pnl<0).reduce((a,t)=>a+t.pnl,0);
+const aft=[];O.forEach((t,i)=>{const p0=O[i-1];if(p0&&p0.d===t.d&&p0.pnl<0)aft.push(t)});const afs={n:aft.length,net:aft.reduce((a,t)=>a+t.pnl,0),wr:aft.length?Math.round(aft.filter(t=>t.pnl>0).length/aft.length*100):0};
+const ord=new Map();{const c={};O.forEach(t=>{c[t.d]=(c[t.d]||0)+1;ord.set(t,c[t.d])})}
+const o1=sub(t=>ord.get(t)===1),o2=sub(t=>ord.get(t)===2),o3=sub(t=>ord.get(t)>=3);
+const byD={};O.forEach(t=>{const x=byD[t.d]||(byD[t.d]={n:0,p:0});x.n++;x.p+=t.pnl});
+const dg=k=>{const D=Object.values(byD).filter(x=>k===3?x.n>=3:x.n===k);return{n:D.length,net:D.length?D.reduce((a,x)=>a+x.p,0)/D.length:0}};
+const dline=(l,o)=>`<div class="tr"><span>${l} <span class="mu">${o.n} gün</span></span><b class="${cls(o.net)}">${o.n?fm(o.net):"–"}</b></div>`;
+const cb={};O.forEach(t=>{const k=(t.ss||"?")+" · "+(t.sym||"?");const x=cb[k]||(cb[k]={n:0,net:0,w:0});x.n++;x.net+=t.pnl;if(t.pnl>0)x.w++});
+const ce=Object.entries(cb).filter(x=>x[1].n>=2).sort((a,b)=>b[1].net-a[1].net),cl=(k,o)=>`<div class="tr"><span>${esc(k)} <span class="mu">${o.n} işlem · %${Math.round(o.w/o.n*100)}</span></span><b class="${cls(o.net)}">${fm(o.net)}</b></div>`;
+const combo=ce.length?cl(...ce[0])+(ce.length>1&&ce[ce.length-1][1].net<ce[0][1].net?cl(...ce[ce.length-1]):""):`<div class="mu">En az 2 işlemlik kombinasyon yok.</div>`;
+return `<div class="card"><h2>Gelişmiş analiz<span class="prob" data-noi18n>PRO</span></h2>
+<div class="vl">${vv("Beklenen değer / işlem",fm(ex),cls(ex))}${vv("Profit faktör",String(s.pf).replace(".",SY_L==="en"?".":","))}${vv("Ortalama kazanç",fm(s.aw),"g")}${vv("Ortalama kayıp",fm(-s.al),s.al?"r":"")}${vv("En büyük kazanç",fm(mxw),mxw?"g":"")}${vv("En büyük kayıp",fm(mxl),mxl?"r":"")}${vv("En uzun kazanç serisi",bw,bw?"g":"")}${vv("En uzun kayıp serisi",bl,bl?"r":"")}</div>
+${hd("Bakiye eğrisi")}${curve}<div class="vl" style="margin-top:6px">${vv("En büyük düşüş",fm(dd),dd?"r":"")}${vv("Dönem sonu",fm(eq),cls(eq))}</div>
+${hd("Kazanç / kayıp oranı")}<div class="vl">${vv("Ortalama kazanç ÷ ortalama kayıp",pay?dec(pay):"–")}${vv("Başa baş için gereken winrate",pay?pc(be):"–")}${vv("Senin winrate'in",pc(s.wr),pay?(s.wr>=be?"g":"r"):"")}</div>
+<div class="mu" style="font-size:12.5px;margin-top:6px">${pay?(s.wr>=be?"Winrate'in başa baş seviyesinin üstünde, sistemin kârda.":"Winrate'in başa baş seviyesinin altında. Kazançlarını büyütmen ya da kayıplarını küçültmen gerekiyor."):"Hesaplamak için en az bir kazanç ve bir kayıp gerekiyor."}</div>
+${hd("Disiplin")}${line("Plana uyduğun işlemler",pl)}${line("Hata etiketli işlemler",mi)}<div class="tr"><span>Hataların sana maliyeti</span><b class="${mcost?"r":""}">${mcost?fm(mcost):"–"}</b></div>
+${hd("Kayıptan sonraki işlem")}${line("Aynı gün kayıptan hemen sonra",afs)}<div class="mu" style="font-size:12.5px;margin-top:4px">Bu satır eksideyse kayıptan sonra ara vermek sana para kazandırır.</div>
+${hd("Günün kaçıncı işlemi")}${line("1. işlem",o1)}${line("2. işlem",o2)}${line("3. ve sonrası",o3)}
+${hd("Günde kaç işlem (gün başına ortalama)")}${dline("1 işlem yapılan günler",dg(1))}${dline("2 işlem yapılan günler",dg(2))}${dline("3+ işlem yapılan günler",dg(3))}
+${hd("Seans + parite")}${combo}
+${hd("Haftanın günleri")}${rows(O,t=>[wdn(t.d)],1)}${hd("Yöne göre")}${rows(O,t=>[t.dir||"?"],1)}</div>`}
 function expCard(){const b=`<div style="display:flex;gap:8px"><button class="s" id="xcsv" style="flex:1">CSV indir</button><button class="s" id="xpdf" style="flex:1">PDF raporu</button></div><div class="mu" style="margin-top:8px;font-size:12.5px">Seçili dönem ve hesap dışa aktarılır.</div>`;
 return isPro()?`<div class="card"><h2>Dışa aktar<span class="prob" data-noi18n>PRO</span></h2>${b}</div>`:lockWrap("Dışa aktar",b.replace(/id="x(csv|pdf)"/g,""))}
 const accNm=id=>{const a=acc(id);return a?a.name:"?"};
@@ -1649,7 +1706,7 @@ const r=(l,f,p)=>`<tr><td>${l}</td><td>${f}</td><td>${p}</td></tr>`;
 V.innerHTML=`<div class="card prc"><h2 style="margin:0">Sykle Pro<span class="prob" data-noi18n>PRO</span></h2>
 ${pro?`<p style="margin:10px 0 0"><b style="color:#e2be6a">✓ Sykle Pro aktif.</b>${PLU?` <span class="mu">${SY_T("Bitiş")}: ${new Date(PLU).toLocaleDateString(SY_LOC)}</span>`:""}</p>`:`<p style="margin:10px 0 0">Sykle ücretsiz kalıyor. Pro, daha fazlasını isteyenler için.</p>`}</div>
 <div class="card"><table class="prt"><thead><tr><th></th><th>Ücretsiz</th><th style="color:#e2be6a">Pro</th></tr></thead><tbody>
-${r("Aktif prop hesap","3","Sınırsız")}${r("Fotoğraf","100","2.000")}${r("Gelişmiş analiz",N,Y)}${r("Dışa aktarma (CSV / PDF)",N,Y)}${r("Özel temalar ve Pro rozeti",N,Y)}${r("Öncelikli destek",N,Y)}${r("AI koç",N,'<span class="mu" style="font-size:12px">Yakında</span>')}
+${r("Aktif prop hesap","3","Sınırsız")}${r("Fotoğraf","100","2.000")}${r("Gelişmiş analiz",N,Y)}${r("CSV içe / dışa aktarma ve PDF rapor",N,Y)}${r("Özel temalar ve Pro rozeti",N,Y)}${r("Öncelikli destek",N,Y)}${r("AI koç",N,'<span class="mu" style="font-size:12px">Yakında</span>')}
 ${r("Günlük, takvim, notlar, rozetler",Y,Y)}</tbody></table></div>
 ${pro?"":`<div class="card"><h2>Fiyat</h2><div style="display:flex;gap:8px"><div class="st" style="flex:1"><small>Aylık</small><b>$4,99</b></div><div class="st" style="flex:1"><small>Yıllık</small><b>$39,99</b><small style="color:var(--g)">2 aydan fazlası bedava</small></div></div>
 <p class="mu" style="margin:10px 0 0;font-size:13px">İlk 100 Pro kullanıcıya kurucu fiyatı: fiyatın ömür boyu sabit kalır.</p>
@@ -1868,7 +1925,7 @@ const phRoom=n=>phSet().size+n<=phLim();
 const actProp=()=>S.accounts.filter(a=>a.ph!=="Live"&&!closed(a)).length;
 const accRoom=()=>isPro()||actProp()<FREE_ACC;
 function proWall(k){if($("pwl"))return;const d=document.createElement("div");d.id="pwl";d.className="mdl";d.style.zIndex=98;
-const t=k==="acc"?"Ücretsiz planda aynı anda en fazla 3 aktif prop hesabın olabilir. Kapanan hesaplar (Geçildi, Tamamlandı, İhlal) bu sayıya dahil değil.":k==="ph"?(isPro()?"Pro planda en fazla 2.000 fotoğraf ekleyebilirsin. Yer açmak için eski fotoğrafları silebilirsin.":"Ücretsiz planda en fazla 100 fotoğraf ekleyebilirsin. Yer açmak için eski fotoğrafları silebilirsin."):"Bu özellik Sykle Pro'ya özel.";
+const t=k==="acc"?"Ücretsiz planda aynı anda en fazla 3 aktif prop hesabın olabilir. Kapanan hesaplar (Geçildi, Tamamlandı, İhlal) bu sayıya dahil değil.":k==="ph"?(isPro()?"Pro planda en fazla 2.000 fotoğraf ekleyebilirsin. Yer açmak için eski fotoğrafları silebilirsin.":"Ücretsiz planda en fazla 100 fotoğraf ekleyebilirsin. Yer açmak için eski fotoğrafları silebilirsin."):k==="csv"?"CSV ile işlem içe aktarma Sykle Pro'ya özel.":"Bu özellik Sykle Pro'ya özel.";
 d.innerHTML=`<div class="card prc"><h2 style="margin-top:0">Sykle Pro<span class="prob" data-noi18n>PRO</span></h2><p style="margin:0 0 14px">${t}</p>${isPro()?"":`<button class="p" id="pwg">Sykle Pro'yu incele</button>`}<button class="s" id="pwx" style="width:100%;margin-top:8px">Kapat</button></div>`;
 document.body.appendChild(d);$("pwx").onclick=()=>d.remove();if($("pwg"))$("pwg").onclick=()=>{d.remove();go("pro")}}
 // silinen işlemlerden kalan, artık hiçbir yerde kullanılmayan fotoğrafları temizler (günde en fazla bir kez, 14 günden eski olanlar)

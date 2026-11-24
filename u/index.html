@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#000000">
+<meta name="robots" content="noindex">
+<title>Sykle</title>
+<link rel="icon" href="../icon.png">
+<style>
+body{margin:0;background:#000;color:#f2f2f2;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Inter,Arial,sans-serif;-webkit-font-smoothing:antialiased;display:flex;min-height:100vh;align-items:center;justify-content:center;padding:20px;box-sizing:border-box}
+.c{max-width:400px;width:100%;background:#0c0c0e;border:1px solid #232326;border-radius:18px;padding:26px;text-align:center}
+.lo{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:18px}.lo img{width:34px;height:34px;border-radius:9px}.lo b{letter-spacing:.2em}
+h1{font-size:20px;margin:0 0 8px}p{color:#9a9aa3;margin:0 0 18px;line-height:1.5}
+button{width:100%;padding:13px;border-radius:12px;border:1px solid #232326;background:#000;color:#f2f2f2;font-size:15px;cursor:pointer}
+button.p{background:#4f9bf5;border-color:#4f9bf5;color:#fff;font-weight:600}
+</style>
+</head>
+<body>
+<div class="c"><div class="lo"><img src="../icon.png" alt=""><b>SYKLE</b></div><div id="b"></div></div>
+<script>
+(function(){
+var FN="https://yenselnewdytltddwpvm.supabase.co/functions/v1/sykle-mail";
+var q=new URLSearchParams(location.search),u=q.get("u")||"",t=q.get("t")||"",LG=["tr","en","de","es"],L=LG.indexOf(q.get("l"))>=0?q.get("l"):"tr";
+var T={
+tr:{q:"Haftalık e-posta özetinden çıkmak istiyor musun?",qs:"Her pazartesi gelen haftalık özet ve bulgular artık gelmez.",yes:"Evet, aboneliği kaldır",done:"Abonelikten çıktın",ds:"Haftalık özet artık e-postana gelmeyecek.",re:"Yanlışlıkla mı? Tekrar abone ol",back:"Tekrar abone oldun",bs:"Haftalık özet her pazartesi yine e-postana gelecek.",err:"Bu link geçersiz ya da süresi dolmuş.",net:"Bağlantı kurulamadı. Tekrar dene.",wait:"Bekle…"},
+en:{q:"Unsubscribe from the weekly email summary?",qs:"You'll stop getting the weekly summary and findings every Monday.",yes:"Yes, unsubscribe",done:"You're unsubscribed",ds:"The weekly summary won't be emailed to you anymore.",re:"By mistake? Subscribe again",back:"You're subscribed again",bs:"The weekly summary will arrive every Monday again.",err:"This link is invalid or has expired.",net:"Couldn't connect. Try again.",wait:"Please wait…"},
+de:{q:"Wöchentliche E-Mail-Zusammenfassung abbestellen?",qs:"Du bekommst dann montags keine Wochenzusammenfassung und Erkenntnisse mehr.",yes:"Ja, abbestellen",done:"Abbestellt",ds:"Die Wochenzusammenfassung wird dir nicht mehr gemailt.",re:"Versehentlich? Wieder abonnieren",back:"Wieder abonniert",bs:"Die Wochenzusammenfassung kommt wieder jeden Montag.",err:"Dieser Link ist ungültig oder abgelaufen.",net:"Keine Verbindung. Versuch es erneut.",wait:"Bitte warten…"},
+es:{q:"¿Darte de baja del resumen semanal por correo?",qs:"Dejarás de recibir cada lunes el resumen y los hallazgos de la semana.",yes:"Sí, darme de baja",done:"Te has dado de baja",ds:"Ya no recibirás el resumen semanal por correo.",re:"¿Fue un error? Suscribirme de nuevo",back:"Te has suscrito de nuevo",bs:"El resumen semanal volverá a llegar cada lunes.",err:"Este enlace no es válido o ha caducado.",net:"No se pudo conectar. Inténtalo de nuevo.",wait:"Espera…"}}[L];
+document.documentElement.lang=L;var B=document.getElementById("b");
+function view(h,s,btn,cls,fn){B.innerHTML="<h1>"+h+"</h1><p>"+s+"</p>"+(btn?'<button class="'+(cls||"")+'" id="x">'+btn+"</button>":"");if(btn)document.getElementById("x").onclick=fn}
+function call(re){var x=document.getElementById("x");if(x){x.disabled=true;x.textContent=T.wait}
+fetch(FN+"?u="+encodeURIComponent(u)+"&t="+encodeURIComponent(t)+(re?"&re=1":""),{method:"POST"}).then(function(r){return r.json().then(function(j){return[r.ok,j]})}).then(function(a){
+ if(!a[0]||!a[1].ok){view(T.err,"",null);return}
+ if(re)view(T.back,T.bs,null);else view(T.done,T.ds,T.re,"",function(){call(true)});
+}).catch(function(){view(T.net,"",re?T.re:T.yes,"p",function(){call(re)})})}
+if(!u||!t){view(T.err,"",null);return}
+view(T.q,T.qs,T.yes,"p",function(){call(false)});
+})();
+</script>
+</body>
+</html>

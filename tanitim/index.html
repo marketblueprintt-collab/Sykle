@@ -108,6 +108,7 @@ footer p{max-width:640px;margin:0 auto 8px}
 <footer><div class="w"><p data-t="disc"></p><p>© 2026 Sykle</p></div></footer>
 
 <script>
+(function(){try{var m=/[?&]r=([A-Za-z2-9]{6})\b/.exec(location.search);if(m)localStorage.setItem("sykleRef",m[1].toUpperCase())}catch(e){}})();
 (function(){try{var st=(window.matchMedia&&matchMedia("(display-mode: standalone)").matches)||navigator.standalone===true,ses=false;for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);if(/^sb-.*-auth-token$/.test(k)&&localStorage.getItem(k)){ses=true;break}}if(st||ses){location.replace("../");return}}catch(e){}})();
 (function(){
 var T={

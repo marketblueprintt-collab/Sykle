@@ -2450,7 +2450,7 @@ async function rfView(){$("ttl").textContent="Davet et, Pro kazan";const V=$("v-
 if(!sb||!user){V.innerHTML=`<div class="card mu">Bu sayfa için giriş yapmalısın.</div>`;return}
 if(!RF){V.innerHTML=`<div class="card mu">Yükleniyor…</div>`;try{const r=await sb.rpc("my_ref");if(r.error)throw r.error;RF=r.data}catch(e){V.innerHTML=`<div class="card mu">Yüklenemedi. İnternet bağlantını kontrol et.</div>`;return}}
 if(ftmL==null){try{const[c,k]=await Promise.all([sb.from("ftm_claims").select("id,order_no,status,created_at").order("created_at",{ascending:false}),sb.from("ftm_clicks").select("id").limit(1)]);ftmL={L:c.data||[],clk:(k.data||[]).length>0}}catch(e){ftmL={L:[],clk:false}}}
-const link=shBase()+"tanitim/?r="+RF.code,wait=ftmL.L.some(x=>x.status==="wait"),ST={wait:["Bekliyor","#e0a43a"],ok:["Onaylandı · 2 ay Pro eklendi","var(--g)"],no:["Onaylanmadı","var(--r)"]};
+const link=shBase()+"welcome/?r="+RF.code,wait=ftmL.L.some(x=>x.status==="wait"),ST={wait:["Bekliyor","#e0a43a"],ok:["Onaylandı · 2 ay Pro eklendi","var(--g)"],no:["Onaylanmadı","var(--r)"]};
 V.innerHTML=`<div class="card prc"><h2 style="margin-top:0">Davet et, Pro kazan<span class="prob" data-noi18n>PRO</span></h2><p style="margin:0 0 12px;font-size:14.5px;line-height:1.55">Arkadaşına davet linkini gönder. Linkle kayıt olunca <b>ikiniz de 1 ay Sykle Pro</b> kazanırsınız. Davetle en fazla 12 ay Pro biriktirebilirsin.</p>
 <input readonly value="${link}" id="rfl" style="width:100%;font-size:13px;margin-bottom:8px"><div class="row"><button class="p" id="rfc" style="flex:1">Linki kopyala</button>${navigator.share?`<button class="s" id="rfs" style="flex:1">Paylaş</button>`:""}</div>
 <div class="mu" style="font-size:12.5px;margin-top:8px">Davet kodun: <b style="color:var(--tx);letter-spacing:.12em">${RF.code}</b></div></div>
@@ -2592,7 +2592,7 @@ $("dr").classList.remove("o");$("ov").style.display="none";lgMode="in";showLogin
 function lgMsg(t,ok){const m=$("lgm");if(m){m.textContent=t||"";m.style.color=ok?"var(--g)":"var(--r)"}}
 function showLogin(){const L=$("lg"),m=lgMode,t={in:"Giriş yap",up:"Kayıt ol",code:"Doğrula",setpw:"Hesabımı oluştur",reset:"Şifre sıfırlama bağlantısı gönder",newpw:"Yeni şifreyi kaydet"};
 L.classList.remove("hid");
-L.innerHTML=`<div class="bx"><h1>Sykle</h1><p class="sb">Trade günlüğün, her cihazda. <a href="tanitim/" style="color:var(--ac);text-decoration:none">Sykle nedir? →</a></p><div class="card">
+L.innerHTML=`<div class="bx"><h1>Sykle</h1><p class="sb">Trade günlüğün, her cihazda. <a href="welcome/" style="color:var(--ac);text-decoration:none">Sykle nedir? →</a></p><div class="card">
 ${m==="code"?`<p style="margin:0 0 12px">${esc(otpEm)} adresine <b>tek kullanımlık bir kod</b> gönderdik. Kodu aşağıya yaz.<br><span class="mu">Gelen kutunda yoksa Spam / Gereksiz klasörüne bak.</span></p><input id="lgc" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="10" placeholder="Kod" style="letter-spacing:.3em;font-size:20px;text-align:center">`:""}
 ${m==="setpw"?`<p style="margin:0 0 12px"><b>E-postan doğrulandı ✓</b><br>Devam etmek için kullanıcı adını ve şifreni oluştur.</p><input id="lgn" type="text" autocomplete="nickname" placeholder="Kullanıcı adı" maxlength="30" value="${esc(((pendSes&&pendSes.user&&pendSes.user.user_metadata)||{}).full_name||"").split(/\s+/)[0]}">`:""}
 ${m==="in"||m==="up"||m==="reset"?`<input id="lge" type="email" inputmode="email" autocomplete="email" placeholder="E-posta" autocapitalize="none">`:""}

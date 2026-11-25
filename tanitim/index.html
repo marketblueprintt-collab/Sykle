@@ -68,6 +68,30 @@ summary:after{content:"+";float:right;color:var(--mu)}
 details[open] summary:after{content:"–"}
 details p{margin:10px 0 0;color:#a8a8b0;font-size:14.5px}
 .end{text-align:center;padding:56px 0 40px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:22px auto 0;max-width:720px}
+.chips span{font-size:13px;border:1px solid var(--bd);background:#0c0c0e;border-radius:99px;padding:6px 12px;color:#cfcfd6}
+.nw{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:26px;align-items:center;max-width:900px;margin:0 auto}
+.nw h2,.nw .sub{text-align:left;margin-left:0}
+.nw ul{list-style:none;padding:0;margin:0}
+.nw li{padding:6px 0 6px 26px;position:relative;color:#c5c5cc;font-size:15px}
+.nw li:before{content:"✓";position:absolute;left:2px;color:var(--g)}
+.lock{border-radius:28px;padding:22px 14px;background:linear-gradient(170deg,#1d3a8a,#0b1840 55%,#081028);box-shadow:0 30px 60px rgba(0,0,0,.6)}
+.lock .tm{text-align:center;font-size:54px;font-weight:300;color:#fff;letter-spacing:-.02em;margin:4px 0 16px}
+.ntf{display:flex;gap:10px;background:rgba(255,255,255,.16);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-radius:18px;padding:12px;margin-top:8px;color:#fff}
+.ntf img{width:38px;height:38px;border-radius:9px;flex:none}
+.ntf b{display:block;font-size:14.5px}
+.ntf span{font-size:13.5px;line-height:1.35;display:block;opacity:.92}
+.ntf small{float:right;opacity:.7;font-size:12px}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.st{background:var(--card);border:1px solid var(--bd);border-radius:18px;padding:20px}
+.st b{display:inline-flex;width:30px;height:30px;border-radius:99px;align-items:center;justify-content:center;background:#0d1a33;color:var(--ac);font-size:14px}
+.st h3{margin:10px 0 6px;font-size:16.5px}
+.st p{margin:0;color:#a8a8b0;font-size:14.5px}
+.pl li.x{color:#f1e2bd}
+.pl li.x:before{content:"★";color:var(--gold)}
+.earn{max-width:760px;margin:14px auto 0;border:1px dashed #5a4520;border-radius:18px;padding:16px 18px;background:#110d06}
+.earn b{color:var(--gold)}
+.earn ul{margin:8px 0 0;padding-left:20px;color:#cfc6b0;font-size:14.5px}
 footer{border-top:1px solid #141417;padding:26px 0 40px;color:#5d5d66;font-size:12.5px;text-align:center}
 footer p{max-width:640px;margin:0 auto 8px}
 </style>
@@ -82,13 +106,24 @@ footer p{max-width:640px;margin:0 auto 8px}
 <div class="cta"><a class="btn bp" href="../" data-t="start"></a><a class="btn bs" href="#features" data-t="see"></a></div>
 <div style="margin-top:12px"><a class="btn bs sm" href="../?a2hs=1" data-t="a2h"></a></div>
 <div class="note" data-t="note"></div>
+<div class="chips" id="hc"></div>
 </div></header>
 
 <div class="shots" id="shots"></div>
 
+<section><div class="w nw">
+<div><h2 data-t="nh"></h2><p class="sub" data-t="ns"></p><ul id="nl"></ul></div>
+<div class="lock"><div class="tm" data-t="clk">16:15</div><div id="nm"></div></div>
+</div></section>
+
 <section id="features"><div class="w">
 <h2 data-t="fh"></h2><p class="sub" data-t="fs"></p>
 <div class="grid" id="fg"></div>
+</div></section>
+
+<section><div class="w">
+<h2 data-t="hh"></h2><p class="sub" data-t="hs"></p>
+<div class="steps" id="hw"></div>
 </div></section>
 
 <section><div class="w">
@@ -97,6 +132,7 @@ footer p{max-width:640px;margin:0 auto 8px}
 <div class="pl"><h3 data-t="free"></h3><div class="pr">$0</div><div class="mu" style="color:var(--mu);font-size:13.5px" data-t="freeS"></div><ul id="fl"></ul></div>
 <div class="pl pp"><h3>Sykle Pro</h3><div class="pr">$6.99 <small data-t="mo"></small></div><div style="color:var(--mu);font-size:13.5px" data-t="proS"></div><ul id="pl"></ul></div>
 </div>
+<div class="earn"><b data-t="eT"></b><ul id="el"></ul></div>
 </div></section>
 
 <section><div class="w faq">
@@ -149,6 +185,55 @@ PL:["Todo lo del plan gratuito","Cuentas prop y setups ilimitados","2.000 fotos"
 qh:"Preguntas frecuentes",Q:[["¿Sykle es una prop firm?","No. Sykle es un diario de trading. No acepta depósitos, no financia cuentas ni paga retiros. Las cuentas Challenge y Funded sirven para seguir tus cuentas reales de prop firm."],["¿Mis datos están seguros?","Cada usuario solo ve sus propios datos, y esta regla también se aplica en la base de datos. Sin publicidad ni cookies de seguimiento, y tus datos nunca se venden."],["¿Cómo la instalo en el móvil?","En iPhone abre Sykle en Safari y toca Compartir > Añadir a pantalla de inicio. En Android elige Añadir a pantalla de inicio en el menú de Chrome. Se abre como una app y se actualiza sola."],["¿Qué idiomas tiene?","Español, inglés, turco y alemán."],["¿Cómo consigo Pro?","Los pagos abren pronto. Toca 'Avísame' en la página Sykle Pro de la app."]],
 eh:"Empieza hoy",es:"Que tu próxima challenge se base en datos.",disc:"Sykle no es una prop firm. No ofrece dinero real, financiación ni retiros. Todos los registros los introduce el usuario. Los nombres y reglas de las firmas son solo informativos y las firmas pueden cambiarlas."}
 };
+var X={
+tr:{nh:"Haberde hesabını yakma",ns:"Birçok prop firm, önemli haberlerin etrafında işlem açmayı yasaklar. Sykle yüksek etkili haberlerden 15 dakika önce telefonuna bildirim gönderir.",
+NL:["ForexFactory takvimindeki yüksek etkili haberler","Haberden 15 dakika önce, kendi saat diliminde","Aynı saatteki haberler tek bildirimde","Ücretsiz planda da açık, ayar gerekmez"],
+NM:[["📰 USD · 2 haber","Non-Farm Employment Change · Unemployment Rate · 15 dk sonra (16:30) · Haber kuralı olan programlarda dikkatli ol.","şimdi"],["📰 USD Fed Chair Powell Speaks","15 dk sonra (16:15) · Haber kuralı olan programlarda dikkatli ol.","15 dk önce"]],clk:"16:15",
+HC:["🔔 Haber bildirimi","🏦 Hazır firma kuralları","📝 Seans öncesi plan","🎯 Sykle Skoru","🌡️ Tiltmetre","📊 Gelişmiş analiz","🌍 4 dil","💻 Telefon ve bilgisayar"],
+hh:"3 adımda başla",hs:"Kurulum bir dakika sürer.",
+HW:[["Hesabını ekle","Prop firmanı ve hesap boyutunu seç. Hedef ve zarar limitleri otomatik gelir."],["İşlemlerini kaydet","Parite, seans, sonuç, ekran görüntüsü ve setup kurallarını birkaç dokunuşla gir."],["Hatalarını gör","Sykle Skoru, tiltmetre ve haftalık bulgular nerede para kaybettiğini gösterir."]],
+F2:[["📝","Seans öncesi plan","Seansa başlamadan piyasa yönünü, seviyelerini ve günlük risk limitini yaz. Günlük zarar limitine yaklaşınca uyarı alırsın.",0]],
+FL:["3 aktif prop hesap","Hazır firma kuralları","Yüksek etkili haber bildirimleri","Seans öncesi günlük plan","Strateji kitabı (3 setup)","Sykle Skoru ve tiltmetre","Kaçırılan işlemler","Takvim, notlar, rozetler","Hesap bağlama (copy trade)","İşlem ve hafta paylaşım linki","Haftalık e-posta özeti","100 fotoğraf"],
+PX:["Sınırsız prop hesap","Sınırsız strateji kitabı setup'ı","2.000 fotoğraf","Gelişmiş analiz","Ya şöyle yapsaydım? simülatörü","CSV içe / dışa aktarma","PDF rapor","Özel temalar","Pro rozeti"],
+eT:"🎁 Ücretsiz Pro kazan",EL:["Arkadaşını davet et: linkinle kayıt olunca ikinize de 1 ay Pro","Funded Trader Markets'tan hesabını Sykle içindeki linkle al: 2 ay Pro"],
+Q2:[["Haber bildirimi nasıl çalışır?","Uygulamada bildirimlere izin verdiğinde, ForexFactory takvimindeki yüksek etkili haberlerden 15 dakika önce telefonuna bildirim gelir. iPhone'da bunun için Sykle'yi ana ekrana eklemen gerekir."],["Pro'yu nasıl alırım?","Ödeme yakında açılıyor. Şimdilik Pro'yu ücretsiz kazanabilirsin: arkadaşını davet edersen ikinize 1 ay, FTM'den hesabını Sykle içindeki linkle alırsan 2 ay Pro."]]},
+en:{nh:"Don't blow your account on news",ns:"Many prop firms ban trading around high-impact news. Sykle sends a phone alert 15 minutes before every high-impact release.",
+NL:["High-impact events from the ForexFactory calendar","15 minutes before, in your own time zone","News at the same time comes in one alert","On in the free plan too, no setup needed"],
+NM:[["📰 USD · 2 news","Non-Farm Employment Change · Unemployment Rate · In 15 min (8:30 AM) · Careful if your program has a news rule.","now"],["📰 USD Fed Chair Powell Speaks","In 15 min (8:15 AM) · Careful if your program has a news rule.","15m ago"]],clk:"8:15",
+HC:["🔔 News alerts","🏦 Firm rules built in","📝 Pre-session plan","🎯 Sykle Score","🌡️ Tilt meter","📊 Advanced analysis","🌍 4 languages","💻 Phone and desktop"],
+hh:"Start in 3 steps",hs:"Setup takes a minute.",
+HW:[["Add your account","Pick your prop firm and account size. Targets and loss limits fill in automatically."],["Log your trades","Symbol, session, result, screenshot and setup rules in a few taps."],["See your mistakes","Sykle Score, the tilt meter and weekly findings show where you lose money."]],
+F2:[["📝","Pre-session plan","Before the session, write your bias, levels and daily risk limit. Get a warning as you near your daily loss limit.",0]],
+FL:["3 active prop accounts","Firm rules built in","High-impact news alerts","Daily pre-session plan","Playbook (3 setups)","Sykle Score and tilt meter","Missed trades","Calendar, notes, badges","Account linking (copy trade)","Share links for trades and weeks","Weekly email report","100 photos"],
+PX:["Unlimited prop accounts","Unlimited playbook setups","2,000 photos","Advanced analysis","What-if simulator","CSV import / export","PDF report","Exclusive themes","Pro badge"],
+eT:"🎁 Earn Pro for free",EL:["Invite a friend: when they sign up with your link, you both get 1 month of Pro","Buy your Funded Trader Markets account through the link inside Sykle: 2 months of Pro"],
+Q2:[["How do news alerts work?","Once you allow notifications in the app, you get a phone alert 15 minutes before each high-impact event on the ForexFactory calendar. On iPhone, add Sykle to your home screen first."],["How do I get Pro?","Payments open soon. For now you can earn Pro for free: invite a friend and you both get 1 month, or buy your FTM account through the link inside Sykle for 2 months."]]},
+de:{nh:"Verlier dein Konto nicht an News",ns:"Viele Prop-Firmen verbieten Trades rund um wichtige News. Sykle schickt 15 Minuten vor jeder wichtigen Veröffentlichung einen Hinweis aufs Handy.",
+NL:["Wichtige Termine aus dem ForexFactory-Kalender","15 Minuten vorher, in deiner Zeitzone","News zur gleichen Zeit in einem Hinweis","Auch im kostenlosen Plan, ohne Einrichtung"],
+NM:[["📰 USD · 2 News","Non-Farm Employment Change · Unemployment Rate · In 15 Min. (14:30) · Vorsicht bei Programmen mit News-Regel.","jetzt"],["📰 USD Fed Chair Powell Speaks","In 15 Min. (14:15) · Vorsicht bei Programmen mit News-Regel.","vor 15 Min."]],clk:"14:15",
+HC:["🔔 News-Hinweise","🏦 Firmenregeln integriert","📝 Plan vor der Session","🎯 Sykle-Score","🌡️ Tilt-Meter","📊 Erweiterte Analyse","🌍 4 Sprachen","💻 Handy und Desktop"],
+hh:"In 3 Schritten starten",hs:"Die Einrichtung dauert eine Minute.",
+HW:[["Konto hinzufügen","Wähle Prop-Firma und Kontogröße. Ziele und Verlustlimits werden automatisch gesetzt."],["Trades erfassen","Symbol, Session, Ergebnis, Screenshot und Setup-Regeln mit wenigen Tipps."],["Fehler erkennen","Sykle-Score, Tilt-Meter und Wochenerkenntnisse zeigen, wo du Geld verlierst."]],
+F2:[["📝","Plan vor der Session","Schreib vor der Session Richtung, Levels und Tagesrisiko auf. Du wirst gewarnt, wenn du dich dem Tagesverlustlimit näherst.",0]],
+FL:["3 aktive Prop-Konten","Firmenregeln integriert","Hinweise zu wichtigen News","Täglicher Plan vor der Session","Playbook (3 Setups)","Sykle-Score und Tilt-Meter","Verpasste Trades","Kalender, Notizen, Abzeichen","Konten verknüpfen (Copy-Trade)","Links zum Teilen von Trades und Wochen","Wöchentlicher E-Mail-Bericht","100 Fotos"],
+PX:["Unbegrenzte Prop-Konten","Unbegrenzte Playbook-Setups","2.000 Fotos","Erweiterte Analyse","Was-wäre-wenn-Simulator","CSV-Import / -Export","PDF-Bericht","Exklusive Designs","Pro-Abzeichen"],
+eT:"🎁 Pro kostenlos verdienen",EL:["Lade einen Freund ein: meldet er sich über deinen Link an, bekommt ihr beide 1 Monat Pro","Kaufe dein Funded-Trader-Markets-Konto über den Link in Sykle: 2 Monate Pro"],
+Q2:[["Wie funktionieren News-Hinweise?","Wenn du in der App Benachrichtigungen erlaubst, bekommst du 15 Minuten vor jedem wichtigen Termin im ForexFactory-Kalender einen Hinweis. Auf dem iPhone musst du Sykle dafür zum Home-Bildschirm hinzufügen."],["Wie bekomme ich Pro?","Zahlungen starten bald. Bis dahin kannst du Pro kostenlos verdienen: Lade einen Freund ein und ihr bekommt beide 1 Monat, oder kaufe dein FTM-Konto über den Link in Sykle für 2 Monate."]]},
+es:{nh:"No quemes tu cuenta con las noticias",ns:"Muchas prop firms prohíben operar cerca de noticias importantes. Sykle te avisa en el móvil 15 minutos antes de cada noticia de alto impacto.",
+NL:["Eventos de alto impacto del calendario de ForexFactory","15 minutos antes, en tu zona horaria","Las noticias a la misma hora llegan en un solo aviso","También en el plan gratuito, sin configurar nada"],
+NM:[["📰 USD · 2 noticias","Non-Farm Employment Change · Unemployment Rate · En 15 min (14:30) · Cuidado si tu programa tiene regla de noticias.","ahora"],["📰 USD Fed Chair Powell Speaks","En 15 min (14:15) · Cuidado si tu programa tiene regla de noticias.","hace 15 min"]],clk:"14:15",
+HC:["🔔 Avisos de noticias","🏦 Reglas de firmas incluidas","📝 Plan antes de la sesión","🎯 Puntuación Sykle","🌡️ Medidor de tilt","📊 Análisis avanzado","🌍 4 idiomas","💻 Móvil y ordenador"],
+hh:"Empieza en 3 pasos",hs:"Se configura en un minuto.",
+HW:[["Añade tu cuenta","Elige tu prop firm y el tamaño. Objetivos y límites de pérdida se rellenan solos."],["Registra tus operaciones","Símbolo, sesión, resultado, captura y reglas del setup en pocos toques."],["Ve tus errores","La puntuación Sykle, el medidor de tilt y los hallazgos semanales muestran dónde pierdes dinero."]],
+F2:[["📝","Plan antes de la sesión","Antes de la sesión, escribe tu sesgo, niveles y riesgo diario. Recibes un aviso al acercarte a tu límite de pérdida diaria.",0]],
+FL:["3 cuentas prop activas","Reglas de firmas incluidas","Avisos de noticias de alto impacto","Plan diario antes de la sesión","Libro de estrategias (3 setups)","Puntuación Sykle y tilt","Operaciones perdidas","Calendario, notas, insignias","Vincular cuentas (copy trade)","Enlaces para compartir operaciones y semanas","Informe semanal por correo","100 fotos"],
+PX:["Cuentas prop ilimitadas","Setups ilimitados","2.000 fotos","Análisis avanzado","Simulador ¿Y si…?","Importar / exportar CSV","Informe PDF","Temas exclusivos","Insignia Pro"],
+eT:"🎁 Gana Pro gratis",EL:["Invita a un amigo: cuando se registre con tu enlace, ambos ganáis 1 mes de Pro","Compra tu cuenta de Funded Trader Markets con el enlace dentro de Sykle: 2 meses de Pro"],
+Q2:[["¿Cómo funcionan los avisos de noticias?","Cuando permites las notificaciones en la app, recibes un aviso 15 minutos antes de cada evento de alto impacto del calendario de ForexFactory. En iPhone, primero añade Sykle a la pantalla de inicio."],["¿Cómo consigo Pro?","Los pagos abren pronto. Mientras tanto puedes ganar Pro gratis: invita a un amigo y ambos ganáis 1 mes, o compra tu cuenta de FTM con el enlace dentro de Sykle y gana 2 meses."]]}
+};
+Object.keys(X).forEach(function(k){var t=T[k],x=X[k];Object.keys(x).forEach(function(q){t[q]=x[q]});
+t.F=t.F.slice(0,1).concat(x.F2,t.F.slice(1));t.Q=t.Q.filter(function(q,i){return i<t.Q.length-1}).concat(x.Q2);
+t.PL=x.PX.map(function(v){return[v,1]}).concat(t.FL.map(function(v){return[v,0]}).filter(function(v,i){return [0,4,11].indexOf(i)<0}))});
 var LG=["tr","en","de","es"],saved=null;try{saved=localStorage.getItem("sykleLang")}catch(e){}
 var nl=(navigator.language||"en").slice(0,2).toLowerCase(),L=LG.indexOf(saved)>=0?saved:LG.indexOf(nl)>=0?nl:"en";
 var $=function(i){return document.getElementById(i)},esc=function(s){return String(s).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})};
@@ -156,7 +241,12 @@ function draw(){var t=T[L];document.documentElement.lang=L;document.title=t.titl
 document.querySelectorAll("[data-t]").forEach(function(e){var k=e.getAttribute("data-t");if(t[k]==null)return;if(e.hasAttribute("data-html"))e.innerHTML=t[k];else e.textContent=t[k]});
 var im=L==="tr"?"tr":"en";$("shots").innerHTML=[1,2,3,4].map(function(i){return '<div><div class="ph"><img src="'+im+'-'+i+'.webp" alt="'+esc(t.cap[i-1])+'" loading="lazy" width="390" height="844"></div><div class="cap">'+esc(t.cap[i-1])+'</div></div>'}).join("");
 $("fg").innerHTML=t.F.map(function(f){return '<div class="f"><i>'+f[0]+'</i><h3>'+esc(f[1])+(f[3]?'<span class="pro">PRO</span>':'')+'</h3><p>'+esc(f[2])+'</p></div>'}).join("");
-$("fl").innerHTML=t.FL.map(function(x){return "<li>"+esc(x)+"</li>"}).join("");$("pl").innerHTML=t.PL.map(function(x){return "<li>"+esc(x)+"</li>"}).join("");
+$("fl").innerHTML=t.FL.map(function(x){return "<li>"+esc(x)+"</li>"}).join("");$("pl").innerHTML=t.PL.map(function(x){return '<li class="'+(x[1]?"x":"")+'">'+esc(x[0])+"</li>"}).join("");
+$("hc").innerHTML=t.HC.map(function(x){return "<span>"+esc(x)+"</span>"}).join("");
+$("nl").innerHTML=t.NL.map(function(x){return "<li>"+esc(x)+"</li>"}).join("");
+$("nm").innerHTML=t.NM.map(function(n){return '<div class="ntf"><img src="../icon.png" alt=""><div style="flex:1;min-width:0"><small>'+esc(n[2])+'</small><b>'+esc(n[0])+'</b><span>'+esc(n[1])+'</span></div></div>'}).join("");
+$("hw").innerHTML=t.HW.map(function(h,i){return '<div class="st"><b>'+(i+1)+'</b><h3>'+esc(h[0])+'</h3><p>'+esc(h[1])+'</p></div>'}).join("");
+$("el").innerHTML=t.EL.map(function(x){return "<li>"+esc(x)+"</li>"}).join("");
 $("qa").innerHTML=t.Q.map(function(q){return "<details><summary>"+esc(q[0])+"</summary><p>"+esc(q[1])+"</p></details>"}).join("")}
 $("lang").onchange=function(e){L=e.target.value;try{localStorage.setItem("sykleLang",L)}catch(x){}draw()};
 draw();
